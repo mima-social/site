@@ -171,6 +171,7 @@ h1 {
     margin: 0 0 28px;
     max-width: 12ch;
     text-wrap: balance;
+    line-height: 1.3em;
 }
 h1 .marker {
     background: var(--a-200);
@@ -179,6 +180,8 @@ h1 .marker {
     border-radius: 18px 6px 22px 8px;
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
+    position: relative;
+    z-index: -1;
 }
 .lede {
     position: relative;
