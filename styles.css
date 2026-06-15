@@ -172,6 +172,9 @@ h1 {
     max-width: 12ch;
     text-wrap: balance;
     line-height: 1.3em;
+    text-shadow:
+        0 2px 8px rgba(255, 255, 255, 0.95),
+        0 1px 4px rgba(255, 255, 255, 0.85);
 }
 h1 .marker {
     background: var(--a-200);
@@ -190,6 +193,9 @@ h1 .marker {
     line-height: 1.55;
     max-width: 56ch;
     margin: 0 0 40px;
+    text-shadow:
+        0 2px 6px rgba(255, 255, 255, 0.95),
+        0 1px 3px rgba(255, 255, 255, 0.85);
 }
 
 /* ---- form ---- */
@@ -374,7 +380,7 @@ button.join[disabled] {
     z-index: 1;
     display: block;
     max-width: 760px;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.97);
     padding: 9px 16px;
     border-radius: 12px;
     font: italic 400 1.0625rem/1.5 var(--font-system);
@@ -430,7 +436,7 @@ button.join[disabled] {
 }
 .proof-row > div:first-child {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
+    grid-template-columns: auto 1fr;
     gap: clamp(16px, 2vw, 28px);
     align-items: center;
 }
