@@ -490,6 +490,24 @@ footer.site a:hover {
 footer.site a:focus-visible {
     box-shadow: 0 0 0 3px var(--a-600);
 }
+footer.site .legal strong {
+    font-weight: 600;
+}
+footer.site .byline {
+    margin-top: 24px;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    opacity: 0.82;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: wrap;
+}
+footer.site .byline svg {
+    width: 17px;
+    height: 17px;
+    display: block;
+}
 
 /* ---- motion: interactive states only (see button/card transitions) ---- */
 
