@@ -1,0 +1,13 @@
+{
+  "client_id": "https://mima.social/oauth/bluesky/client-metadata.json",
+  "client_name": "Mima",
+  "client_uri": "https://mima.social",
+  "logo_uri": "https://mima.social/favicon.svg",
+  "redirect_uris": ["http://127.0.0.1:3848/callback"],
+  "scope": "atproto transition:generic",
+  "grant_types": ["authorization_code", "refresh_token"],
+  "response_types": ["code"],
+  "application_type": "native",
+  "token_endpoint_auth_method": "none",
+  "dpop_bound_access_tokens": true
+}
