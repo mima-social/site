@@ -93,6 +93,19 @@ To look at a dummy page in a browser, serve the repo root
 - **Phones** (≤ 600px): every `<picture>` swaps to the `-m` image; the zoom,
   typing and scroller are off.
 
+## Social share image
+
+`og.html` is the source for `site-assets/og-image.jpg` (the link-preview card,
+2400 × 1260). It reuses the board screenshot, so re-render it after the app
+shots change:
+
+```sh
+"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new \
+  --force-device-scale-factor=2 --virtual-time-budget=4000 --window-size=1200,630 \
+  --screenshot=site-assets/og.png http://localhost:8765/app-shots/og.html
+sips -s format jpeg -s formatOptions 88 site-assets/og.png --out site-assets/og-image.jpg && rm site-assets/og.png
+```
+
 ## Changing things
 
 - **Different fake content:** edit `build.py`, then run both commands.
