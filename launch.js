@@ -229,3 +229,18 @@
   setTimeout(draw, 1800);
   setInterval(draw, 4200);
 })();
+
+// Count Download clicks in Google Analytics (intent, not completed downloads).
+(function () {
+  "use strict";
+  Array.prototype.forEach.call(document.querySelectorAll("[data-download]"), function (link, i) {
+    link.addEventListener("click", function () {
+      if (typeof window.gtag !== "function") return;
+      window.gtag("event", "download_click", {
+        link_url: link.href,
+        placement: link.closest(".band") ? "closing_band" : "hero",
+        transport_type: "beacon"
+      });
+    });
+  });
+})();
