@@ -35,6 +35,11 @@
     button.removeAttribute("aria-busy");
   }
 
+  // The optional questions aren't on every page, so read them defensively.
+  function optional(el) {
+    return el ? el.value.trim() : "";
+  }
+
   function validEmail(v) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
   }
@@ -70,8 +75,8 @@
     // double-encoding its spaces.
     var body = [
       "email=" + encodeURIComponent(email),
-      "signupSource=" + encodeURIComponent(sourceInput.value.trim()),
-      "desiredUse=" + encodeURIComponent(goalInput.value.trim()),
+      "signupSource=" + encodeURIComponent(optional(sourceInput)),
+      "desiredUse=" + encodeURIComponent(optional(goalInput)),
       "source=" + encodeURIComponent(hiddenSource.value)
     ].join("&");
 

@@ -1,0 +1,11 @@
+{
+  "prompt": "Use the provided image as the approved visual reference for the BACKGROUND ARTWORK ONLY of a landing page, and recreate just that background as a clean production plate at the same 3:2 framing. Keep: the soft lilac-white ground (#f7f5f8, faint lilac #e9d6f5); the grainy, airbrushed neon-lime (#e6f81a) glow field filling the top-right corner and fading toward the centre; the hot-pink (#f6086a) grainy spray fields in the bottom-right corner and along the left edge (lower-left); the thick, soft, grainy purple-to-pink looping Mima squiggle stroke curling at the right edge (around the middle-right, partly cut off by the frame); and the short thick pink squiggle stroke entering from the left edge around the middle-left. Same fine film grain / spray-paint noise texture, same placement, same scale, same palette. Remove EVERYTHING else: no logo, no wordmark, no headline, no text of any kind, no button, no social network icons, no small spark marks, no feature list, no app window, no cards, no avatars, no UI. Where the UI and text were, continue the plain lilac-white ground seamlessly. The centre of the frame (the whole middle region from top to bottom) must be clean, calm lilac-white with no marks, so text can be set on it later. Do not add objects. Do not restyle. Full bleed edge to edge, no border, no margin.\n",
+  "createdAt": "2026-10-14T21:24:00.741Z",
+  "tool": "impeccable generate-image",
+  "model": "gpt-image-2.5-flare",
+  "background": "opaque",
+  "outputFormat": "png",
+  "refs": [
+    ".impeccable/build/crops/background.png"
+  ]
+}
