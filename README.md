@@ -50,7 +50,8 @@ screenshots in sync with the app is tracked in mima-social/desktop#1396.
 
 ## Before launch
 
-- Replace `#TODO-download-url` (two links, marked `data-download`) with the
-  public .dmg URL.
+- The Download buttons (two links, marked `data-download`) point to
+  `/download`. Make that path serve or redirect to the public .dmg, for example
+  with a Netlify `_redirects` rule: `/download  https://…/Mima-x.y.z-arm64.dmg  302`.
 - When the demo video exists, remove `hidden` from `section.demo-sec` in
   `index.html` and swap in the `<video>` markup from the comment there.
