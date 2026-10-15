@@ -47,3 +47,13 @@ logs/
 # Temporary files
 tmp/
 temp/
+
+# Impeccable working files (mockups, build state, review captures, local config)
+.impeccable/mocks/
+.impeccable/build/
+.impeccable/review/
+.impeccable/questions/
+.impeccable/app-ref/
+.impeccable/hook.cache.json
+.impeccable/hook.pending.json
+.impeccable/config.local.json

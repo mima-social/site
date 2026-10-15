@@ -1,0 +1,52 @@
+{
+  "hook": {
+    "enabled": true,
+    "limits": {
+      "maxFindings": 5,
+      "maxChars": 8000
+    }
+  },
+  "buildPath": "comp",
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "*",
+        "files": [
+          "app-shots/app.css"
+        ],
+        "createdAt": "2026-10-15T03:22:12.624Z",
+        "reason": "Agent: app-shots/ are fixture pages replicating the Mima desktop app UI (fonts copied from mima-social/desktop@next) to render screenshots; they follow the app's type system, not the website's DESIGN.md"
+      },
+      {
+        "rule": "buried-raster",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-15T05:44:04.101Z",
+        "reason": "Agent: same evidence as the launch.html exception (page renamed to index.html at launch): crossfade frames at opacity 0 by design / padding and type sizes come from clamp() and padding-block the detector does not resolve; rendered captures show 18-48px insets and a 72/48/17px type ramp"
+      },
+      {
+        "rule": "cramped-padding",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-15T05:44:04.115Z",
+        "reason": "Agent: same evidence as the launch.html exception (page renamed to index.html at launch): crossfade frames at opacity 0 by design / padding and type sizes come from clamp() and padding-block the detector does not resolve; rendered captures show 18-48px insets and a 72/48/17px type ramp"
+      },
+      {
+        "rule": "flat-type-hierarchy",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-15T05:44:04.129Z",
+        "reason": "Agent: same evidence as the launch.html exception (page renamed to index.html at launch): crossfade frames at opacity 0 by design / padding and type sizes come from clamp() and padding-block the detector does not resolve; rendered captures show 18-48px insets and a 72/48/17px type ramp"
+      }
+    ]
+  }
+}
