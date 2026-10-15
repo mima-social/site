@@ -1,0 +1,4 @@
+# Public download: always the latest full release. The desktop release pipeline
+# keeps Mima-latest-arm64.dmg current in R2 (mima-social/desktop#1406), so this
+# never needs editing per release.
+/download  https://pub-f7141bd96095491bab8797067970afc0.r2.dev/Mima-latest-arm64.dmg  302
