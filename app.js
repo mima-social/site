@@ -55,6 +55,7 @@
   var agentReply = null;
   function reply(result) {
     if (agentReply) { agentReply(result); agentReply = null; }
+    if (window.__mimaAgentReply) { window.__mimaAgentReply(result); window.__mimaAgentReply = null; }
   }
 
   // If the person cancels the agent's fill (or the form resets), drop any
@@ -146,4 +147,54 @@
   });
 
   emailInput.addEventListener("input", function () { setError(""); });
+})();
+
+// WebMCP imperative fallback. Browsers with the declarative API read the
+// form's toolname/tooldescription attributes; some agent browsers only see
+// tools registered from script. If WebMCP is present but our form tool isn't
+// listed, register the same tool imperatively. It still waits for the person
+// to press "Get updates" (no auto-submit), then returns the real outcome.
+(function () {
+  "use strict";
+  var NAME = "subscribe_to_mima_updates";
+  var form = document.getElementById("beta-form");
+  var email = document.getElementById("email");
+  var mc = document.modelContext || navigator.modelContext;
+  if (!form || !email || !mc || typeof mc.registerTool !== "function") return;
+
+  function alreadyListed() {
+    if (typeof mc.getTools !== "function") return Promise.resolve(false);
+    return Promise.resolve(mc.getTools()).then(function (tools) {
+      return (tools || []).some(function (t) { return t && t.name === NAME; });
+    }).catch(function () { return false; });
+  }
+
+  alreadyListed().then(function (listed) {
+    if (listed) return;
+    mc.registerTool({
+      name: NAME,
+      description: form.getAttribute("tooldescription"),
+      inputSchema: {
+        type: "object",
+        properties: {
+          email: { type: "string", format: "email", description: email.getAttribute("toolparamdescription") }
+        },
+        required: ["email"]
+      },
+      execute: function (args) {
+        email.value = (args && args.email) || "";
+        email.dispatchEvent(new Event("input", { bubbles: true }));
+        var button = form.querySelector("button.join");
+        button.focus();
+        button.scrollIntoView({ block: "center", behavior: "smooth" });
+        // Resolve with whatever the real submit reports back (see reply()).
+        return new Promise(function (resolve) {
+          // Capture phase, so it's set before the main handler can reply.
+          form.addEventListener("submit", function () {
+            window.__mimaAgentReply = resolve;
+          }, { once: true, capture: true });
+        });
+      }
+    });
+  });
 })();
