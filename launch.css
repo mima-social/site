@@ -73,7 +73,9 @@ svg.i { width: 1.25em; height: 1.25em; flex: 0 0 auto; fill: none; }
     padding-bottom: clamp(40px, 6vw, 72px);
     overflow: hidden;
 }
-.logo { display: inline-flex; color: var(--ink); position: absolute; left: var(--gutter); top: clamp(20px, 2.6vw, 30px); }
+.brand { position: absolute; left: var(--gutter); top: clamp(20px, 2.6vw, 30px); display: flex; align-items: center; gap: 12px; z-index: 2; }
+.logo { display: inline-flex; color: var(--ink); }
+.beta-tag { font: 600 0.75rem/1 var(--font-ui); letter-spacing: 0.14em; text-transform: uppercase; background: var(--ink); color: var(--a-100); padding: 8px 13px 7px; border-radius: 999px; transform: rotate(2deg); white-space: nowrap; }
 .hero > .wrap { position: relative; }
 /* Brand squiggle (MimaStyleGuide squiggles/MLoop) crossing the left edge. */
 .hero-squiggle { position: absolute; left: clamp(-60px, -3vw, -24px); top: 36%; width: clamp(96px, 10vw, 160px); height: auto; transform: rotate(-14deg); pointer-events: none; }

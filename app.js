@@ -50,14 +50,25 @@
     emailInput.focus();
   });
 
+  // WebMCP: when an agent submits the form (declarative tool
+  // "subscribe_to_mima_updates"), hand it the real outcome via respondWith.
+  var agentReply = null;
+  function reply(result) {
+    if (agentReply) { agentReply(result); agentReply = null; }
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    if (e.agentInvoked && typeof e.respondWith === "function") {
+      e.respondWith(new Promise(function (resolve) { agentReply = resolve; }));
+    }
     setError("");
 
     var email = emailInput.value.trim();
     if (!validEmail(email)) {
       setError("Enter a valid email address.");
       emailInput.focus();
+      reply({ ok: false, error: "Enter a valid email address." });
       return;
     }
 
@@ -66,6 +77,7 @@
     var last = parseInt(localStorage.getItem(RATE_KEY) || "0", 10);
     if (now - last < RATE_MS) {
       setError("Hang on a sec — you just submitted. Give it a moment and try again.");
+      reply({ ok: false, error: "Submitted moments ago; try again in a few seconds." });
       return;
     }
 
@@ -103,21 +115,24 @@
         if (r.ok && r.data && r.data.success) {
           card.classList.add("is-done");
           successEl.focus();
+          reply({ ok: true, message: "Subscribed. Mima will email occasional updates to this address." });
         } else {
           // Allow an immediate retry after a real error.
           localStorage.removeItem(RATE_KEY);
           reEnable();
-          setError((r.data && r.data.message) ? r.data.message : "Something went wrong. Please try again.");
+          var msg = (r.data && r.data.message) ? r.data.message : "Something went wrong. Please try again.";
+          setError(msg);
+          reply({ ok: false, error: msg });
         }
       })
       .catch(function (err) {
         localStorage.removeItem(RATE_KEY);
         reEnable();
-        if (err && err.rateLimited) {
-          setError("Too many signups, please try again in a little while.");
-        } else {
-          setError("Couldn’t reach the signup server. Check your connection and try again.");
-        }
+        var msg = (err && err.rateLimited)
+          ? "Too many signups, please try again in a little while."
+          : "Couldn’t reach the signup server. Check your connection and try again.";
+        setError(msg);
+        reply({ ok: false, error: msg });
       });
   });
 

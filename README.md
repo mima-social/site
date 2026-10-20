@@ -8,7 +8,8 @@ step.
 |---|---|
 | `index.html` | The landing page |
 | `launch.css`, `launch.js` | Its styles and motion: wordmark draw-on, rotating headline, feature tour, timeline scroller, background squiggles |
-| `app.js` | Newsletter signup (posts to Loops) |
+| `app.js` | Newsletter signup (posts to Loops). The form is also a [WebMCP](https://webmachinelearning.github.io/webmcp/) declarative tool, `subscribe_to_mima_updates`, and replies to agents with the real result. |
+| `llms.txt` | Plain-language summary of Mima for AI assistants and crawlers ([llmstxt.org](https://llmstxt.org)). Keep it in step with the page copy. |
 | `_redirects` | Netlify redirects: `/download` → the latest .dmg |
 | `oauth/bluesky/client-metadata.json` | Bluesky OAuth client metadata for the desktop app. Must stay at this path on `www.mima.social`. |
 | `site-assets/`, `assets/` | Fonts, logo, hero art, app screenshots, fake avatars and photos |
