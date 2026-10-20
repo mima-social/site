@@ -206,8 +206,7 @@
   "use strict";
   var mc = document.modelContext || navigator.modelContext;
   if (!mc || typeof mc.registerTool !== "function") return;
-  var link = document.querySelector("[data-download]");
-  var url = link ? link.href : location.origin + "/download";
+  var url = "https://mima.social/download";
 
   mc.registerTool({
     name: "download_mima",

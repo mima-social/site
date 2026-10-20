@@ -53,7 +53,7 @@ screenshots in sync with the app is tracked in mima-social/desktop#1396.
 ## Before launch
 
 - The Download buttons (two links, marked `data-download`) point to
-  `/download`, which `_redirects` sends (302) to the stable
+  `https://mima.social/download`, which `_redirects` sends (302) to the stable
   `Mima-latest-arm64.dmg` alias in R2. The desktop release pipeline keeps that
   alias current (mima-social/desktop#1406), so `_redirects` never changes per
   release. The alias 404s until that PR ships its first release.
