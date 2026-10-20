@@ -57,7 +57,16 @@
     if (agentReply) { agentReply(result); agentReply = null; }
   }
 
+  // If the person cancels the agent's fill (or the form resets), drop any
+  // pending reply so a later human submit doesn't resolve a stale call.
+  if (document.modelContext && document.modelContext.addEventListener) {
+    document.modelContext.addEventListener("toolcancel", function (e) {
+      if (e.toolName === "subscribe_to_mima_updates") reply({ ok: false, error: "Cancelled by the user." });
+    });
+  }
+
   form.addEventListener("submit", function (e) {
+    // preventDefault must come before respondWith (WebMCP declarative API).
     e.preventDefault();
     if (e.agentInvoked && typeof e.respondWith === "function") {
       e.respondWith(new Promise(function (resolve) { agentReply = resolve; }));

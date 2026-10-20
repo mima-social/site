@@ -426,3 +426,9 @@ footer.site .byline svg { width: 17px; height: 17px; }
 .hero > .wrap { z-index: 1; }
 .doodle { position: absolute; fill: none; stroke-width: 16; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1; overflow: visible; }
 @media (prefers-reduced-motion: reduce) { .doodles { display: none; } }
+
+/* WebMCP: while an agent is filling the signup form, mark it in brand colours
+   (Chrome's default is a thin dashed blue/red outline). Separate rules, so
+   browsers without these pseudo-classes ignore only these. */
+form:tool-form-active { outline: 2px dashed var(--a-600); outline-offset: 10px; border-radius: var(--radius-sm); }
+button:tool-submit-active { outline: 2px dashed var(--pink-cta); outline-offset: 4px; }
