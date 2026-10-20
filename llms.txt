@@ -1,0 +1,39 @@
+# Mima
+
+> Mima is a free desktop app, currently in beta, that brings your social networks into one calm place: one feed of the people you follow, one composer for posting to several networks, and one inbox for your conversations. It runs on your computer, with no Mima servers for your content and no algorithmic feed.
+
+- Status: beta. Free. macOS on Apple Silicon only (no Intel, Windows or Linux build yet).
+- Networks: Bluesky, Mastodon, X and LinkedIn. You sign in with your existing accounts, so no new signup is needed. X and LinkedIn support is in beta.
+- Made by Mima Labs LTD (England and Wales).
+
+## Get Mima
+
+- [Download for Mac](https://mima.social/download): the latest beta .dmg, for Apple Silicon Macs.
+- [Newsletter](https://mima.social/#keep-up-title): occasional product updates. On WebMCP-capable browsers the signup form is exposed as the tool `subscribe_to_mima_updates`; only use it with the person's own email address and consent.
+- [Discord](https://discord.gg/KE3utP26kG): community, questions and feature requests.
+
+## What it does
+
+- One feed for your people: the News Wall shows everyone you follow across networks, in a timeline or a board, ordered how you want. A post cross-posted to several networks shows up once.
+- Compose once, share everywhere: write one post and share it across multiple networks.
+- Every conversation in one universal inbox: mentions and DMs from every network, with pins and reminders.
+- Filters: hide reposts, mute accounts.
+
+## Privacy
+
+- There are no Mima servers for your content. Your posts, messages and follows are stored on your computer, and Mima talks directly to each network.
+- Mima never stores your passwords. You sign in with each network's own login, and Mima keeps you signed in on your computer.
+- No ads, and your content isn't used for advertising, analytics or AI training.
+- Mima collects crash reports and anonymous usage data (which features and which networks), never what you read or write. You choose what to share before anything is sent.
+- Releases are code-signed and notarized by Apple.
+
+## AI (optional)
+
+- AI features, such as thread summaries, are opt-in. Mima works fully with them switched off.
+- By default they use a small language model that runs on your computer: [Llama 3.2 3B](https://huggingface.co/meta-llama/Llama-3.2-3B), an open-weight model of about 2 GB that also works offline.
+- You can add your own OpenAI, Anthropic or Google API key instead. Only then is content shared with that provider.
+- AI-generated text is shown in a distinct style, so you can tell it apart from what people wrote.
+
+## Optional
+
+- [Contact](mailto:aloha@mima.social): aloha@mima.social

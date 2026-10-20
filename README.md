@@ -8,7 +8,8 @@ step.
 |---|---|
 | `index.html` | The landing page |
 | `launch.css`, `launch.js` | Its styles and motion: wordmark draw-on, rotating headline, feature tour, timeline scroller, background squiggles |
-| `app.js` | Newsletter signup (posts to Loops) |
+| `app.js` | Newsletter signup (posts to Loops). The form is also a [WebMCP](https://webmachinelearning.github.io/webmcp/) tool, `subscribe_to_mima_updates` (declarative, with an imperative fallback), and replies to agents with the real result. |
+| `llms.txt` | Plain-language summary of Mima for AI assistants and crawlers ([llmstxt.org](https://llmstxt.org)). Keep it in step with the page copy. |
 | `_redirects` | Netlify redirects: `/download` → the latest .dmg |
 | `oauth/bluesky/client-metadata.json` | Bluesky OAuth client metadata for the desktop app. Must stay at this path on `www.mima.social`. |
 | `site-assets/`, `assets/` | Fonts, logo, hero art, app screenshots, fake avatars and photos |
@@ -52,7 +53,7 @@ screenshots in sync with the app is tracked in mima-social/desktop#1396.
 ## Before launch
 
 - The Download buttons (two links, marked `data-download`) point to
-  `/download`, which `_redirects` sends (302) to the stable
+  `https://mima.social/download`, which `_redirects` sends (302) to the stable
   `Mima-latest-arm64.dmg` alias in R2. The desktop release pipeline keeps that
   alias current (mima-social/desktop#1406), so `_redirects` never changes per
   release. The alias 404s until that PR ships its first release.
