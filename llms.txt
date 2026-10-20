@@ -8,7 +8,7 @@
 
 ## Get Mima
 
-- [Download for Mac](https://mima.social/download): the latest beta .dmg, for Apple Silicon Macs.
+- [Download for Mac](https://mima.social/download): the latest beta .dmg, for Apple Silicon Macs. On WebMCP-capable browsers this is also the tool `download_mima`.
 - [Newsletter](https://mima.social/#keep-up-title): occasional product updates. On WebMCP-capable browsers the signup form is exposed as the tool `subscribe_to_mima_updates`; only use it with the person's own email address and consent.
 - [Discord](https://discord.gg/KE3utP26kG): community, questions and feature requests.
 

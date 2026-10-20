@@ -198,3 +198,42 @@
     });
   });
 })();
+
+// WebMCP tool: download Mima. There's no form for this, so it's registered
+// imperatively wherever WebMCP exists. It describes the requirements and
+// starts the same /download the buttons use.
+(function () {
+  "use strict";
+  var mc = document.modelContext || navigator.modelContext;
+  if (!mc || typeof mc.registerTool !== "function") return;
+  var link = document.querySelector("[data-download]");
+  var url = link ? link.href : location.origin + "/download";
+
+  mc.registerTool({
+    name: "download_mima",
+    description:
+      "Start downloading the Mima desktop app: the free beta installer (.dmg) for Macs with Apple Silicon (M1 or later). " +
+      "There are no Intel, Windows or Linux builds yet. Only call this when the person has asked to download Mima " +
+      "and is on an Apple Silicon Mac; otherwise offer the newsletter (subscribe_to_mima_updates) instead.",
+    inputSchema: { type: "object", properties: {} },
+    execute: function () {
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "download_click", { link_url: url, placement: "agent", transport_type: "beacon" });
+      }
+      // Navigating to /download starts the .dmg download; the page stays put.
+      var a = document.createElement("a");
+      a.href = url;
+      a.rel = "noopener";
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      return Promise.resolve({
+        ok: true,
+        message: "Opened mima.social/download, which downloads the latest Mima beta (Mima-latest-arm64.dmg). When it finishes, open the .dmg and drag Mima to Applications.",
+        url: url,
+        requirements: "macOS on Apple Silicon (M1 or later)",
+        price: "Free (beta)"
+      });
+    }
+  });
+})();
