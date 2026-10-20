@@ -200,38 +200,56 @@
 })();
 
 // WebMCP tool: download Mima. There's no form for this, so it's registered
-// imperatively wherever WebMCP exists. It describes the requirements and
-// starts the same /download the buttons use.
+// imperatively wherever WebMCP exists. Browsers ignore downloads that script
+// starts without a real click, so the tool highlights the Download button and
+// waits for the person to click it, then reports what actually happened.
 (function () {
   "use strict";
   var mc = document.modelContext || navigator.modelContext;
   if (!mc || typeof mc.registerTool !== "function") return;
   var url = "https://mima.social/download";
+  var WAIT_MS = 120000;
 
   mc.registerTool({
     name: "download_mima",
     description:
-      "Start downloading the Mima desktop app: the free beta installer (.dmg) for Macs with Apple Silicon (M1 or later). " +
-      "There are no Intel, Windows or Linux builds yet. Only call this when the person has asked to download Mima " +
-      "and is on an Apple Silicon Mac; otherwise offer the newsletter (subscribe_to_mima_updates) instead.",
+      "Help the person download the Mima desktop app: the free beta installer (.dmg) for Macs with Apple Silicon (M1 or later). " +
+      "There are no Intel, Windows or Linux builds yet. This highlights the Download for Mac button and waits for the person " +
+      "to click it; tell them to click it. Only use it when they've asked to download Mima and are on an Apple Silicon Mac; " +
+      "otherwise offer the newsletter (subscribe_to_mima_updates) instead.",
     inputSchema: { type: "object", properties: {} },
     execute: function () {
-      if (typeof window.gtag === "function") {
-        window.gtag("event", "download_click", { link_url: url, placement: "agent", transport_type: "beacon" });
-      }
-      // Navigating to /download starts the .dmg download; the page stays put.
-      var a = document.createElement("a");
-      a.href = url;
-      a.rel = "noopener";
-      document.body.appendChild(a);
-      a.click();
-      a.remove();
-      return Promise.resolve({
-        ok: true,
-        message: "Opened mima.social/download, which downloads the latest Mima beta (Mima-latest-arm64.dmg). When it finishes, open the .dmg and drag Mima to Applications.",
-        url: url,
-        requirements: "macOS on Apple Silicon (M1 or later)",
-        price: "Free (beta)"
+      var button = document.querySelector("[data-download]");
+      if (!button) return Promise.resolve({ ok: false, error: "No download button on this page.", url: url });
+      button.scrollIntoView({ block: "center", behavior: "smooth" });
+      button.focus({ preventScroll: true });
+      button.classList.add("agent-pointing");
+      return new Promise(function (resolve) {
+        var done = false;
+        function finish(result) {
+          if (done) return;
+          done = true;
+          button.classList.remove("agent-pointing");
+          document.removeEventListener("click", onClick, true);
+          resolve(result);
+        }
+        function onClick(e) {
+          var a = e.target.closest && e.target.closest("[data-download]");
+          if (!a || !e.isTrusted) return;
+          finish({
+            ok: true,
+            clicked: true,
+            message: "The person clicked Download for Mac, so the browser is downloading the latest Mima beta (Mima-latest-arm64.dmg). " +
+              "The page can't confirm the download finished. Once it has, open the .dmg and drag Mima to Applications.",
+            url: url,
+            requirements: "macOS on Apple Silicon (M1 or later)",
+            price: "Free (beta)"
+          });
+        }
+        document.addEventListener("click", onClick, true);
+        setTimeout(function () {
+          finish({ ok: false, clicked: false, error: "The person didn't click Download for Mac within 2 minutes.", url: url });
+        }, WAIT_MS);
       });
     }
   });

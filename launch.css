@@ -432,3 +432,8 @@ footer.site .byline svg { width: 17px; height: 17px; }
    browsers without these pseudo-classes ignore only these. */
 form:tool-form-active { outline: 2px dashed var(--a-600); outline-offset: 10px; border-radius: var(--radius-sm); }
 button:tool-submit-active { outline: 2px dashed var(--pink-cta); outline-offset: 4px; }
+
+/* download_mima: the button an agent is pointing the person at */
+.download.agent-pointing { outline: 3px dashed var(--a-600); outline-offset: 6px; animation: agent-nudge 1.6s ease-in-out infinite; }
+@keyframes agent-nudge { 50% { transform: translateY(-2px); } }
+@media (prefers-reduced-motion: reduce) { .download.agent-pointing { animation: none; } }
