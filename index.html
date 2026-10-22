@@ -18,6 +18,43 @@
     <meta name="twitter:title" content="Mima (beta): one app for all your social networks" />
     <meta name="twitter:description" content="Mima brings Bluesky, X, LinkedIn and Mastodon into one calm app: one feed for your people, one composer, one universal inbox. Free beta for Mac." />
     <meta name="twitter:image" content="https://mima.social/site-assets/og-image.jpg" />
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@graph": [
+            {
+                "@type": "Organization",
+                "@id": "https://mima.social/#organization",
+                "name": "Mima",
+                "url": "https://mima.social/",
+                "logo": "https://mima.social/site-assets/Logo.png",
+                "sameAs": ["https://www.linkedin.com/company/143044937"]
+            },
+            {
+                "@type": "WebSite",
+                "@id": "https://mima.social/#website",
+                "name": "Mima",
+                "url": "https://mima.social/",
+                "publisher": { "@id": "https://mima.social/#organization" }
+            },
+            {
+                "@type": "SoftwareApplication",
+                "name": "Mima",
+                "description": "Mima brings Bluesky, X, LinkedIn and Mastodon into one calm app: one feed for your people, one composer, one universal inbox. Free beta for Mac.",
+                "operatingSystem": "macOS",
+                "applicationCategory": "SocialNetworkingApplication",
+                "downloadUrl": "https://mima.social/download",
+                "image": "https://mima.social/site-assets/og-image.jpg",
+                "screenshot": [
+                    "https://mima.social/site-assets/og-image.jpg",
+                    "https://mima.social/site-assets/app/feed.webp"
+                ],
+                "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+                "publisher": { "@id": "https://mima.social/#organization" }
+            }
+        ]
+    }
+    </script>
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GHJGZHDR95"></script>
     <script>
