@@ -226,6 +226,26 @@
   </div>
 </footer>
 
+<dialog class="sheet" id="desktop-sheet" aria-labelledby="sheet-title">
+  <button type="button" class="sheet-close" aria-label="Close" data-close><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6 6l12 12M18 6 6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></button>
+  <form id="sheet-form" novalidate>
+    <h2 id="sheet-title">Get Mima on your Mac</h2>
+    <p class="sheet-lede">We’ll email you the download link, so you can install Mima when you’re back at your computer.</p>
+    <label class="sr-only" for="sheet-email">Email</label>
+    <div class="email-row">
+      <input id="sheet-email" name="email" type="email" autofocus autocomplete="email" required placeholder="you@wherever.com" aria-describedby="sheet-error" />
+    </div>
+    <input class="hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <label class="sheet-optin"><input type="checkbox" id="sheet-updates" /> Also send me occasional Mima updates</label>
+    <button class="join" type="submit">Email me the link</button>
+    <p class="form-error" id="sheet-error" role="alert" aria-live="assertive"></p>
+  </form>
+  <div class="success" role="status" tabindex="-1" id="sheet-done">
+    <div class="check" aria-hidden="true"><svg class="i" aria-hidden="true" focusable="false"><use href="#check"></use></svg></div>
+    <h3>Sent. Open it on your Mac to download.</h3>
+  </div>
+</dialog>
+
 <script src="app.js"></script>
 <script src="launch.js"></script>
 </body>

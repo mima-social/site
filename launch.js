@@ -245,7 +245,7 @@
     return Date.now().toString(36) + Math.random().toString(36).slice(2);
   }
 
-  function sendToPostHog(link, placement) {
+  function sendToPostHog(event, link, placement) {
     if (!navigator.sendBeacon) return;
     var params = new URLSearchParams(location.search);
     var props = {
@@ -263,23 +263,87 @@
     // A text/plain body keeps this a simple request (no CORS preflight); PostHog parses it as JSON.
     navigator.sendBeacon(POSTHOG_URL, JSON.stringify({
       api_key: POSTHOG_KEY,
-      event: "download_clicked",
+      event: event,
       distinct_id: anonId(),
       timestamp: new Date().toISOString(),
       properties: props
     }));
   }
 
-  Array.prototype.forEach.call(document.querySelectorAll("[data-download]"), function (link) {
-    link.addEventListener("click", function () {
-      var placement = link.closest(".band") ? "closing_band" : "hero";
-      try { sendToPostHog(link, placement); } catch (e) { /* never block the download */ }
-      if (typeof window.gtag !== "function") return;
-      window.gtag("event", "download_click", {
+  function track(event, link, placement) {
+    try { sendToPostHog(event, link, placement); } catch (e) { /* never block the download */ }
+    if (typeof window.gtag === "function") {
+      window.gtag("event", event === "download_clicked" ? "download_click" : event, {
         link_url: link.href,
         placement: placement,
         transport_type: "beacon"
       });
+    }
+  }
+
+  // Phones and tablets can't run the Mac app, so Download opens a sheet that
+  // emails them the link instead (#12).
+  var sheet = document.getElementById("desktop-sheet");
+  var touch = window.matchMedia && matchMedia("(hover: none) and (pointer: coarse)");
+  var useSheet = !!(sheet && typeof sheet.showModal === "function" && touch);
+  var sheetLink = null;
+  var sheetPlacement = "hero";
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-download]"), function (link) {
+    link.addEventListener("click", function (e) {
+      var placement = link.closest(".band") ? "closing_band" : "hero";
+      if (useSheet && touch.matches) {
+        e.preventDefault();
+        sheetLink = link;
+        sheetPlacement = placement;
+        sheet.showModal();
+        return;
+      }
+      track("download_clicked", link, placement);
     });
+  });
+
+  if (!useSheet) return;
+  var form = document.getElementById("sheet-form");
+  var input = document.getElementById("sheet-email");
+  var updates = document.getElementById("sheet-updates");
+  var error = document.getElementById("sheet-error");
+  var done = document.getElementById("sheet-done");
+  var submit = form.querySelector("button.join");
+
+  sheet.querySelector("[data-close]").addEventListener("click", function () { sheet.close(); });
+  // Tapping the dimmed backdrop closes the sheet too.
+  sheet.addEventListener("click", function (e) { if (e.target === sheet) sheet.close(); });
+  input.addEventListener("input", function () { error.textContent = ""; input.removeAttribute("aria-invalid"); });
+
+  function fail(msg) {
+    error.textContent = msg;
+    input.setAttribute("aria-invalid", "true");
+    submit.disabled = false;
+    submit.removeAttribute("aria-busy");
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = input.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { fail("Enter a valid email address."); input.focus(); return; }
+    submit.disabled = true;
+    submit.setAttribute("aria-busy", "true");
+    fetch("/api/email-download", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email, updates: updates.checked, website: form.elements.website.value })
+    })
+      .then(function (res) { return res.json().catch(function () { return {}; }).then(function (data) { return { ok: res.ok, data: data, status: res.status }; }); })
+      .then(function (r) {
+        if (r.ok && r.data.ok) {
+          track("download_link_emailed", sheetLink, sheetPlacement);
+          sheet.classList.add("is-done");
+          done.focus();
+        } else {
+          fail(r.status === 429 ? "Too many requests. Try again in a minute." : (r.data.error || "Something went wrong. Please try again."));
+        }
+      })
+      .catch(function () { fail("Couldn’t reach the server. Check your connection and try again."); });
   });
 })();
