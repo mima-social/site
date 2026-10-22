@@ -230,15 +230,54 @@
   setInterval(draw, 4200);
 })();
 
-// Count Download clicks in Google Analytics (intent, not completed downloads).
+// Count Download clicks (intent, not completed downloads) in Google Analytics and
+// in the desktop app's PostHog project, where they're compared with first app
+// launches as a cohort funnel (mima-social/site#16). PostHog gets a bare beacon,
+// no library: an anonymous one-off id, no cookies, no person profile.
 (function () {
   "use strict";
-  Array.prototype.forEach.call(document.querySelectorAll("[data-download]"), function (link, i) {
+  var POSTHOG_KEY = "POSTHOG_PROJECT_KEY";
+  var POSTHOG_URL = "https://eu.i.posthog.com/i/v0/e/";
+  var UTM = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
+
+  function anonId() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    return Date.now().toString(36) + Math.random().toString(36).slice(2);
+  }
+
+  function sendToPostHog(link, placement) {
+    if (!navigator.sendBeacon) return;
+    var params = new URLSearchParams(location.search);
+    var props = {
+      $process_person_profile: false,
+      $current_url: location.href,
+      $referrer: document.referrer || "$direct",
+      platform: "mac",
+      arch: "arm64",
+      channel: "beta",
+      release: "latest",
+      placement: placement,
+      link_url: link.href
+    };
+    UTM.forEach(function (key) { if (params.get(key)) props[key] = params.get(key); });
+    // A text/plain body keeps this a simple request (no CORS preflight); PostHog parses it as JSON.
+    navigator.sendBeacon(POSTHOG_URL, JSON.stringify({
+      api_key: POSTHOG_KEY,
+      event: "download_clicked",
+      distinct_id: anonId(),
+      timestamp: new Date().toISOString(),
+      properties: props
+    }));
+  }
+
+  Array.prototype.forEach.call(document.querySelectorAll("[data-download]"), function (link) {
     link.addEventListener("click", function () {
+      var placement = link.closest(".band") ? "closing_band" : "hero";
+      try { sendToPostHog(link, placement); } catch (e) { /* never block the download */ }
       if (typeof window.gtag !== "function") return;
       window.gtag("event", "download_click", {
         link_url: link.href,
-        placement: link.closest(".band") ? "closing_band" : "hero",
+        placement: placement,
         transport_type: "beacon"
       });
     });
