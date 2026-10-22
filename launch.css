@@ -39,10 +39,10 @@
     --wrap: 1180px;
     --gutter: clamp(20px, 4vw, 48px);
 }
-@font-face { font-family: "MimaDisplay"; src: url("site-assets/MimaDisplay-ExtraBold.subset.ttf") format("truetype"); font-weight: 800; font-display: swap; }
-@font-face { font-family: "MimaUI"; src: url("site-assets/MimaUI-Regular.subset.ttf") format("truetype"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "MimaSerif"; src: url("site-assets/MimaSerif-Italic.subset.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: "MimaUI"; src: url("site-assets/MimaUI-SemiBold.subset.ttf") format("truetype"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "MimaDisplay"; src: url("site-assets/MimaDisplay-ExtraBold.subset.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "MimaUI"; src: url("site-assets/MimaUI-Regular.subset.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "MimaSerif"; src: url("site-assets/MimaSerif-Italic.subset.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "MimaUI"; src: url("site-assets/MimaUI-SemiBold.subset.woff2") format("woff2"); font-weight: 600; font-display: swap; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }

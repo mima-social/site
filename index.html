@@ -19,15 +19,24 @@
     <meta name="twitter:description" content="Mima brings Bluesky, X, LinkedIn and Mastodon into one calm app: one feed for your people, one composer, one universal inbox. Free beta for Mac." />
     <meta name="twitter:image" content="https://mima.social/site-assets/og-image.jpg" />
     <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GHJGZHDR95"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag("js", new Date());
         gtag("config", "G-GHJGZHDR95");
+        // Load gtag after the page so it doesn't compete with fonts and images on slow connections
+        addEventListener("load", function () {
+            var s = document.createElement("script");
+            s.async = true;
+            s.src = "https://www.googletagmanager.com/gtag/js?id=G-GHJGZHDR95";
+            document.head.appendChild(s);
+        });
     </script>
     <script>document.documentElement.classList.add("js");</script>
-    <link rel="preload" href="site-assets/app/feed.webp" as="image" />
+    <link rel="preload" href="site-assets/MimaDisplay-ExtraBold.subset.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="site-assets/MimaUI-Regular.subset.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="site-assets/app/board-m.webp" as="image" media="(max-width: 600px)" fetchpriority="high" />
+    <link rel="preload" href="site-assets/app/board.webp" as="image" media="(min-width: 601px)" fetchpriority="high" />
     <link rel="stylesheet" href="launch.css" />
 </head>
 <body>
@@ -59,7 +68,7 @@
 </svg>
 <header class="hero">
 <div class="doodles" aria-hidden="true"></div>
-<img class="hero-squiggle" src="assets/plates/left-loop.webp" alt="" width="400" height="600">
+<img class="hero-squiggle" src="assets/plates/left-loop.webp" srcset="assets/plates/left-loop-160.webp 160w, assets/plates/left-loop.webp 320w" sizes="(max-width: 900px) 60px, clamp(96px, 10vw, 160px)" alt="" width="320" height="480" fetchpriority="low">
   <div class="wrap">
     <div class="pitch">
       <div class="brand"><a class="logo" href="#" aria-label="Mima home">
@@ -98,12 +107,12 @@
         <div class="tab-ctrl"><button class="pause" type="button" aria-pressed="false" aria-label="Pause the feature tour"><svg class="i" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path class="p-pause" d="M9 6v12M15 6v12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path class="p-play" d="M8 5.5 18 12 8 18.5Z" fill="currentColor"/></svg></button><div class="dots" aria-hidden="true"><span class="on"></span><span></span><span></span></div></div>
       </div>
       <figure class="window" id="shot" role="tabpanel" aria-labelledby="tab-feed">
-          <picture data-shot="feed" class="on"><source media="(max-width: 600px)" srcset="site-assets/app/board-m.webp" width="780" height="1040"><img src="site-assets/app/board.webp" alt="News Wall board: posts and photos from friends on Bluesky, X, LinkedIn and Mastodon in one wall" width="960" height="648" class="on" data-shot="feed"></picture>
+          <picture data-shot="feed" class="on"><source media="(max-width: 600px)" srcset="site-assets/app/board-m.webp" width="780" height="1040"><img src="site-assets/app/board.webp" alt="News Wall board: posts and photos from friends on Bluesky, X, LinkedIn and Mastodon in one wall" width="960" height="648" class="on" data-shot="feed" fetchpriority="high"></picture>
           <div class="zoom-wrap" data-shot="compose">
-            <picture class="on"><source media="(max-width: 600px)" srcset="site-assets/app/compose-m.webp" width="780" height="1040"><img src="site-assets/app/compose.webp" alt="The composer, with Bluesky, X, Mastodon and LinkedIn all selected, posting one message to every network" width="960" height="648" class="" loading="lazy"></picture>
+            <picture class="on"><source media="(max-width: 600px)" srcset="site-assets/app/compose-m.webp" width="780" height="1040"><img src="site-assets/app/compose.webp" alt="The composer, with Bluesky, X, Mastodon and LinkedIn all selected, posting one message to every network" width="960" height="648" class="" loading="lazy" fetchpriority="low"></picture>
             <span class="typing" aria-hidden="true"><span class="typed"></span><span class="caret"></span></span>
           </div>
-          <picture data-shot="conversations"><source media="(max-width: 600px)" srcset="site-assets/app/conversations-m.webp" width="780" height="1040"><img src="site-assets/app/conversations.webp" alt="Conversations: DMs and mentions from every network, with a pinned chat, an unread chat and a reminder" width="960" height="648" class="" data-shot="conversations" loading="lazy"></picture>
+          <picture data-shot="conversations"><source media="(max-width: 600px)" srcset="site-assets/app/conversations-m.webp" width="780" height="1040"><img src="site-assets/app/conversations.webp" alt="Conversations: DMs and mentions from every network, with a pinned chat, an unread chat and a reminder" width="960" height="648" class="" data-shot="conversations" loading="lazy" fetchpriority="low"></picture>
       </figure>
     </div>
   </div>
