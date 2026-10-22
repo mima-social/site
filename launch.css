@@ -31,18 +31,24 @@
     --border: var(--void-200);
     --ring: var(--a-700);
     --destructive: #dc2626;
-    --font-display: "MimaDisplay", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    --font-ai: "MimaSerif", Georgia, "Times New Roman", serif;
-    --font-ui: "MimaUI", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-display: "MimaDisplay", "MimaDisplay Fallback", "Avenir Next", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --font-ai: "MimaSerif", "MimaSerif Fallback", Georgia, "Times New Roman", serif;
+    --font-ui: "MimaUI", "MimaUI Fallback", "Helvetica Neue", Helvetica, Arial, sans-serif;
     --radius: 1.5rem;
     --radius-sm: 1rem;
     --wrap: 1180px;
     --gutter: clamp(20px, 4vw, 48px);
 }
-@font-face { font-family: "MimaDisplay"; src: url("site-assets/MimaDisplay-ExtraBold.subset.ttf") format("truetype"); font-weight: 800; font-display: swap; }
-@font-face { font-family: "MimaUI"; src: url("site-assets/MimaUI-Regular.subset.ttf") format("truetype"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "MimaSerif"; src: url("site-assets/MimaSerif-Italic.subset.ttf") format("truetype"); font-weight: 400; font-style: italic; font-display: swap; }
-@font-face { font-family: "MimaUI"; src: url("site-assets/MimaUI-SemiBold.subset.ttf") format("truetype"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "MimaDisplay"; src: url("site-assets/MimaDisplay-ExtraBold.subset.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+@font-face { font-family: "MimaUI"; src: url("site-assets/MimaUI-Regular.subset.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "MimaSerif"; src: url("site-assets/MimaSerif-Italic.subset.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
+@font-face { font-family: "MimaUI"; src: url("site-assets/MimaUI-SemiBold.subset.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+/* Local fallbacks scaled to the Mima fonts' widths and line metrics, so text
+   doesn't jump when the web fonts swap in (#6). Measured against macOS/iOS Arial and Georgia. */
+@font-face { font-family: "MimaUI Fallback"; src: local("Arial"), local("ArialMT"); font-weight: 400; size-adjust: 107.2%; ascent-override: 90.4%; descent-override: 22.5%; line-gap-override: 0%; }
+@font-face { font-family: "MimaUI Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"); font-weight: 600; size-adjust: 101.2%; ascent-override: 95.7%; descent-override: 23.8%; line-gap-override: 0%; }
+@font-face { font-family: "MimaDisplay Fallback"; src: local("Arial Bold"), local("Arial-BoldMT"); font-weight: 800; size-adjust: 97.8%; ascent-override: 99%; descent-override: 24.6%; line-gap-override: 0%; }
+@font-face { font-family: "MimaSerif Fallback"; src: local("Georgia Italic"), local("Georgia-Italic"); font-weight: 400; font-style: italic; size-adjust: 92.4%; ascent-override: 112.2%; descent-override: 36.3%; line-gap-override: 0%; }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
