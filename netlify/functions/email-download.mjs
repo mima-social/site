@@ -1,7 +1,7 @@
 // Emails the Mac download link to someone who tapped Download on a phone or
 // tablet (#12). Sends a Loops transactional email, and if they ticked "send me
-// updates", adds them to the mailing list with a record of where and when
-// they opted in.
+// updates", adds them to the mailing list. New contacts get Loops' own source
+// field; existing contacts keep theirs, and optInAt records when they agreed.
 //
 // Netlify environment variables:
 //   LOOPS_API_KEY          Loops API key (Settings → API)
@@ -9,7 +9,7 @@
 //   LOOPS_MAILING_LIST_ID  id of the product-updates mailing list
 const LOOPS = "https://app.loops.so/api/v1";
 const DOWNLOAD_URL = "https://mima.social/download";
-const OPT_IN_SOURCE = "Mobile download sheet at mima.social";
+const SOURCE = "Mobile download sheet at mima.social 2026.q4";
 const ORIGINS = ["https://mima.social", "https://www.mima.social"];
 
 function json(body, status = 200) {
@@ -52,18 +52,23 @@ export default async (req) => {
   // Only with explicit consent from the unticked checkbox. The email has
   // already gone, so a failure here is logged rather than shown.
   if (body.updates === true) {
-    const listed = await fetch(`${LOOPS}/contacts/update`, {
-      method: "PUT",
+    const optIn = {
+      email,
+      subscribed: true,
+      mailingLists: { [process.env.LOOPS_MAILING_LIST_ID]: true },
+      optInAt: new Date().toISOString()
+    };
+    // Create first so new contacts get a source; an existing contact (409) is
+    // updated without one, so the source they arrived with isn't overwritten.
+    let listed = await fetch(`${LOOPS}/contacts/create`, {
+      method: "POST",
       headers,
-      body: JSON.stringify({
-        email,
-        subscribed: true,
-        mailingLists: { [process.env.LOOPS_MAILING_LIST_ID]: true },
-        optInSource: OPT_IN_SOURCE,
-        optInAt: new Date().toISOString()
-      })
+      body: JSON.stringify({ ...optIn, source: SOURCE })
     });
-    if (!listed.ok) console.error("Loops contact update failed", listed.status, await listed.text());
+    if (listed.status === 409) {
+      listed = await fetch(`${LOOPS}/contacts/update`, { method: "PUT", headers, body: JSON.stringify(optIn) });
+    }
+    if (!listed.ok) console.error("Loops opt-in failed", listed.status, await listed.text());
   }
 
   return json({ ok: true });

@@ -67,7 +67,9 @@ On touch devices, Download opens a sheet instead of starting a .dmg download tha
 can't be used there. The Netlify function at `netlify/functions/email-download.mjs`
 sends a Loops transactional email with the link. If the person ticks "Also send me
 occasional Mima updates" (unticked by default), it also adds them to the mailing
-list and records `optInSource` and `optInAt` on their contact as proof of consent.
+list. New contacts get the Loops source `Mobile download sheet at mima.social 2026.q4`;
+existing contacts keep their original source. Either way `optInAt` records when they
+agreed, as proof of consent.
 
 It needs these Netlify environment variables:
 
