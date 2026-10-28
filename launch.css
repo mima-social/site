@@ -363,7 +363,8 @@ footer.site .byline svg { width: 17px; height: 17px; }
 .sheet-optin { display: flex; align-items: center; gap: 10px; margin: 14px 0 20px; color: var(--void-600); cursor: pointer; }
 .sheet-optin input { width: 20px; height: 20px; margin: 0; accent-color: var(--a-700); }
 .sheet button.join { width: 100%; }
-.sheet .success h3 { margin-right: 40px; }
+.sheet .success > div { margin-right: 40px; }
+.sheet .success p { margin: 4px 0 0; color: var(--void-600); }
 .sheet.is-done form { display: none; }
 .sheet.is-done .success { display: flex; }
 
