@@ -304,6 +304,12 @@
   });
 
   if (!useSheet) return;
+  // Ticking "send me updates" subscribes through the same Loops form as the
+  // landing-page signup, so Loops sends a confirmation email (double opt-in)
+  // before anyone joins the list. A stranger's address can't be signed up.
+  var LOOPS_FORM = "https://app.loops.so/api/newsletter-form/cmqbfegi407730j0m5jakbstp";
+  var UPDATES_LIST = "cmqydyxrc4l7d0jy7drbq25ig";
+  var SHEET_SOURCE = "Mobile download sheet at mima.social 2026.q4";
   var form = document.getElementById("sheet-form");
   var input = document.getElementById("sheet-email");
   var updates = document.getElementById("sheet-updates");
@@ -332,12 +338,23 @@
     fetch("/api/email-download", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email, updates: updates.checked, website: form.elements.website.value })
+      body: JSON.stringify({ email: email, website: form.elements.website.value })
     })
       .then(function (res) { return res.json().catch(function () { return {}; }).then(function (data) { return { ok: res.ok, data: data, status: res.status }; }); })
       .then(function (r) {
         if (r.ok && r.data.ok) {
           track("download_link_emailed", sheetLink, sheetPlacement);
+          if (updates.checked && !form.elements.website.value) {
+            fetch(LOOPS_FORM, {
+              method: "POST",
+              headers: { "Content-Type": "application/x-www-form-urlencoded" },
+              body: "email=" + encodeURIComponent(email) +
+                "&source=" + encodeURIComponent(SHEET_SOURCE) +
+                "&mailingLists=" + encodeURIComponent(UPDATES_LIST),
+              keepalive: true
+            }).catch(function () { /* the download email already went; updates are optional */ });
+            done.querySelector(".sent-confirm").hidden = false;
+          }
           sheet.classList.add("is-done");
           done.focus();
         } else {

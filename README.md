@@ -66,15 +66,14 @@ screenshots in sync with the app is tracked in mima-social/desktop#1396.
 On touch devices, Download opens a sheet instead of starting a .dmg download that
 can't be used there. The Netlify function at `netlify/functions/email-download.mjs`
 sends a Loops transactional email with the link. If the person ticks "Also send me
-occasional Mima updates" (unticked by default), it also adds them to the mailing
-list. New contacts get the Loops source `Mobile download sheet at mima.social 2026.q4`;
-existing contacts keep their original source. Either way `optInAt` records when they
-agreed, as proof of consent.
+occasional Mima updates" (unticked by default), the browser also submits them to
+the same Loops form as the landing-page signup, with the Updates list, so Loops'
+double opt-in sends a confirmation email before they join. That way nobody can
+sign up someone else's address.
 
-It needs these Netlify environment variables:
+The function needs these Netlify environment variables:
 
 | Variable | Where it comes from |
 |---|---|
 | `LOOPS_API_KEY` | Loops → Settings → API |
 | `LOOPS_DOWNLOAD_EMAIL_ID` | The transactional email's id. It must use a `downloadUrl` data variable for the link. |
-| `LOOPS_MAILING_LIST_ID` | Loops → Audience → Lists |
