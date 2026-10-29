@@ -236,7 +236,7 @@
 // no library: an anonymous one-off id, no cookies, no person profile.
 (function () {
   "use strict";
-  var POSTHOG_KEY = "POSTHOG_PROJECT_KEY";
+  var POSTHOG_KEY = "phc_ArqsTR3VWXKrFuV3Pv3uV69QuvHAS2xwWjFqDYyVEdE9";
   var POSTHOG_URL = "https://eu.i.posthog.com/i/v0/e/";
   var UTM = ["utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content"];
 
