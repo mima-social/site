@@ -85,12 +85,19 @@ def load_articles(topics):
 
 
 def faq_pairs(body):
-    """Questions under a `## Common questions` heading become FAQPage data."""
-    m = re.search(r"^## Common questions\s*$(.*?)(?=^## |\Z)", body, re.M | re.S)
+    """Questions under a `## Common questions` or `## FAQ` heading become
+    FAQPage data. Write each question as a `### Question?` heading, or as a
+    paragraph that starts with the question in bold: `**Question?** Answer`."""
+    m = re.search(r"^## (?:Common questions|FAQs?|Frequently asked questions)\s*$(.*?)(?=^## |\Z)", body, re.M | re.S)
     if not m:
         return []
+    section = m.group(1)
     pairs = []
-    for q in re.finditer(r"^### (.+?)\s*$(.*?)(?=^### |\Z)", m.group(1), re.M | re.S):
+    for q in re.finditer(r"^### (.+?)\s*$(.*?)(?=^### |\Z)", section, re.M | re.S):
+        answer = " ".join(q.group(2).split())
+        if answer:
+            pairs.append((q.group(1).strip(), re.sub(r"[*`]", "", answer)))
+    for q in re.finditer(r"^\*\*(.+?)\*\*\s*(.+?)(?=\n\s*\n|\Z)", section, re.M | re.S):
         answer = " ".join(q.group(2).split())
         if answer:
             pairs.append((q.group(1).strip(), re.sub(r"[*`]", "", answer)))

@@ -2,12 +2,14 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://mima.social/</loc></url>
   <url><loc>https://mima.social/learn/</loc><lastmod>2026-11-09</lastmod></url>
+  <url><loc>https://mima.social/learn/topics/posting/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://mima.social/learn/topics/topic-one/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://mima.social/learn/topics/topic-two/</loc><lastmod>2026-11-07</lastmod></url>
   <url><loc>https://mima.social/learn/topics/topic-three/</loc><lastmod>2026-11-05</lastmod></url>
   <url><loc>https://mima.social/learn/topics/topic-four/</loc><lastmod>2026-11-03</lastmod></url>
   <url><loc>https://mima.social/learn/topics/topic-five/</loc><lastmod>2026-11-01</lastmod></url>
   <url><loc>https://mima.social/learn/topics/topic-six/</loc><lastmod>2026-10-30</lastmod></url>
+  <url><loc>https://mima.social/learn/cross-post-bluesky-x-linkedin-mastodon-mac/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://mima.social/learn/article-one/</loc><lastmod>2026-11-09</lastmod></url>
   <url><loc>https://mima.social/learn/article-two/</loc><lastmod>2026-10-28</lastmod></url>
   <url><loc>https://mima.social/learn/article-three/</loc><lastmod>2026-10-16</lastmod></url>

@@ -1,8 +1,44 @@
 [
-  {"name": "Topic one", "slug": "topic-one", "icon": "people", "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."},
-  {"name": "Topic two", "slug": "topic-two", "icon": "i-send", "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."},
-  {"name": "Topic three", "slug": "topic-three", "icon": "i-inbox", "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."},
-  {"name": "Topic four", "slug": "topic-four", "icon": "i-shield", "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."},
-  {"name": "Topic five", "slug": "topic-five", "icon": "i-ai", "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."},
-  {"name": "Topic six", "slug": "topic-six", "icon": "i-info", "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."}
+  {
+    "name": "Posting",
+    "slug": "posting",
+    "icon": "i-send",
+    "blurb": "Write once and share to Bluesky, X, LinkedIn and Mastodon, then keep up with the replies in one place."
+  },
+  {
+    "name": "Topic one",
+    "slug": "topic-one",
+    "icon": "people",
+    "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."
+  },
+  {
+    "name": "Topic two",
+    "slug": "topic-two",
+    "icon": "i-send",
+    "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."
+  },
+  {
+    "name": "Topic three",
+    "slug": "topic-three",
+    "icon": "i-inbox",
+    "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."
+  },
+  {
+    "name": "Topic four",
+    "slug": "topic-four",
+    "icon": "i-shield",
+    "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."
+  },
+  {
+    "name": "Topic five",
+    "slug": "topic-five",
+    "icon": "i-ai",
+    "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."
+  },
+  {
+    "name": "Topic six",
+    "slug": "topic-six",
+    "icon": "i-info",
+    "blurb": "A one-sentence description of what this topic covers, for the shelf and the topic page."
+  }
 ]
