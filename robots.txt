@@ -1,0 +1,7 @@
+# mima.social: everything is public. Crawlers and AI agents are welcome.
+# Guides for agents live at /learn/ (each also as Markdown: /learn/<guide>.md).
+User-agent: *
+Allow: /
+Disallow: /api/
+
+Sitemap: https://mima.social/sitemap.xml

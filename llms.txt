@@ -34,6 +34,46 @@
 - You can add your own OpenAI, Anthropic or Google API key instead. Only then is content shared with that provider.
 - AI-generated text is shown in a distinct style, so you can tell it apart from what people wrote.
 
+## Learn
+
+Guides from the makers of Mima. Each is also published as Markdown at the link below; the HTML version is at the same path without `.md`. Index: https://mima.social/learn/
+
+### Topic one
+
+- [Article title one](https://mima.social/learn/article-one.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title two](https://mima.social/learn/article-two.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title three](https://mima.social/learn/article-three.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title four](https://mima.social/learn/article-four.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title five](https://mima.social/learn/article-five.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title six](https://mima.social/learn/article-six.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title seven](https://mima.social/learn/article-seven.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+
+### Topic two
+
+- [Article title eight](https://mima.social/learn/article-eight.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title nine](https://mima.social/learn/article-nine.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title ten](https://mima.social/learn/article-ten.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+
+### Topic three
+
+- [Article title eleven](https://mima.social/learn/article-eleven.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title twelve](https://mima.social/learn/article-twelve.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title thirteen](https://mima.social/learn/article-thirteen.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+
+### Topic four
+
+- [Article title fourteen](https://mima.social/learn/article-fourteen.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title fifteen](https://mima.social/learn/article-fifteen.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+
+### Topic five
+
+- [Article title sixteen](https://mima.social/learn/article-sixteen.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+- [Article title seventeen](https://mima.social/learn/article-seventeen.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+
+### Topic six
+
+- [Article title eighteen](https://mima.social/learn/article-eighteen.md): A one-sentence answer to the question this article covers, in plain words, so a reader or an agent gets it without reading further.
+
 ## Optional
 
 - [Contact](mailto:aloha@mima.social): aloha@mima.social
