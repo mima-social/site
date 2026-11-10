@@ -55,14 +55,20 @@ def page(title, body, composer=None):
 """
 
 
-def composer_html(text="", nets=()):
+def composer_html(text="", nets=(), reply=None):
     filled = bool(text)
+    # Reply mode (Composer.tsx "reply-context"): who you're replying to, above the box.
+    ctx = ""
+    if reply:
+        handle, snippet = reply
+        ctx = f"""<div class="reply-ctx"><div class="tx"><div class="rc1">{icon('reply-arrow')}<span>Replying to</span><b>@{handle}</b></div>
+    <div class="rc2">{snippet}</div></div>{icon('close', 'x')}</div>"""
     toggles = "".join(
         f'<span class="tg {"on " + n + "-c" if n in nets else ""}">{icon("s-" + n)}</span>'
         for n in ("bluesky", "x", "mastodon", "linkedin")
     )
     return f"""<footer class="composer">
-  <div class="in">
+  {ctx}<div class="in">
     <div class="ta {'filled' if filled else ''}">{text or "What's on your mind?"}</div>
     <span class="img">{icon('image')}</span>
     <span class="btn-acc post-btn {'ready' if filled else ''}">Post</span>
@@ -91,7 +97,7 @@ def news_head(view="Timeline"):
 </div>"""
 
 
-def post(av, name, nets, handle, time, body, link=None, counts=(0, 0, 0), liked=False, reshare=None, wrap=True, photo=None):
+def post(av, name, nets, handle, time, body, link=None, counts=(0, 0, 0), liked=False, reshare=None, wrap=True, photo=None, state=None, error=None):
     glyphs = "".join(glyph(n) for n in nets)
     meta = [] if len(nets) > 1 else [f"<span>@{handle}</span>", "<span>·</span>"]
     meta.append(f"<span>{time}</span>")
@@ -107,7 +113,16 @@ def post(av, name, nets, handle, time, body, link=None, counts=(0, 0, 0), liked=
     <span>{icon('comments')}<b>{c}</b></span><span>{icon('repeat')}<b>{r}</b></span>
     <span class="{'liked' if liked else ''}">{icon('heart-filled' if liked else 'heart')}<b>{l}</b></span><span>{icon('share')}</span>
   </div>"""
-    return f"""<article class="post">
+    # Sending states (PostCard.tsx): greyed "Posting…" while queued; "Not sent"
+    # with Retry / Edit / Discard (UnsentPostActions.tsx) if a network refused it.
+    if state == "pending":
+        actions = '<div class="actions"><span class="status-pill">Posting…</span></div>'
+    elif state == "failed":
+        actions = f"""<div class="unsent">
+    <div class="st">{icon('danger')}<b>Not sent</b><span class="err">· {error}</span></div>
+    <div class="btns"><span class="btn-out">{icon('reload-right')}Retry</span><span class="btn-out">{icon('edit')}Edit</span><span class="btn-out">{icon('delete')}Discard</span></div>
+  </div>"""
+    return f"""<article class="post{' pending' if state == 'pending' else ''}">
   <div class="hd"><img class="av" src="{av}" alt="">
     <div><div class="name-row">{name}<span class="glyphs">{glyphs}</span></div><div class="meta">{''.join(meta)}</div></div>
   </div>
@@ -273,6 +288,64 @@ dlg = summary[summary.index('<div class="dialog">'):summary.rindex('</div></div>
 summary_card = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="app.css"></head>
 <body class="card-only">{dlg}</body></html>"""
 
-for name, html in {"summary-card": summary_card, "summary": summary, "timeline-strip": timeline_strip, "feed": feed, "board": board, "compose": compose, "compose-typed": compose_typed, "conversations": conversations, "thread": thread}.items():
+
+# ---------------------------------------------------------------- Learn guide views
+# Cross-posting guide (learn/cross-post-bluesky-x-linkedin-mastodon-mac).
+
+def account(net, label, handle, cls):
+    return f"""<div class="acct"><img class="av lg" src="{ME}" alt="">
+  <div class="tx"><div class="l1"><b>Rosa Lin</b><span class="plat {cls}">{label}</span></div>
+    <div class="h">@{handle}</div><div class="ls">Last sync: just now</div></div>
+  <span class="btn-destr">Disconnect</span>
+</div>"""
+
+
+ACCOUNTS_DIALOG = f"""<div class="scrim"><div class="settings">
+  <div class="sh"><span class="ttl">Settings</span>{icon('close', 'x')}</div>
+  <div class="tabs">{''.join(f'<span class="{"on" if t == "Accounts" else ""}">{t}</span>' for t in ("General", "Accounts", "AI", "Your Data", "Filters", "Advanced"))}</div>
+  <div class="sbody">
+    <div class="sb-head"><h3 class="type-h2">Accounts</h3>{icon('reload-right')}</div>
+    <h4 class="type-title">Connected Accounts</h4>
+    {account("bluesky", "Bluesky", "rosalin.example", "p-bluesky")}
+    {account("x", "X", "rosalin_demo", "p-x")}
+    {account("linkedin", "LinkedIn", "rosa-lin-studio", "p-linkedin")}
+    {account("mastodon", "Mastodon", "rosa@social.example", "p-mastodon")}
+  </div>
+</div></div>"""
+accounts = page("News Wall", BOARD_BODY + ACCOUNTS_DIALOG)
+# Close-up of the Settings dialog alone, so all four accounts fit.
+settings_dlg = ACCOUNTS_DIALOG[ACCOUNTS_DIALOG.index('<div class="settings">'):ACCOUNTS_DIALOG.rindex('</div></div>')] + "</div>"
+accounts_card = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="app.css"></head>
+<body class="card-only">{settings_dlg}</body></html>"""
+
+# Your own posts on the News Wall: sent to four networks, sending, and refused.
+P_SENT = dict(P_ME, time="1h ago", counts=(6, 11, 48),
+              body="Our community garden map is live! Every plot, every compost bin, and who to ask about the tomatoes.",
+              photo=PH.format("zine"))
+P_SENT["photo"] = None
+P_SENDING = dict(P_ME, nets=["bluesky", "mastodon"], time="just now",
+                 body="Doors at 7 on Thursday for the map launch. Bring a friend!", state="pending")
+P_FAILED = dict(P_ME, nets=["x"], handle="rosalin_demo", time="2m ago",
+                body="Doors at 7 on Thursday for the map launch. Bring a friend!", state="failed",
+                error="X couldn't be reached. Check your connection and try again.")
+post_status = page("News Wall", news_head("Timeline") + '\n<div class="feed">' +
+                   "".join(post(**p) for p in (P_SENDING, P_FAILED, P_SENT)) + "</div>")
+
+# The News Wall's sort menu, open (FeedSortDropdown.tsx, ui/Select.tsx).
+SORT_MENU = f"""<div class="menu">
+  <div class="it on">{icon('check')}Newest</div>
+  <div class="it hl">Most active</div>
+  <div class="it">Least active</div>
+</div>"""
+sort_head = news_head("Timeline").replace(f'<span class="select">Newest{icon("chevron-down")}</span>',
+                                          f'<span class="sel-wrap"><span class="select">Newest{icon("chevron-down")}</span>{SORT_MENU}</span>')
+sort_menu = page("News Wall", sort_head + '\n<div class="feed">' + "".join(post(**p) for p in (P_INES, P_DEV)) + "</div>")
+
+# Replying to your own cross-post: one reply, sent to each network's copy.
+omni_reply = page("News Wall", news_head("Timeline") + '\n<div class="feed">' + post(**P_SENT) + post(**P_INES) + "</div>",
+                  composer=composer_html("Find your plot here: map.garden.example", nets=ALL_NETS,
+                                         reply=("rosalin.example", P_SENT["body"])))
+
+for name, html in {"accounts": accounts, "accounts-card": accounts_card, "post-status": post_status, "sort-menu": sort_menu, "omni-reply": omni_reply, "summary-card": summary_card, "summary": summary, "timeline-strip": timeline_strip, "feed": feed, "board": board, "compose": compose, "compose-typed": compose_typed, "conversations": conversations, "thread": thread}.items():
     (HERE / f"{name}.html").write_text(html)
     print("wrote", f"app-shots/{name}.html")

@@ -248,3 +248,56 @@ body.card-only .dialog { width: 100%; height: auto; border: 0; border-radius: 0;
 .tile .body { margin-top: 8px; font-size: 14px; line-height: 1.4; }
 .tile .meta { font-size: 13px; }
 .tile .actions { margin-top: 6px; }
+
+/* ---- Learn guide views ---- */
+/* Sending states (PostCard.tsx, UnsentPostActions.tsx) */
+.post.pending { opacity: 0.6; }
+.status-pill { padding: 8px 12px; color: var(--foreground); }
+.unsent { margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+.unsent .st { display: flex; gap: 4px; align-items: center; color: #dc2626; }
+.unsent .st b { font-weight: 500; }
+.unsent .st .err { font-size: 12px; color: var(--muted-fg); }
+.unsent .btns { display: flex; justify-content: flex-end; gap: 8px; }
+.btn-out { display: inline-flex; align-items: center; gap: 6px; height: 38px; padding: 0 16px; border: 1px solid var(--border); border-radius: 999px; font-weight: 500; }
+.btn-out svg { width: 18px; height: 18px; }
+/* Sort menu (ui/Select.tsx: .menu-content, .menu-item) */
+.sel-wrap { position: relative; display: inline-flex; }
+.menu { position: absolute; top: calc(100% + 4px); right: 0; z-index: 2; min-width: 180px; padding: 6px; background: #fff; border: 1px solid var(--border); border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12); }
+.menu .it { position: relative; padding: 8px 12px 8px 32px; border-radius: 8px; }
+.menu .it.hl { background: var(--muted); }
+.menu .it svg { position: absolute; left: 8px; top: 10px; width: 16px; height: 16px; }
+/* Reply context in the composer (Composer.tsx reply-context) */
+.reply-ctx { display: flex; gap: 12px; align-items: flex-start; padding: 12px; border: 1px solid var(--border); border-radius: 20px; background: var(--surface-tint); }
+.reply-ctx .tx { flex: 1 1 auto; min-width: 0; }
+.reply-ctx .rc1 { display: flex; gap: 8px; align-items: center; color: var(--accent); margin-bottom: 4px; }
+.reply-ctx .rc1 svg { width: 16px; height: 16px; }
+.reply-ctx .rc1 b { font-weight: 500; color: var(--foreground); }
+.reply-ctx .rc2 { color: var(--muted-fg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.reply-ctx .x { width: 14px; height: 14px; color: var(--muted-fg); margin: 4px; }
+/* Settings, Accounts (SettingsModal.tsx, AccountsPanel.tsx) */
+.settings { width: min(672px, 92%); height: 92%; background: var(--card); border: 1px solid var(--border); border-radius: 24px; display: flex; flex-direction: column; overflow: hidden; }
+.settings .sh { display: flex; align-items: center; justify-content: space-between; padding: 16px 24px; border-bottom: 1px solid var(--border); }
+.settings .sh .ttl { font: 600 18px/1.35 var(--font-ui); }
+.settings .sh .x { width: 14px; height: 14px; color: var(--muted-fg); }
+.settings .tabs { display: flex; padding: 0 24px; border-bottom: 1px solid var(--border); }
+.settings .tabs span { padding: 12px 16px; font-weight: 500; color: var(--muted-fg); }
+.settings .tabs span.on { color: var(--foreground); border-bottom: 2px solid var(--foreground); margin-bottom: -1px; }
+.settings .sbody { padding: 24px; overflow: hidden; }
+.sb-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+.sb-head svg { color: var(--muted-fg); }
+.type-title { font: 600 18px/1.35 var(--font-ui); margin: 0 0 12px; }
+.acct { display: flex; gap: 16px; align-items: center; padding: 16px; border: 1px solid var(--border); border-radius: 20px; }
+.acct + .acct { margin-top: 12px; }
+.av.lg { width: 48px; height: 48px; }
+.acct .tx { flex: 1 1 auto; min-width: 0; }
+.acct .l1 { display: flex; gap: 8px; align-items: center; }
+.acct .l1 b { font-weight: 500; }
+.acct .h { color: var(--muted-fg); }
+.acct .ls { font-size: 12px; color: var(--subtle-fg); margin-top: 4px; }
+.plat { padding: 2px 8px; border-radius: 999px; font-size: 12px; }
+.p-bluesky { background: var(--bluesky); color: #000; }
+.p-x { background: #000; color: #fff; }
+.p-linkedin { background: var(--linkedin); color: #fff; }
+.p-mastodon { background: var(--mastodon); color: #000; }
+.btn-destr { display: inline-flex; align-items: center; height: 38px; padding: 0 16px; border-radius: 999px; background: #dc2626; color: #fff; font-weight: 500; }
+body.card-only .settings { width: 100%; height: auto; border: 0; border-radius: 0; }

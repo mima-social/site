@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="referrer" content="no-referrer" />
+    <title>Private Social Account Managers: Local Desktop vs Self-Hosted Tools · Learn · Mima</title>
+    <meta name="description" content="Mima is a local Mac app for following people and replying across Bluesky, X, LinkedIn, and Mastodon; Mixpost is a self-hosted or cloud scheduler; Flare is an open-source client with more networks." />
+    <link rel="canonical" href="https://www.mima.social/learn/private-social-account-managers/" />
+    <link rel="alternate" type="text/markdown" href="https://www.mima.social/learn/private-social-account-managers.md" title="This guide as Markdown" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://www.mima.social/learn/private-social-account-managers/" />
+    <meta property="og:title" content="Private Social Account Managers: Local Desktop vs Self-Hosted Tools · Learn · Mima" />
+    <meta property="og:description" content="Mima is a local Mac app for following people and replying across Bluesky, X, LinkedIn, and Mastodon; Mixpost is a self-hosted or cloud scheduler; Flare is an open-source client with more networks." />
+    <meta property="og:image" content="https://www.mima.social/site-assets/og-image.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.mima.social/#organization",
+      "name": "Mima",
+      "url": "https://www.mima.social/",
+      "logo": "https://www.mima.social/site-assets/Logo.png"
+    },
+    {
+      "@type": "Article",
+      "@id": "https://www.mima.social/learn/private-social-account-managers/#article",
+      "headline": "Private Social Account Managers: Local Desktop vs Self-Hosted Tools",
+      "description": "Mima is a local Mac app for following people and replying across Bluesky, X, LinkedIn, and Mastodon; Mixpost is a self-hosted or cloud scheduler; Flare is an open-source client with more networks.",
+      "url": "https://www.mima.social/learn/private-social-account-managers/",
+      "mainEntityOfPage": "https://www.mima.social/learn/private-social-account-managers/",
+      "datePublished": "2026-11-10",
+      "dateModified": "2026-11-10",
+      "articleSection": "Comparisons",
+      "inLanguage": "en",
+      "timeRequired": "PT9M",
+      "author": {
+        "@id": "https://www.mima.social/#organization"
+      },
+      "publisher": {
+        "@id": "https://www.mima.social/#organization"
+      },
+      "isPartOf": {
+        "@id": "https://www.mima.social/learn/#page"
+      },
+      "about": {
+        "@type": "SoftwareApplication",
+        "name": "Mima",
+        "operatingSystem": "macOS",
+        "applicationCategory": "SocialNetworkingApplication",
+        "downloadUrl": "https://www.mima.social/download",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        }
+      },
+      "encoding": {
+        "@type": "MediaObject",
+        "encodingFormat": "text/markdown",
+        "contentUrl": "https://www.mima.social/learn/private-social-account-managers.md"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://www.mima.social/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Learn",
+          "item": "https://www.mima.social/learn/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Comparisons",
+          "item": "https://www.mima.social/learn/topics/comparisons/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Private Social Account Managers: Local Desktop vs Self-Hosted Tools",
+          "item": "https://www.mima.social/learn/private-social-account-managers/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "Is Mima free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes. [Mima’s Apple Silicon Mac beta](https://www.mima.social) is free."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Mima support Instagram or TikTok?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. The current beta supports Bluesky, X, LinkedIn, and Mastodon."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Mixpost really free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "[Mixpost Lite](https://mixpost.app/pricing) is free, but you still pay for a server and any applicable network API usage. [X's pay-as-you-go API](https://docs.mixpost.app/services/social/x) requires a developer app and bills for posts read and published. Pro costs $299 for a self-hosted license, excluding VAT."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Flare fully open source and private?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "[Flare's repository](https://github.com/flaresocialapp/Flare) lists an AGPL-3.0 license. The client runs on your device, but open source alone is not a privacy guarantee. Optional AI can send content to a provider you configure."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Can I schedule posts with Mima?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. Mima lets you compose once and post across its supported networks, but it does not schedule posts."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Which tools use the official X API?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Mixpost does. Flare uses X's private web interface through a signed-in web session, while Mima reads X's website in a signed-in window and leaves posting for you to confirm in X's composer."
+          }
+        }
+      ]
+    }
+  ]
+}
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag("js", new Date());
+        gtag("config", "G-GHJGZHDR95");
+        addEventListener("load", function () {
+            var s = document.createElement("script");
+            s.async = true;
+            s.src = "https://www.googletagmanager.com/gtag/js?id=G-GHJGZHDR95";
+            document.head.appendChild(s);
+        });
+    </script>
+    <link rel="preload" href="/site-assets/MimaDisplay-ExtraBold.subset.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/site-assets/MimaUI-Regular.subset.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="/learn/learn.css" />
+</head>
+<body>
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none"><symbol id="i-download" viewBox="0 0 24 24"><path d="M16.3702 7.25867C19.9492 7.58867 21.2502 8.92867 21.2502 14.2587C21.2502 21.3587 18.9392 21.3587 12.0002 21.3587C5.05924 21.3587 2.75024 21.3587 2.75024 14.2587C2.75024 8.92867 4.05024 7.58867 7.63024 7.25867M12 15.041V3M9 12.041C10.25 12.541 12 15.041 12 15.041C12 15.041 13.75 12.541 15 12.041" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol><symbol id="arrow-right" viewBox="0 0 24 24"> <path d="M20 12H5M14 6C15 8.5 20 12 20 12C20 12 15 15.5 14 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> </symbol><symbol id="arrow-left" viewBox="0 0 24 24"> <path d="M9 5L4 10L9 15M4 10H14C17 10 19 12 19 15V19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> </symbol><symbol id="heart-filled" viewBox="0 0 24 24"> <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5357 3.47278C14.1925 3.47278 12.9607 3.9349 12.0002 4.7041C11.0396 3.9349 9.80787 3.47278 8.46505 3.47278C7.91921 3.49808 7.38309 3.58662 6.85574 3.74327C3.52326 4.81648 2.33622 8.44474 3.35202 11.6205C4.44843 15.0277 7.95391 17.8651 10.151 19.3684C11.2755 20.1378 12.7249 20.1355 13.8487 19.365C16.0569 17.851 19.5873 14.9951 20.6488 11.6205C21.6655 8.44474 20.4688 4.81648 17.1363 3.74327C16.6041 3.57203 16.0709 3.47376 15.5357 3.47278Z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> </symbol><symbol id="sparkle" viewBox="0 0 24 24"> <path d="M6.92926 10.2266L8.77548 6.29639L10.6217 10.2266L14.5519 12.0728L10.6217 13.9191L8.77548 17.8493L6.92926 13.9191L2.99902 12.0728L6.92926 10.2266Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> <path d="M16.502 4.92482L17.146 3.55371L17.7901 4.92482L19.1612 5.56889L17.7901 6.21297L17.146 7.58408L16.502 6.21297L15.1309 5.56889L16.502 4.92482Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> <path d="M17.0556 16.5012L18.0111 14.4671L18.9666 16.5012L21.0006 17.4567L18.9666 18.4122L18.0111 20.4463L17.0556 18.4122L15.0215 17.4567L17.0556 16.5012Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" /> </symbol><symbol id="i-email" viewBox="0 0 24 24"><path d="M17.6054 9L13.6065 12.2517C12.8534 12.8501 11.7861 12.8501 11.033 12.2517L7 9M21 14.6738C21 17.0635 19.1552 19.0059 16.4183 19H7.58173C4.84476 19.0059 3 17.0635 3 14.6738V9.33201C3 6.94487 4.84476 5 7.58173 5H16.4183C19.1552 5 21 6.94487 21 9.33201V14.6738Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol></svg>
+<a class="skip" href="#content">Skip to content</a>
+<header class="bar">
+  <div class="wrap bar-row">
+    <a class="logo" href="/" aria-label="Mima home"><svg class="wordmark" viewBox="5 10 90 33" fill="none" aria-hidden="true" focusable="false"><path class="wordmark-m" d="M3.01758 36.5533C113.893 61.0258 139.836 162.633 108.399 174.083C67.8228 188.862 20.4979 20.4917 96.0396 14.1447C150.822 9.54191 175.95 117.698 175.95 117.698C175.95 117.698 181.943 27.9814 222.897 37.1569C263.851 46.3324 240.253 149.073 240.253 149.073" pathLength="1" transform="translate(8.64 12.36) scale(0.149)" stroke="currentColor" stroke-width="28" stroke-linecap="round" /><path class="wordmark-ima" d="M84.636 20.0369C88.7538 20.0369 91.9958 23.4142 92.3283 27.4206C92.4187 29.7779 92.5581 32.1252 92.9895 34.446C93.0502 34.7728 92.8422 35.091 92.5168 35.1589L89.8655 35.7117C89.54 35.7795 89.2205 35.5707 89.1594 35.2439C89.118 35.0222 89.0779 34.7948 89.0393 34.5632C87.7999 35.4577 86.2878 35.988 84.636 35.988C80.295 35.988 76.9231 32.334 76.9231 28.0124C76.9232 23.691 80.295 20.0369 84.636 20.0369ZM64.2229 23.3181C65.988 19.6299 70.0282 19.7671 73.0168 22.7556C75.6811 25.9091 76.7462 30.7463 76.841 34.823C76.8488 35.1553 76.5787 35.4244 76.2463 35.4245H73.5373C73.205 35.4245 72.936 35.1552 72.927 34.823C72.8431 31.656 72.0873 27.719 70.0276 25.281C69.4128 24.5538 67.7183 23.8582 67.7112 25.4509L67.6711 34.8308C67.6697 35.1632 67.399 35.4317 67.0666 35.4304L64.3557 35.4187C64.0243 35.4173 63.7569 35.1483 63.7473 34.8171C63.6576 31.6635 62.8541 27.73 60.8137 25.3044C60.1969 24.5712 58.4576 23.8354 58.4621 25.4617L58.4875 34.821C58.4883 35.154 58.218 35.4245 57.885 35.4245H55.177C54.8452 35.4245 54.5753 35.1558 54.5744 34.824L54.5491 25.4724C54.5329 19.6885 60.8137 19.2083 64.2229 23.3181ZM49.1301 22.5681C49.1301 22.201 49.548 21.9848 49.8733 22.155C50.5439 22.506 51.2563 22.6852 52.2903 22.7322C52.6222 22.7474 52.8918 23.0141 52.8918 23.3464V34.7966C52.8918 35.129 52.6227 35.3991 52.2903 35.3992H49.7317C49.3994 35.399 49.1301 35.129 49.1301 34.7966V22.5681ZM84.636 23.9499C82.6187 23.95 80.8363 25.6854 80.8362 28.0124C80.8362 30.3396 82.6186 32.0758 84.636 32.0759C86.5624 32.0759 88.2704 30.4977 88.425 28.3269C88.4299 28.3145 88.4217 27.7153 88.4211 27.6482C88.244 25.5031 86.5476 23.95 84.636 23.9499ZM48.7658 17.5329C49.3123 16.506 50.8251 16.2429 52.1457 16.9451C53.4666 17.6474 54.0953 19.0495 53.5491 20.0769C53.0027 21.1041 51.489 21.367 50.1682 20.6648C48.8473 19.9625 48.2197 18.5603 48.7658 17.5329Z" fill="currentColor" /></svg></a>
+    <nav class="bar-nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="/learn/" aria-current="true">Learn</a>
+    </nav>
+    <a class="pill" href="https://www.mima.social/download" data-download><svg class="i" aria-hidden="true" focusable="false"><use href="#i-download"></use></svg><span>Download<span class="wide"> for Mac</span></span></a>
+  </div>
+</header>
+
+<main id="content">
+  <article class="wrap art">
+    <div class="art-top">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/learn/">Learn</a></li><li><a href="/learn/topics/comparisons/">Comparisons</a></li></ol></nav>
+      <h1>Private Social Account Managers: Local Desktop vs Self-Hosted Tools</h1>
+      <p class="answer"><strong>In short:</strong> Mima is a local Mac app for following people and replying across Bluesky, X, LinkedIn, and Mastodon; Mixpost is a self-hosted or cloud scheduler; Flare is an open-source client with more networks.</p>
+    </div>
+    <aside class="margin" aria-label="About this guide">
+      <dl class="facts">
+        <div><dt>Topic</dt><dd><a href="/learn/topics/comparisons/">Comparisons</a></dd></div>
+        <div><dt>Updated</dt><dd><time datetime="2026-11-10">10 Nov 2026</time></dd></div>
+        <div><dt>Reading time</dt><dd>9 min</dd></div>
+        <div><dt>Plain text</dt><dd><a href="/learn/private-social-account-managers.md" type="text/markdown">Markdown version</a></dd></div>
+      </dl>
+      <nav class="toc" aria-labelledby="toc-title"><h2 id="toc-title">On this page</h2><ol><li class="l2"><a href="#tldr">TL;DR</a></li><li class="l2"><a href="#what-private-local-self-hosted-and-open-source-actually-mean-here">What "private," "local," "self-hosted," and "open source" actually mean here</a></li><li class="l2"><a href="#how-each-tool-reaches-your-accounts">How each tool reaches your accounts</a></li><li class="l2"><a href="#decision-framework-where-your-account-data-goes">Decision framework: where your account data goes</a></li><li class="l2"><a href="#mima-a-local-mac-app-for-following-not-scheduling">Mima: a local Mac app for following, not scheduling</a></li><li class="l2"><a href="#mixpost-self-hosted-scheduling-and-publishing-with-real-maintenance-costs">Mixpost: self-hosted scheduling and publishing, with real maintenance costs</a></li><li class="l2"><a href="#flare-open-source-client-with-a-mixed-timeline-and-cross-posting">Flare: open-source client with a mixed timeline and cross-posting</a></li><li class="l2"><a href="#which-one-fits-your-workflow">Which one fits your workflow</a></li><li class="l2"><a href="#faq">FAQ</a></li><li class="l2"><a href="#try-mima-for-a-private-unified-feed">Try Mima for a private, unified feed</a></li></ol></nav>
+    </aside>
+    <div class="prose">
+<h2 id="tldr">TL;DR</h2>
+<ul><li><a href="https://www.mima.social">Mima</a> helps you manage multiple social media accounts through a local Apple Silicon Mac app. Its feed and inbox bring conversations together, and account content reaches the app without passing through Mima servers. It only works while your Mac is on, and it does not schedule posts.</li><li><a href="https://mixpost.app/pricing">Mixpost</a> suits people who need scheduled publishing. Its self-hosted version runs on a server you maintain and needs your own developer app for each network. Mixpost Cloud runs on the vendor's servers with the vendor's developer apps.</li><li><a href="https://github.com/flaresocialapp/Flare">Flare</a> is an open-source client for Mastodon, Bluesky, X, Misskey, Nostr, Pixiv, Fanbox, and RSS, with cross-posting. It runs on your device and lists more networks than Mima. Its X support uses X's private web interface rather than the official API.</li></ul>
+<h2 id="what-private-local-self-hosted-and-open-source-actually-mean-here">What "private," "local," "self-hosted," and "open source" actually mean here</h2>
+<p><strong>“Private” describes how a tool handles your account data.</strong> A desktop app, a server you run, or a hosted service can all keep the content you see and publish private or share it with third parties. Your connected social networks still receive the activity you send through any of them.</p>
+<p><strong>“Local” means the app runs on your computer.</strong> <a href="https://www.mima.social">Mima</a> runs on Apple Silicon Macs. Account content goes directly from each network to the app and is stored on your Mac, without passing through Mima servers. Mima asks before it sends crash reports or anonymous usage data, and it never sends what you read or write. The trade-off is that a local app works only while your Mac is on and Mima is running. Mima is neither self-hosted nor open source.</p>
+<p><strong>“Self-hosted” means you run and maintain the software on your own server.</strong> <a href="https://docs.mixpost.app/">Mixpost's self-hosted editions</a> put that server in the path of your account data, so self-hosted does not mean data stays on your personal computer. The server also makes unattended scheduling possible. Mixpost offers a hosted Cloud option, where data lives on Mixpost's infrastructure. <a href="https://mixpost.app/pricing">Mixpost Lite is open source</a>, while its paid editions are source-available under restrictions.</p>
+<p><strong>“Open source” describes a software license, not a guarantee about data flow.</strong> <a href="https://github.com/flaresocialapp/Flare">Flare's AGPL-licensed code</a> is open source, and Flare is a client that runs on your device rather than a publishing server. Open code lets you inspect how the app handles data, but the license alone does not guarantee privacy. Flare's optional AI features may send content to a provider you configure rather than process it on-device.</p>
+<h2 id="how-each-tool-reaches-your-accounts">How each tool reaches your accounts</h2>
+<p>The tools differ most in how they connect to X. Mixpost uses the official API, while Mima and Flare use signed-in web sessions.</p>
+<h2 id="decision-framework-where-your-account-data-goes">Decision framework: where your account data goes</h2>
+<p>Mima and Flare run as clients on your device, while self-hosted Mixpost holds account data on a server you maintain. Mixpost Cloud holds it on Mixpost's infrastructure.</p>
+<div class="table-wrap"><table><thead><tr><th scope="col"></th><th scope="col"><a href="https://www.mima.social">Mima</a></th><th scope="col">Mixpost</th><th scope="col">Flare</th></tr></thead><tbody><tr><td><strong>Data flow and hosting</strong></td><td>Account content goes directly to the app and stays on your Mac, without Mima servers. Asks before sending crash reports or usage data.</td><td>Self-hosted editions keep data on your server. Cloud keeps it on Mixpost's infrastructure.</td><td>Client runs on your device. Optional AI can use a configured provider.</td></tr><tr><td><strong>How it reaches X</strong></td><td>Signed-in X website. Opt-in beta, not the official API.</td><td>Official X API. Self-hosted requires your X developer app and usage-based X billing.</td><td>Signed-in web session and X's private web interface, not the official API.</td></tr><tr><td><strong>Setup and upkeep</strong></td><td>Install on an Apple Silicon Mac. Works while the Mac and app run.</td><td>Maintain your server and register developer apps. Cloud handles both.</td><td>Install the app; check platform and version.</td></tr><tr><td><strong>Networks</strong></td><td>Bluesky, X, LinkedIn, and Mastodon.</td><td><a href="https://mixpost.app/pricing">Lite</a>: Facebook Pages, X, and Mastodon. Pro: 12 networks, including LinkedIn, Bluesky, Instagram, and TikTok.</td><td>Mastodon, Misskey, Bluesky, X, Nostr, Pixiv, Fanbox, and RSS. <a href="https://flareapp.moe/">Web Beta</a> supports only Mastodon, Misskey, and Bluesky.</td></tr><tr><td><strong>Feeds and inboxes</strong></td><td>Unified feed and inbox. X shows the Following feed.</td><td>No documented unified reading feed. Pro offers an Engagement Inbox for mentions and comments.</td><td>Mixed timeline and DMs; features vary by network.</td></tr><tr><td><strong>Publishing</strong></td><td>Compose once; confirm X and LinkedIn posts in each network's composer. No scheduling.</td><td>Calendar and scheduling. Pro adds a queue and approvals.</td><td>Cross-posting; scheduling not listed.</td></tr><tr><td><strong>Pricing</strong></td><td>Free beta.</td><td>Lite free; Pro $299 and Enterprise $1,199 one-time, excluding VAT. Cloud charges per workspace.</td><td>No subscription advertised.</td></tr><tr><td><strong>License</strong></td><td>Proprietary, not self-hosted.</td><td>Lite open source; paid editions source-available under restrictions.</td><td><a href="https://github.com/flaresocialapp/Flare">AGPL-3.0 open source</a>.</td></tr></tbody></table></div>
+<p>If you want to manage multiple social media accounts, choose by the work you need to do. Mima centers on reading and replying, Mixpost on scheduled publishing, and Flare on an open-source client with more listed networks. Check Flare's current release for network-specific capabilities.</p>
+<h2 id="mima-a-local-mac-app-for-following-not-scheduling">Mima: a local Mac app for following, not scheduling</h2>
+<p><a href="https://www.mima.social">Mima</a> fits you if you want to manage multiple social media accounts to follow people and reply to conversations throughout the day. Its free beta runs on Apple Silicon Macs and brings Bluesky, X, LinkedIn, and Mastodon into a unified chronological feed and inbox. You can read posts in time order, keep up with conversations, and compose once to post across supported networks.</p>
+<figure><img src="/site-assets/app/board.webp" alt="The Mima News Wall in Board view: posts and photos from people on Bluesky, X, LinkedIn and Mastodon side by side" loading="lazy"><figcaption>The News Wall: everyone you follow on four networks, in one feed. People and posts in these pictures are made up.</figcaption></figure>
+<p>Account content goes directly from each social network to the local app without passing through Mima servers. Mima is neither self-hosted nor open source. You use the Mac app rather than maintaining your own server.</p>
+<p>Mima collects posts and messages while your Mac is on and the app is running, so it cannot schedule unattended publishing. On X and LinkedIn, Mima uses your signed-in web session and asks you to confirm each post in the network's composer; the X feed is your Following feed. The beta does not support Instagram, TikTok, analytics, or Intel Macs. If you need a publishing calendar or performance reports, a dedicated scheduling tool is a better fit.</p>
+<figure><img src="/site-assets/app/conversations.webp" alt="Mima Conversations: DMs and mentions from Bluesky, X, LinkedIn and Mastodon in one list, with a pinned conversation, an unread count and a reminder" loading="lazy"><figcaption>Conversations: mentions and DMs from every network in one inbox.</figcaption></figure>
+<h2 id="mixpost-self-hosted-scheduling-and-publishing-with-real-maintenance-costs">Mixpost: self-hosted scheduling and publishing, with real maintenance costs</h2>
+<p>Mixpost fits you if you need a publishing calendar and can maintain a server. Its self-hosted editions keep account data on a server you control, not on your personal computer. You must maintain PHP, MySQL, Redis, and a web server, though <a href="https://docs.mixpost.app/">Mixpost's documentation</a> offers Docker as an option. <a href="https://docs.mixpost.app/cloud/vs-self-hosted">Self-hosting</a> also requires your own developer apps for connected networks; Mixpost Cloud hosts the software and supplies approved apps.</p>
+<p>The <a href="https://mixpost.app/pricing">free Lite edition</a> is open source and supports Facebook Pages, X, and Mastodon publishing, plus a calendar and basic analytics. Pro costs $299 one-time, excluding VAT, with one year of updates. It supports 12 listed networks, including LinkedIn, Bluesky, Instagram, TikTok, Threads, and YouTube, and adds a posting queue, approvals, and advanced analytics. Pro's source code comes with restrictions, so it is not open source under Mixpost's licensing. Enterprise costs $1,199 one-time, excluding VAT. Check prices before buying.</p>
+<p>Pro also offers an <a href="https://mixpost.app/features">Engagement Inbox</a> for mentions and comments. Mixpost does not document a unified feed for reading posts across networks, so the inbox should not be confused with Mima’s reading feed. If you primarily want to follow and reply to conversations, a local client serves a different purpose. If you need to plan posts and approve them before publication, Mixpost’s calendar addresses that job.</p>
+<h2 id="flare-open-source-client-with-a-mixed-timeline-and-cross-posting">Flare: open-source client with a mixed timeline and cross-posting</h2>
+<p>Flare fits readers who want an open-source client for following and posting across several networks. Its <a href="https://github.com/flaresocialapp/Flare">project README</a> lists a mixed timeline, cross-posting, and support for Mastodon, Misskey, Bluesky, X, Pixiv, Fanbox, Nostr, and RSS. It names more networks than Mima, but network support does not mean every account offers the same posting or messaging features.</p>
+<p>Flare’s <a href="https://flareapp.moe/">desktop client is in open beta</a> with no subscription or waitlist advertised. The separate Web Beta supports only Mastodon, Misskey, and Bluesky, and its features remain incomplete. The README mentions macOS, Windows, Linux, iOS, and Android, but availability depends on the version and platform. Check the current release before choosing Flare for a particular device.</p>
+<p>Flare runs as a client on your device, and its open-source license lets you inspect how it handles data. Its X integration uses X's private web interface and can break if X changes it. Optional AI can use an external provider you configure rather than on-device processing. Flare can post directly to X, while Mima hands X and LinkedIn drafts to their own composers for your confirmation. Neither client's cross-posting replaces Mixpost's scheduled publishing workflow.</p>
+<h2 id="which-one-fits-your-workflow">Which one fits your workflow</h2>
+<p>If you mainly want to follow people and reply without switching apps, <a href="https://www.mima.social">Mima</a> fits that daily routine. It brings a feed and inbox together for Bluesky, X, LinkedIn, and Mastodon. Account content goes directly to the local app without passing through Mima servers.</p>
+<p>If you run a brand's publishing calendar, <a href="https://mixpost.app/pricing">Mixpost</a> fits a different job. It schedules posts using official network APIs, and Pro adds approvals. Self-hosting requires a server and developer apps; Mixpost Cloud handles both.</p>
+<p>If you want an open-source client with more listed networks, <a href="https://github.com/flaresocialapp/Flare">Flare</a> offers a mixed timeline and cross-posting. Check the <a href="https://flareapp.moe/">current beta</a> for platform availability and network features. Mima and Flare help you compose across networks; Mixpost's calendar fits posts that must go out later or pass through approval.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Is Mima free?</strong> Yes. <a href="https://www.mima.social">Mima’s Apple Silicon Mac beta</a> is free.</p>
+<p><strong>Does Mima support Instagram or TikTok?</strong> No. The current beta supports Bluesky, X, LinkedIn, and Mastodon.</p>
+<p><strong>Is Mixpost really free?</strong> <a href="https://mixpost.app/pricing">Mixpost Lite</a> is free, but you still pay for a server and any applicable network API usage. <a href="https://docs.mixpost.app/services/social/x">X's pay-as-you-go API</a> requires a developer app and bills for posts read and published. Pro costs $299 for a self-hosted license, excluding VAT.</p>
+<p><strong>Is Flare fully open source and private?</strong> <a href="https://github.com/flaresocialapp/Flare">Flare's repository</a> lists an AGPL-3.0 license. The client runs on your device, but open source alone is not a privacy guarantee. Optional AI can send content to a provider you configure.</p>
+<p><strong>Can I schedule posts with Mima?</strong> No. Mima lets you compose once and post across its supported networks, but it does not schedule posts.</p>
+<p><strong>Which tools use the official X API?</strong> Mixpost does. Flare uses X's private web interface through a signed-in web session, while Mima reads X's website in a signed-in window and leaves posting for you to confirm in X's composer.</p>
+<h2 id="try-mima-for-a-private-unified-feed">Try Mima for a private, unified feed</h2>
+<p>If you want to manage multiple social media accounts through a local feed and inbox, try the free Apple Silicon Mac beta on <a href="https://www.mima.social">Mima’s homepage</a>. Account content goes directly to the app without passing through Mima servers. Choose a tool based on whether you follow conversations or run a publishing operation, rather than which one lists more features.</p>
+    </div>
+    <section class="try" aria-labelledby="try-title">
+      <h2 id="try-title">Try it in Mima</h2>
+      <p>A private, unified feed and inbox for Bluesky, X, LinkedIn and Mastodon, running on your Mac. One feed of the people you follow, one composer for every network, and one inbox for your conversations.</p>
+      <a class="download" href="https://www.mima.social/download" data-download><svg class="i" aria-hidden="true" focusable="false"><use href="#i-download"></use></svg><b>Download for Mac</b><small>Free beta · for Apple Silicon Macs</small></a>
+      <figure class="try-shot"><img src="/site-assets/app/feed.webp" alt="The Mima News Wall: posts from friends on Bluesky, X, LinkedIn and Mastodon in one timeline" width="1600" height="1080" loading="lazy"></figure>
+    </section>
+    <div class="after"><section aria-labelledby="related-title"><h2 id="related-title">Related guides</h2><ul class="entries"><li class="entry"><h3><a href="/learn/cross-post-bluesky-x-linkedin-mastodon-mac/">How to Cross-Post to Bluesky, X, LinkedIn, and Mastodon from a Mac</a></h3><p>On an Apple Silicon Mac, Mima lets you sign in to Bluesky, X, LinkedIn, and Mastodon with each network’s own login, then compose once and publish across all four accounts.</p><p class="meta"><time datetime="2026-11-09">9 Nov 2026</time> · <span>Posting</span></p></li></ul></section></div>
+  </article>
+</main>
+<footer class="site">
+  <div class="wrap">
+    <p class="legal"><strong>Mima Labs LTD</strong>&nbsp;is registered in England and Wales, company number 17376227<br />
+      <i>36 East Stockwell Street, Colchester, Essex, CO1 1ST, England, United Kingdom</i><br />
+      <a href="mailto:aloha@mima.social">aloha@mima.social</a> · <a href="/learn/">Learn</a></p>
+    <p class="byline"><span>Made with</span><svg class="i" aria-hidden="true" focusable="false"><use href="#heart-filled"></use></svg><span>and</span><svg class="i" aria-hidden="true" focusable="false"><use href="#sparkle"></use></svg><span>by <a href="https://dressedforspace.com">Dressed for Space</a></span></p>
+  </div>
+</footer>
+<script src="/learn/learn.js" defer></script>
+</body>
+</html>

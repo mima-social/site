@@ -304,6 +304,13 @@
   });
 
   if (!useSheet) return;
+  // Learn pages send phones here with #get-mima, so the sheet opens straight away.
+  if (location.hash === "#get-mima" && touch.matches) {
+    sheetPlacement = "learn";
+    sheetLink = document.querySelector("[data-download]");
+    history.replaceState(null, "", location.pathname + location.search);
+    sheet.showModal();
+  }
   var form = document.getElementById("sheet-form");
   var input = document.getElementById("sheet-email");
   var updates = document.getElementById("sheet-updates");
