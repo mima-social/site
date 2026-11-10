@@ -113,8 +113,7 @@ def nice_date(d):
 def sprite():
     """Pull the icons Learn uses out of the landing page, so they stay in step."""
     page = (ROOT / "index.html").read_text()
-    want = ["people", "i-send", "i-inbox", "i-shield", "i-ai", "i-info", "i-home", "i-key",
-            "i-download", "arrow-right", "arrow-left", "heart-filled", "sparkle", "i-email"]
+    want = ["i-download", "arrow-right", "arrow-left", "heart-filled", "sparkle", "i-email"]
     out = []
     for name in want:
         m = re.search(rf'<symbol id="{name}".*?</symbol>', page, re.S)
@@ -259,7 +258,6 @@ def index_page(topics, articles):
                 f'<a class="more quiet" href="{t["url"]}">About this topic<span class="sr-only">: {esc(t["name"])}</span>{icon("arrow-right")}</a>')
         shelves.append(f"""<section class="shelf" aria-labelledby="shelf-{t['slug']}">
       <div class="shelf-head">
-        <span class="ic">{icon(t['icon'])}</span>
         <h3 id="shelf-{t['slug']}"><a href="{t['url']}">{esc(t['name'])}</a></h3>
         <p class="count">{n} guide{'s' if n != 1 else ''}</p>
       </div>
@@ -284,7 +282,7 @@ def index_page(topics, articles):
       <div>
         <h1>Keep up with your people, not the algorithms</h1>
         <p class="lede">Plain guides to following friends, posting and keeping conversations going across Bluesky, X, LinkedIn and Mastodon, and how Mima brings it all into one calm place.</p>
-        <p class="agents">{len(articles)} guides in {sum(1 for t in topics if t["articles"])} topics. For AI assistants, every guide is also published as Markdown and listed in <a href="/llms.txt">llms.txt</a>.</p>
+        <p class="agents">For AI assistants, every guide is also published as Markdown and listed in <a href="/llms.txt">llms.txt</a>.</p>
       </div>
       <section class="latest" aria-labelledby="latest-title">
         <h2 id="latest-title">Latest guides</h2>
@@ -407,7 +405,7 @@ def article_page(a, by_slug):
 def article_md(a, by_slug):
     lines = [f"# {a['title']}", "", f"> {a['summary']}", "",
              f"Topic: {a['topic']} · Updated: {a['updated_d']} · Source: {SITE}{a['url']}", "",
-             a["body_md"].strip(), ""]
+             re.sub(r"\]\(/", f"]({SITE}/", a["body_md"].strip()), ""]
     related = [by_slug[s] for s in a["related"]]
     if related:
         lines += ["## Related guides", ""] + [f"- [{r['title']}]({SITE}{r['md_url']}): {r['summary']}" for r in related] + [""]

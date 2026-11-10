@@ -59,20 +59,27 @@ mima: Optional one-line pitch for the "Try it in Mima" box
 ---
 ```
 
-- **Topics** are in `learn-src/topics.json` (name, slug, icon from the page's
-  sprite, one-line blurb). A shelf on the index shows five guides, then links to
+- **Topics** are in `learn-src/topics.json` (name, slug, one-line blurb), in
+  the order the shelves appear. A shelf on the index shows five guides, then links to
   the topic page with all of them.
-- **Common questions:** a `## Common questions` section with `###` questions is
-  also published as FAQ structured data.
+- **Common questions:** a `## FAQ` (or `## Common questions`) section is also
+  published as FAQ structured data. Write each question as a `###` heading, or
+  start a paragraph with the question in bold: `**Can I schedule posts?** No.`
 - **Markdown supported:** headings, lists, links, bold/italic, inline code, code
-  blocks, tables, `>` callouts and images. Use raw HTML for anything else.
+  blocks, tables, `>` callouts and images. An image alone on its line becomes
+  a captioned figure: `![alt text](/site-assets/app/board.webp "Caption")`. A
+  table with more than four columns scrolls sideways with its first column
+  pinned. Use raw HTML for anything else.
+- **Pictures of the app** come from `app-shots/` (fictional people and posts);
+  add a view there rather than using a real screenshot.
 - **Claims:** guides follow the same rules as the landing page (`PRODUCT.md`):
   only shipped features, nothing about Windows, Linux or unshipped networks.
 - **On phones**, Download on a Learn page goes to `/#get-mima`, which opens the
   home page's email-the-link sheet.
 
-The 18 guides there now are placeholders; article one uses every element, so
-check template changes against it.
+Before publishing a guide, check every claim about Mima against the app's code
+(`mima-social/desktop`, `next` branch), and say in a caption that the people in
+app pictures are made up.
 
 ## App screenshots
 

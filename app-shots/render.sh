@@ -48,3 +48,16 @@ echo "rendered site-assets/app/summary-card.webp"
 cwebp -quiet -q 84 "site-assets/app/timeline-strip.png" -o "site-assets/app/timeline-strip.webp"
 rm "site-assets/app/timeline-strip.png"
 echo "rendered site-assets/app/timeline-strip.webp"
+# Learn guide views (learn/cross-post-bluesky-x-linkedin-mastodon-mac).
+for spec in "accounts-card 720 650" "post-status 960 820" "sort-menu 960 420" "omni-reply 960 648" "compose-typed 960 648"; do
+  set -- $spec
+  OUT="$1"; [ "$1" = compose-typed ] && OUT=compose-typed-desk
+  "$CHROME" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=2 \
+    --virtual-time-budget=4000 --window-size="$2,$3" \
+    --screenshot="site-assets/app/$OUT.png" "http://localhost:$PORT/app-shots/$1.html" 2>/dev/null
+  # The composer shot keeps only the bottom of the window, so the composer reads.
+  CROP=""; [ "$OUT" = compose-typed-desk ] && CROP="-crop 0 720 1920 576"
+  cwebp -quiet -q 88 $CROP "site-assets/app/$OUT.png" -o "site-assets/app/$OUT.webp"
+  rm "site-assets/app/$OUT.png"
+  echo "rendered site-assets/app/$OUT.webp"
+done

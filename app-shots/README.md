@@ -53,6 +53,11 @@ To look at a dummy page in a browser, serve the repo root
    | `summary-card.html` | Just that conversation dialog, close up | AI section |
    | `thread.html` | An open DM thread | Spare view |
    | `phone.html` | Loads any page in a 390px frame | Phone renders (see below) |
+   | `accounts-card.html` | Settings, Accounts tab with all four networks connected (dialog alone) | Learn: cross-posting guide |
+   | `post-status.html` | Your own posts on the News Wall: Posting…, Not sent (Retry / Edit / Discard), and sent to four networks | Learn: cross-posting guide |
+   | `sort-menu.html` | The News Wall sort menu open: Newest, Most active, Least active | Learn: cross-posting guide |
+   | `omni-reply.html` | The composer replying to your own cross-post, all four networks selected | Learn: cross-posting guide |
+   | `accounts.html` | The same Settings dialog over the board | Spare view |
 
    People and media are fictional:
    - handles use reserved `.example` domains or `_demo` suffixes so none can
@@ -71,6 +76,11 @@ To look at a dummy page in a browser, serve the repo root
    | `summary` | 800 × 660 | |
    | `summary-card` | 720 × 542 | Close-up for the AI section |
    | `timeline-strip` | 960 × 3400 | Tall, so it can scroll |
+   | `accounts-card` | 720 × 650 | Learn |
+   | `post-status` | 960 × 820 | Learn |
+   | `sort-menu` | 960 × 420 | Learn |
+   | `omni-reply` | 960 × 648 | Learn |
+   | `compose-typed-desk` | 960 × 648, cropped to the bottom 288 px | Learn: just the composer |
    | `<view>-m` (phones) | 390 × 520, via `phone.html` | The narrow layout in `app.css` (`max-width: 520px`) reflows the UI, then the result is cropped to 780 × 1040 |
 
    Headless Chrome won't make a window narrower than ~500px, which is why the
@@ -90,6 +100,8 @@ To look at a dummy page in a browser, serve the repo root
   `launch.css`, with the loop distance set by `@keyframes timeline`, which
   equals the strip's height ÷ width × 100cqw.
 - **AI section**: `summary-card.webp`.
+- **Learn guides** use the Learn views above as figures in their Markdown
+  (`![alt](/site-assets/app/<view>.webp "caption")`), plus `conversations.webp`.
 - **Phones** (≤ 600px): every `<picture>` swaps to the `-m` image; the zoom,
   typing and scroller are off.
 

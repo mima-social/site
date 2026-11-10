@@ -2,7 +2,8 @@
 
 It covers what the Learn articles use: front matter, headings (with ids),
 paragraphs, ordered and unordered lists (one level of nesting), blockquotes,
-fenced code, tables, horizontal rules, and the inline forms **bold**,
+fenced code, tables, horizontal rules, figures (an image alone on its line,
+with an optional "caption" title), and the inline forms **bold**,
 *italic*, `code`, [links](url) and ![images](src). Raw HTML lines pass
 through unchanged. Anything fancier belongs in raw HTML in the article.
 """
@@ -59,7 +60,8 @@ def _table(rows):
     aligns = []
     for spec in cells(rows[1]):
         aligns.append("right" if spec.endswith(":") and not spec.startswith(":") else "")
-    out = ['<div class="table-wrap"><table>', "<thead><tr>"]
+    wide = " wide" if len(head) > 4 else ""  # many columns: scroll sideways, first column pinned
+    out = [f'<div class="table-wrap{wide}" tabindex="0" role="region" aria-label="Table, scrolls sideways"><table>' if wide else '<div class="table-wrap"><table>', "<thead><tr>"]
     for i, c in enumerate(head):
         style = f' class="num"' if i < len(aligns) and aligns[i] == "right" else ""
         out.append(f'<th scope="col"{style}>{inline(c)}</th>')
@@ -138,6 +140,13 @@ def to_html(body):
             continue
         if re.match(r"^(-{3,}|\*{3,})$", stripped):
             out.append("<hr>")
+            i += 1
+            continue
+        fig = re.match(r'^!\[([^\]]*)\]\(([^)\s]+)(?:\s+"([^"]*)")?\)$', stripped)
+        if fig:
+            alt, src, cap = fig.group(1), fig.group(2), fig.group(3)
+            caption = f"<figcaption>{inline(cap)}</figcaption>" if cap else ""
+            out.append(f'<figure><img src="{src}" alt="{html.escape(alt)}" loading="lazy">{caption}</figure>')
             i += 1
             continue
         if stripped.startswith("<"):
