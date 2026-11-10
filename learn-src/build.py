@@ -275,7 +275,7 @@ def index_page(topics, articles):
         crumbs_ld([("Home", "/"), ("Learn", "/learn/")]),
     ]}
     return head("Learn: guides to calmer social media · Mima", desc, "/learn/", ld,
-                f'<link rel="alternate" type="text/plain" href="{SITE}/llms.txt" title="llms.txt" />') + f"""
+                md_link("/learn/index.md", "Learn as Markdown")) + f"""
 <main id="content">
   <section class="intro">
     <div class="wrap intro-grid">
@@ -315,7 +315,8 @@ def topic_page(t, topics):
              for i, a in enumerate(t["articles"])]}},
         crumbs_ld([("Home", "/"), ("Learn", "/learn/"), (t["name"], t["url"])]),
     ]}
-    return head(f"{t['name']} · Learn · Mima", t["blurb"], t["url"], ld) + f"""
+    return head(f"{t['name']} · Learn · Mima", t["blurb"], t["url"], ld,
+                md_link(f"/learn/topics/{t['slug']}.md", f"{t['name']} as Markdown")) + f"""
 <main id="content">
   <div class="wrap topic">
     <header class="topic-head">
@@ -368,7 +369,7 @@ def article_page(a, by_slug):
             {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": ans}}
             for q, ans in a["faq"]]})
     note = a.get("mima") or MIMA_LINE
-    extra = f'<link rel="alternate" type="text/markdown" href="{SITE}{a["md_url"]}" title="This guide as Markdown" />'
+    extra = md_link(a["md_url"], "This guide as Markdown")
     return head(f"{a['title']} · Learn · Mima", a["summary"], a["url"],
                 {"@context": "https://schema.org", "@graph": graph}, extra) + f"""
 <main id="content">
@@ -402,6 +403,40 @@ def article_page(a, by_slug):
 {foot()}"""
 
 
+def md_link(path, title):
+    """The <head> pointer from a page to its Markdown version, for agents and crawlers."""
+    return f'<link rel="alternate" type="text/markdown" href="{SITE}{path}" title="{esc(title)}" />'
+
+
+ABOUT_MIMA = ("Mima is a free desktop app (beta, Apple Silicon Macs) with one feed of the people you follow on "
+              "Bluesky, X, LinkedIn and Mastodon, one composer for posting to several networks, and one inbox for "
+              f"conversations. Download: {DOWNLOAD}. Overview for AI assistants: {SITE}/llms.txt")
+
+
+def guide_line(a):
+    return f"- [{a['title']}]({SITE}{a['md_url']}): {a['summary']} (Updated {a['updated_d']}.)"
+
+
+def index_md(topics, articles):
+    latest = sorted(articles, key=lambda a: (a["published_d"], -a["order"]), reverse=True)[:LATEST_COUNT]
+    lines = ["# Learn: keep up with your people, not the algorithms", "",
+             "> Plain guides from the makers of Mima to following friends, posting and keeping conversations going "
+             "across Bluesky, X, LinkedIn and Mastodon. Each guide links to its Markdown version.", "",
+             f"Source: {SITE}/learn/", "", "## Latest guides", ""] + [guide_line(a) for a in latest] + [""]
+    for t in topics:
+        if t["articles"]:
+            lines += [f"## {t['name']}", "", t["blurb"], ""] + [guide_line(a) for a in t["articles"]] + ["",
+                f"All {t['name']} guides: {SITE}/learn/topics/{t['slug']}.md", ""]
+    lines += ["---", "", f"About Mima: {ABOUT_MIMA}", ""]
+    return "\n".join(lines)
+
+
+def topic_md(t):
+    lines = [f"# {t['name']}", "", f"> {t['blurb']}", "", f"Source: {SITE}{t['url']} · Part of {SITE}/learn/index.md", ""]
+    lines += [guide_line(a) for a in t["articles"]] + ["", "---", "", f"About Mima: {ABOUT_MIMA}", ""]
+    return "\n".join(lines)
+
+
 def article_md(a, by_slug):
     lines = [f"# {a['title']}", "", f"> {a['summary']}", "",
              f"Topic: {a['topic']} · Updated: {a['updated_d']} · Source: {SITE}{a['url']}", "",
@@ -433,7 +468,8 @@ def sitemap(topics, articles):
 
 
 ROBOTS = f"""# mima.social: everything is public. Crawlers and AI agents are welcome.
-# Guides for agents live at /learn/ (each also as Markdown: /learn/<guide>.md).
+# Guides for agents live at /learn/. Every Learn page has a Markdown version,
+# linked from its <head>; start at /learn/index.md.
 User-agent: *
 Allow: /
 Disallow: /api/
@@ -444,7 +480,7 @@ Sitemap: {SITE}/sitemap.xml
 
 def llms_section(topics):
     out = ["## Learn", "",
-           f"Guides from the makers of Mima. Each is also published as Markdown at the link below; the HTML version is at the same path without `.md`. Index: {SITE}/learn/", ""]
+           f"Guides from the makers of Mima. Each is also published as Markdown at the link below; the HTML version is at the same path without `.md`. Index: {SITE}/learn/index.md", ""]
     for t in topics:
         if not t["articles"]:
             continue
@@ -494,9 +530,11 @@ def main():
                 p.rmdir()
 
     write(OUT / "index.html", index_page(topics, articles))
+    write(OUT / "index.md", index_md(topics, articles))
     for t in topics:
         if t["articles"]:
             write(OUT / "topics" / t["slug"] / "index.html", topic_page(t, topics))
+            write(OUT / "topics" / f"{t['slug']}.md", topic_md(t))
     for a in articles:
         write(OUT / a["slug"] / "index.html", article_page(a, by_slug))
         write(OUT / f"{a['slug']}.md", article_md(a, by_slug))

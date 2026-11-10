@@ -1,4 +1,8 @@
-# Learn guides as Markdown, for agents
+# Markdown versions of the Learn pages, for agents. noindex keeps them out of
+# search results as duplicates of the HTML pages; agents can still fetch them.
 /learn/*.md
+  Content-Type: text/markdown; charset=utf-8
+  X-Robots-Tag: noindex
+/learn/topics/*.md
   Content-Type: text/markdown; charset=utf-8
   X-Robots-Tag: noindex

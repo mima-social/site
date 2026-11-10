@@ -1,5 +1,6 @@
 # mima.social: everything is public. Crawlers and AI agents are welcome.
-# Guides for agents live at /learn/ (each also as Markdown: /learn/<guide>.md).
+# Guides for agents live at /learn/. Every Learn page has a Markdown version,
+# linked from its <head>; start at /learn/index.md.
 User-agent: *
 Allow: /
 Disallow: /api/

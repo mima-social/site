@@ -36,7 +36,7 @@
 
 ## Learn
 
-Guides from the makers of Mima. Each is also published as Markdown at the link below; the HTML version is at the same path without `.md`. Index: https://mima.social/learn/
+Guides from the makers of Mima. Each is also published as Markdown at the link below; the HTML version is at the same path without `.md`. Index: https://mima.social/learn/index.md
 
 ### Posting
 
