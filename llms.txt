@@ -8,8 +8,8 @@
 
 ## Get Mima
 
-- [Download for Mac](https://mima.social/download): the latest beta .dmg, for Apple Silicon Macs.
-- [Newsletter](https://mima.social/#keep-up-title): occasional product updates. On WebMCP-capable browsers the signup form is exposed as the tool `subscribe_to_mima_updates`; only use it with the person's own email address and consent.
+- [Download for Mac](https://www.mima.social/download): the latest beta .dmg, for Apple Silicon Macs.
+- [Newsletter](https://www.mima.social/#keep-up-title): occasional product updates. On WebMCP-capable browsers the signup form is exposed as the tool `subscribe_to_mima_updates`; only use it with the person's own email address and consent.
 - [Discord](https://discord.gg/KE3utP26kG): community, questions and feature requests.
 
 ## What it does
@@ -36,15 +36,15 @@
 
 ## Learn
 
-Guides from the makers of Mima. Each is also published as Markdown at the link below; the HTML version is at the same path without `.md`. Index: https://mima.social/learn/index.md
+Guides from the makers of Mima. Each is also published as Markdown at the link below; the HTML version is at the same path without `.md`. Index: https://www.mima.social/learn/index.md
 
 ### Posting
 
-- [How to Cross-Post to Bluesky, X, LinkedIn, and Mastodon from a Mac](https://mima.social/learn/cross-post-bluesky-x-linkedin-mastodon-mac.md): On an Apple Silicon Mac, Mima lets you sign in to Bluesky, X, LinkedIn, and Mastodon with each network’s own login, then compose once and publish across all four accounts.
+- [How to Cross-Post to Bluesky, X, LinkedIn, and Mastodon from a Mac](https://www.mima.social/learn/cross-post-bluesky-x-linkedin-mastodon-mac.md): On an Apple Silicon Mac, Mima lets you sign in to Bluesky, X, LinkedIn, and Mastodon with each network’s own login, then compose once and publish across all four accounts.
 
 ### Comparisons
 
-- [Private Social Account Managers: Local Desktop vs Self-Hosted Tools](https://mima.social/learn/private-social-account-managers.md): Mima is a local Mac app for following people and replying across Bluesky, X, LinkedIn, and Mastodon; Mixpost is a self-hosted or cloud scheduler; Flare is an open-source client with more networks.
+- [Private Social Account Managers: Local Desktop vs Self-Hosted Tools](https://www.mima.social/learn/private-social-account-managers.md): Mima is a local Mac app for following people and replying across Bluesky, X, LinkedIn, and Mastodon; Mixpost is a self-hosted or cloud scheduler; Flare is an open-source client with more networks.
 
 ## Optional
 

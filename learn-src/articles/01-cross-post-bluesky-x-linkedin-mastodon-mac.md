@@ -10,7 +10,7 @@ mima: Write once, share to Bluesky, X, LinkedIn and Mastodon, and answer every r
 
 ## TL;DR
 
-- On an Apple Silicon Mac, [Mima](https://mima.social) lets you sign in to Bluesky, X, LinkedIn, and Mastodon with each network’s own login. You can then compose once and publish across the four accounts.
+- On an Apple Silicon Mac, [Mima](https://www.mima.social) lets you sign in to Bluesky, X, LinkedIn, and Mastodon with each network’s own login. You can then compose once and publish across the four accounts.
 - Mima brings incoming posts from your social networks into a feed you can sort by newest, most active or least active. Meanwhile, mentions and DMs accumulate in a unified inbox.
 - Choose Mima for cross-platform posting from a private desktop app.
 
@@ -24,11 +24,11 @@ Mima also lets you reply to your own cross-posts from the same composer, making 
 
 ![The composer replying to your own cross-post: a box shows “Replying to” with the original post, a link is typed in, and all four networks are selected](/site-assets/app/omni-reply.webp "Replying to your own cross-post adds the reply to every copy you choose: handy for a link in reply.")
 
-On an Apple Silicon Mac, [Mima](https://mima.social) supports all four networks. You connect your existing accounts using each network’s own login, then compose once to share across them. Mima also brings your chronological feeds and inbox into its desktop app, so you can read posts and handle replies without returning to four separate apps.
+On an Apple Silicon Mac, [Mima](https://www.mima.social) supports all four networks. You connect your existing accounts using each network’s own login, then compose once to share across them. Mima also brings your chronological feeds and inbox into its desktop app, so you can read posts and handle replies without returning to four separate apps.
 
 ## How Mima's compose-once workflow actually works
 
-To cross-post to Bluesky, X, LinkedIn, and Mastodon, first connect each account in [Mima](https://mima.social).
+To cross-post to Bluesky, X, LinkedIn, and Mastodon, first connect each account in [Mima](https://www.mima.social).
 
 - **You do not need a Mima account.** Mima is software that runs on your machine, so it doesn't require any additional accounts to use. (Once upon a time, software did not require accounts to run locally!)
 - **Mima does not store your passwords** and keeps you signed in on your computer.
@@ -52,11 +52,11 @@ The News Wall shows the people you follow in time order, and you can sort it by 
 
 ## What Mima does not do: scheduling, analytics, and unsupported networks
 
-Mima supports cross-posting to [Bluesky, X, LinkedIn, and Mastodon](https://mima.social). It does not support Instagram, Facebook, or TikTok. Tell us which networks you'd like to see next!
+Mima supports cross-posting to [Bluesky, X, LinkedIn, and Mastodon](https://www.mima.social). It does not support Instagram, Facebook, or TikTok. Tell us which networks you'd like to see next!
 
 ### When a scheduler or agency tool fits better than compose-and-publish
 
-Mima’s [compose-and-publish workflow](https://mima.social) fits when you want to write a post on your Mac and publish it yourself. If posts must go live while you are away, or clients must approve drafts before publication, look for a scheduler or agency tool built around those steps.
+Mima’s [compose-and-publish workflow](https://www.mima.social) fits when you want to write a post on your Mac and publish it yourself. If posts must go live while you are away, or clients must approve drafts before publication, look for a scheduler or agency tool built around those steps.
 
 Approval needs depend on who can publish. [BskyGrowth’s small-team guidance](https://blog.bskygrowth.com/social-media-approval-workflow-small-team/) says a solo operator posting under their own name may not need formal review. It suggests that two or three people can use a shared checklist, while a third regular contributor who needs a separate reviewer role may justify a paid approval tool.
 

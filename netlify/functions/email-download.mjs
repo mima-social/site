@@ -8,7 +8,7 @@
 //   LOOPS_DOWNLOAD_EMAIL_ID  id of the "Your Mima download link" transactional email
 //   LOOPS_MAILING_LIST_ID  id of the product-updates mailing list
 const LOOPS = "https://app.loops.so/api/v1";
-const DOWNLOAD_URL = "https://mima.social/download";
+const DOWNLOAD_URL = "https://www.mima.social/download";
 const SOURCE = "Mobile download sheet at mima.social 2026.q4";
 const ORIGINS = ["https://mima.social", "https://www.mima.social"];
 

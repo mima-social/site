@@ -5,4 +5,4 @@ User-agent: *
 Allow: /
 Disallow: /api/
 
-Sitemap: https://mima.social/sitemap.xml
+Sitemap: https://www.mima.social/sitemap.xml

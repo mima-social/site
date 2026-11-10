@@ -28,10 +28,10 @@ import md  # noqa: E402
 HERE = pathlib.Path(__file__).parent
 ROOT = HERE.parent
 OUT = ROOT / "learn"
-SITE = "https://mima.social"
+SITE = "https://www.mima.social"
 SHELF_LIMIT = 5   # entries a topic shelf shows before "All N guides"
 LATEST_COUNT = 5  # entries in the index's Latest list
-DOWNLOAD = "https://mima.social/download"
+DOWNLOAD = "https://www.mima.social/download"
 GA_ID = "G-GHJGZHDR95"
 MIMA_LINE = "Mima collects all your social feeds and friends in one calm place."
 
