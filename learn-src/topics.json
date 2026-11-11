@@ -5,6 +5,11 @@
     "blurb": "Write once and share to Bluesky, X, LinkedIn and Mastodon, then keep up with the replies in one place."
   },
   {
+    "name": "Conversations",
+    "slug": "conversations",
+    "blurb": "Keep up with mentions and DMs from every network in one inbox, and follow up without losing track."
+  },
+  {
     "name": "Comparisons",
     "slug": "comparisons",
     "blurb": "How Mima compares with other ways to manage several social accounts, and when another tool fits better."

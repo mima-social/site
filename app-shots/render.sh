@@ -49,7 +49,7 @@ cwebp -quiet -q 84 "site-assets/app/timeline-strip.png" -o "site-assets/app/time
 rm "site-assets/app/timeline-strip.png"
 echo "rendered site-assets/app/timeline-strip.webp"
 # Learn guide views (learn/cross-post-bluesky-x-linkedin-mastodon-mac).
-for spec in "accounts-card 720 650" "post-status 960 820" "sort-menu 960 420" "omni-reply 960 648" "compose-typed 960 648"; do
+for spec in "inbox-summary 960 648" "accounts-card 720 650" "post-status 960 820" "sort-menu 960 420" "omni-reply 960 648" "compose-typed 960 648"; do
   set -- $spec
   OUT="$1"; [ "$1" = compose-typed ] && OUT=compose-typed-desk
   "$CHROME" --headless=new --disable-gpu --hide-scrollbars --force-device-scale-factor=2 \

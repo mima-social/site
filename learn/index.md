@@ -6,6 +6,7 @@ Source: https://www.mima.social/learn/
 
 ## Latest guides
 
+- [Private Unified Social Inbox for Mac: Manage Messages and Mentions with Mima](https://www.mima.social/learn/private-unified-social-inbox-mac.md): Mima brings mentions and DMs from Bluesky, X, LinkedIn, and Mastodon into one private inbox on your Mac, where you can filter, reply, pin conversations, set reminders, and catch up with optional Thread Summaries. (Updated 2026-11-11.)
 - [Private Social Account Managers: Local Desktop vs Self-Hosted Tools](https://www.mima.social/learn/private-social-account-managers.md): Mima is a local Mac app for following people and replying across Bluesky, X, LinkedIn, and Mastodon; Mixpost is a self-hosted or cloud scheduler; Flare is an open-source client with more networks. (Updated 2026-11-10.)
 - [How to Cross-Post to Bluesky, X, LinkedIn, and Mastodon from a Mac](https://www.mima.social/learn/cross-post-bluesky-x-linkedin-mastodon-mac.md): On an Apple Silicon Mac, Mima lets you sign in to Bluesky, X, LinkedIn, and Mastodon with each network’s own login, then compose once and publish across all four accounts. (Updated 2026-11-09.)
 
@@ -16,6 +17,14 @@ Write once and share to Bluesky, X, LinkedIn and Mastodon, then keep up with the
 - [How to Cross-Post to Bluesky, X, LinkedIn, and Mastodon from a Mac](https://www.mima.social/learn/cross-post-bluesky-x-linkedin-mastodon-mac.md): On an Apple Silicon Mac, Mima lets you sign in to Bluesky, X, LinkedIn, and Mastodon with each network’s own login, then compose once and publish across all four accounts. (Updated 2026-11-09.)
 
 All Posting guides: https://www.mima.social/learn/topics/posting.md
+
+## Conversations
+
+Keep up with mentions and DMs from every network in one inbox, and follow up without losing track.
+
+- [Private Unified Social Inbox for Mac: Manage Messages and Mentions with Mima](https://www.mima.social/learn/private-unified-social-inbox-mac.md): Mima brings mentions and DMs from Bluesky, X, LinkedIn, and Mastodon into one private inbox on your Mac, where you can filter, reply, pin conversations, set reminders, and catch up with optional Thread Summaries. (Updated 2026-11-11.)
+
+All Conversations guides: https://www.mima.social/learn/topics/conversations.md
 
 ## Comparisons
 

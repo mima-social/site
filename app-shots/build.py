@@ -346,6 +346,10 @@ omni_reply = page("News Wall", news_head("Timeline") + '\n<div class="feed">' + 
                   composer=composer_html("Find your plot here: map.garden.example", nets=ALL_NETS,
                                          reply=("rosalin.example", P_SENT["body"])))
 
-for name, html in {"accounts": accounts, "accounts-card": accounts_card, "post-status": post_status, "sort-menu": sort_menu, "omni-reply": omni_reply, "summary-card": summary_card, "summary": summary, "timeline-strip": timeline_strip, "feed": feed, "board": board, "compose": compose, "compose-typed": compose_typed, "conversations": conversations, "thread": thread}.items():
+# The inbox with an AI summary standing in for a busy conversation's preview
+# (ConversationListItem.tsx: shown when a conversation has >1 unread).
+inbox_summary = page("Conversations", conv_head + '\n<div class="rows">' + "".join(SUM_ROWS) + "</div>")
+
+for name, html in {"inbox-summary": inbox_summary, "accounts": accounts, "accounts-card": accounts_card, "post-status": post_status, "sort-menu": sort_menu, "omni-reply": omni_reply, "summary-card": summary_card, "summary": summary, "timeline-strip": timeline_strip, "feed": feed, "board": board, "compose": compose, "compose-typed": compose_typed, "conversations": conversations, "thread": thread}.items():
     (HERE / f"{name}.html").write_text(html)
     print("wrote", f"app-shots/{name}.html")
