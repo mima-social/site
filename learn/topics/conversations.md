@@ -4,7 +4,7 @@
 
 Source: https://www.mima.social/learn/topics/conversations/ · Part of https://www.mima.social/learn/index.md
 
-- [Private Unified Social Inbox for Mac: Manage Messages and Mentions with Mima](https://www.mima.social/learn/private-unified-social-inbox-mac.md): Mima brings mentions and DMs from Bluesky, X, LinkedIn, and Mastodon into one private inbox on your Mac, where you can reply, pin conversations, and set reminders to follow up. (Updated 2026-11-11.)
+- [Private Unified Social Inbox for Mac: Manage Messages and Mentions with Mima](https://www.mima.social/learn/private-unified-social-inbox-mac.md): Mima brings mentions and DMs from Bluesky, X, LinkedIn, and Mastodon into one private inbox on your Mac, where you can filter, reply, pin conversations, set reminders, and catch up with optional Thread Summaries. (Updated 2026-11-11.)
 
 ---
 

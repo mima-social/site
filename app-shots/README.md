@@ -58,6 +58,7 @@ To look at a dummy page in a browser, serve the repo root
    | `sort-menu.html` | The News Wall sort menu open: Newest, Most active, Least active | Learn: cross-posting guide |
    | `omni-reply.html` | The composer replying to your own cross-post, all four networks selected | Learn: cross-posting guide |
    | `accounts.html` | The same Settings dialog over the board | Spare view |
+   | `inbox-summary.html` | Conversations list with an AI summary row for a busy conversation | Learn: inbox guide |
 
    People and media are fictional:
    - handles use reserved `.example` domains or `_demo` suffixes so none can
@@ -76,6 +77,7 @@ To look at a dummy page in a browser, serve the repo root
    | `summary` | 800 × 660 | |
    | `summary-card` | 720 × 542 | Close-up for the AI section |
    | `timeline-strip` | 960 × 3400 | Tall, so it can scroll |
+   | `inbox-summary` | 960 × 648 | Learn |
    | `accounts-card` | 720 × 650 | Learn |
    | `post-status` | 960 × 820 | Learn |
    | `sort-menu` | 960 × 420 | Learn |

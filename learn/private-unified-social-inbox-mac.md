@@ -1,13 +1,13 @@
 # Private Unified Social Inbox for Mac: Manage Messages and Mentions with Mima
 
-> Mima brings mentions and DMs from Bluesky, X, LinkedIn, and Mastodon into one private inbox on your Mac, where you can reply, pin conversations, and set reminders to follow up.
+> Mima brings mentions and DMs from Bluesky, X, LinkedIn, and Mastodon into one private inbox on your Mac, where you can filter, reply, pin conversations, set reminders, and catch up with optional Thread Summaries.
 
 Topic: Conversations · Updated: 2026-11-11 · Source: https://www.mima.social/learn/private-unified-social-inbox-mac/
 
 ## TL;DR
 
 - Mima brings mentions and DMs from Bluesky, X, LinkedIn, and Mastodon into one local unified inbox. You can read them and reply to them across all four networks.
-- Reply to people, pin conversations that matter, and set reminders to follow up. Mima helps professionals build relationships and brand trust through consistent engagement.
+- Filter by network or public versus private conversation, spot unread items, and follow up with pins and reminders. Optional Thread Summaries help you catch up when a conversation has too many unreads.
 - Mima runs on your Mac, and all your content goes directly to the app without passing through Mima servers.
 
 ## What makes an inbox "unified" and why you need one
@@ -18,25 +18,29 @@ A unified inbox brings messages and mentions from separate social accounts into 
 
 ## A day in Mima's unified inbox: read, reply, pin, remind
 
-Open Mima’s unified inbox and check mentions and DMs across Bluesky, X, LinkedIn, and Mastodon. A developer advocate might answer a LinkedIn question from someone evaluating a product, then reply to a Bluesky DM from a developer they met at a conference. Pin an X thread that needs a thoughtful response, and set a reminder to return to a Mastodon discussion. Reading, replying, and following up across networks helps people recognize a responsive voice over time, whether you represent a brand or build your own professional network.
+Open Mima’s unified inbox and see what is unread across Bluesky, X, LinkedIn, and Mastodon. Filter by network or switch between public conversations, such as mentions and quotes, and private DMs to decide where to engage first. A developer advocate might answer a LinkedIn question from someone evaluating a product, then reply to a Bluesky DM from a developer they met at a conference. Pin an X thread that needs a thoughtful response, and set a reminder to return to a Mastodon discussion. Reading, replying, and following up helps people recognize a responsive voice over time, whether you represent a brand or build your own professional network.
 
 ![An open DM conversation in Mima, with the messages in order and a reply box at the bottom](https://www.mima.social/site-assets/app/thread.webp "Open a conversation to read the whole thread and reply without leaving Mima.")
 
+When a conversation has too many unread messages, enable Thread Summaries to catch up before replying. Mima uses a small language model (SLM) on your Mac to offer a summary in the inbox and at the top of the conversation itself, so you can see the context before you respond.
+
+![The Conversations list with a busy group chat showing an AI summary, in italic serif type, in place of its latest message, above the network, Public and Private, and Unread filters](https://www.mima.social/site-assets/app/inbox-summary.webp "In the inbox, a busy conversation shows its summary in place of the latest message. AI-written text is set in its own style.")
+
+![The same group conversation open, with a “Catch up on this conversation” summary at the top](https://www.mima.social/site-assets/app/summary-card.webp "Open the conversation and the summary is waiting at the top.")
+
 ## How Mima keeps your conversations private
 
-Mima's account content travels directly between your social accounts and the app on your Mac, without passing through Mima servers. Mima has no servers that store your private or public messages. What you say stays between you and your social network.
+Mima's account content travels directly between your social accounts and the app on your Mac, without passing through Mima servers. Mima has no servers that store your private or public messages. What you say stays between you and your social network provider.
 
 Mima does not store your account passwords. You sign in through each network’s own login, and Mima keeps you signed in on your Mac.
 
-AI features are off until you set them up. If you download Mima’s local model, it runs on your Mac, including when you are offline. If you instead add your own OpenAI, Anthropic, or Google API key, content you use with that provider goes to its servers.
-
-![A group conversation in Mima with an AI summary at the top, set in italic serif type so it reads differently from what people wrote](https://www.mima.social/site-assets/app/summary-card.webp "An optional AI summary catches you up on a long conversation. AI-written text is set in its own style, so you can tell it from what people wrote.")
+AI features are off by default. If you enable Mima’s downloadable local model, it runs on your Mac, including when you are offline. If you instead add your own OpenAI, Anthropic, or Google API key, content you use with that provider goes to its servers.
 
 Every Mima release is code-signed and checked by Apple before it reaches your Mac. Those checks provide a way to verify the app’s developer and screen the software.
 
 ## Getting started with Mima on an Apple Silicon Mac
 
-Mima is free and available for Apple Silicon Macs. Visit [Mima’s homepage](https://www.mima.social) on your Mac and select Download for Mac. If you’re on your phone, Mima can email you the download link instead, so you can install it when you’re at your computer. After installation, connect your accounts using each network’s own sign-in.
+Mima is available for Apple Silicon Macs and is free. Visit [Mima’s homepage](https://www.mima.social) on your Mac and select Download for Mac. If you’re on your phone, Mima can email you the download link instead, so you can install it when you’re at your computer. After installation, connect your accounts using each network’s own sign-in.
 
 ## Mima for professional engagement vs. enterprise support
 
