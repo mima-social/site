@@ -113,7 +113,7 @@ def nice_date(d):
 def sprite():
     """Pull the icons Learn uses out of the landing page, so they stay in step."""
     page = (ROOT / "index.html").read_text()
-    want = ["i-download", "arrow-right", "arrow-left", "heart-filled", "sparkle", "i-email"]
+    want = ["i-download", "s-bluesky", "s-x", "s-linkedin", "arrow-right", "arrow-left", "heart-filled", "sparkle", "i-email"]
     out = []
     for name in want:
         m = re.search(rf'<symbol id="{name}".*?</symbol>', page, re.S)
@@ -206,6 +206,7 @@ def foot():
     <p class="legal"><strong>Mima Labs LTD</strong>&nbsp;is registered in England and Wales, company number 17376227<br />
       <i>36 East Stockwell Street, Colchester, Essex, CO1 1ST, England, United Kingdom</i><br />
       <a href="mailto:aloha@mima.social">aloha@mima.social</a> · <a href="/learn/">Learn</a></p>
+    <div class="foot-follow"><span>Follow Mima</span><ul class="socials" aria-label="Mima on social media">{"".join(f'<li><a class="soc {n}" href="{u}" rel="me noopener" aria-label="Mima on {name}" title="Mima on {name}">{icon("s-" + n)}</a></li>' for n, name, u in SOCIALS)}</ul></div>
     <p class="byline"><span>Made with</span>{icon('heart-filled')}<span>and</span>{icon('sparkle')}<span>by <a href="https://dressedforspace.com">Dressed for Space</a></span></p>
   </div>
 </footer>
@@ -215,8 +216,13 @@ def foot():
 """
 
 
+# Mima's own accounts, for the footer and the Organization's sameAs.
+SOCIALS = [("bluesky", "Bluesky", "https://bsky.app/profile/mima.social"),
+           ("x", "X", "https://x.com/mimalabs"),
+           ("linkedin", "LinkedIn", "https://www.linkedin.com/company/mima-labs/")]
+
 ORG = {"@type": "Organization", "@id": f"{SITE}/#organization", "name": "Mima",
-       "url": f"{SITE}/", "logo": f"{SITE}/site-assets/Logo.png"}
+       "url": f"{SITE}/", "logo": f"{SITE}/site-assets/Logo.png", "sameAs": [u for _, _, u in SOCIALS]}
 APP = {"@type": "SoftwareApplication", "name": "Mima", "operatingSystem": "macOS",
        "applicationCategory": "SocialNetworkingApplication", "downloadUrl": DOWNLOAD,
        "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}
