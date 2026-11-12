@@ -11,6 +11,7 @@
 - [Download for Mac](https://www.mima.social/download): the latest beta .dmg, for Apple Silicon Macs.
 - [Newsletter](https://www.mima.social/#keep-up-title): occasional product updates. On WebMCP-capable browsers the signup form is exposed as the tool `subscribe_to_mima_updates`; only use it with the person's own email address and consent.
 - [Discord](https://discord.gg/KE3utP26kG): community, questions and feature requests.
+- Mima on [Bluesky](https://bsky.app/profile/mima.social), [X](https://x.com/mimalabs) and [LinkedIn](https://www.linkedin.com/company/mima-labs/): news and updates.
 
 ## What it does
 
