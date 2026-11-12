@@ -46,6 +46,24 @@
         ],
         "createdAt": "2026-10-15T05:44:04.129Z",
         "reason": "Agent: same evidence as the launch.html exception (page renamed to index.html at launch): crossfade frames at opacity 0 by design / padding and type sizes come from clamp() and padding-block the detector does not resolve; rendered captures show 18-48px insets and a 72/48/17px type ramp"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "mimaui fallback",
+        "createdAt": "2026-10-27T16:22:26.258Z",
+        "reason": "Agent: metric-matched local fallbacks (size-adjust/ascent-override) for the documented Mima fonts, added in commit 8a87041 to fix FOUT (#6); not a new type voice"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "mimadisplay fallback",
+        "createdAt": "2026-10-27T16:22:26.289Z",
+        "reason": "Agent: metric-matched local fallbacks (size-adjust/ascent-override) for the documented Mima fonts, added in commit 8a87041 to fix FOUT (#6); not a new type voice"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "mimaserif fallback",
+        "createdAt": "2026-10-27T16:22:26.311Z",
+        "reason": "Agent: metric-matched local fallbacks (size-adjust/ascent-override) for the documented Mima fonts, added in commit 8a87041 to fix FOUT (#6); not a new type voice"
       }
     ]
   }
