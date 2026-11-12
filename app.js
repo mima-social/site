@@ -13,6 +13,8 @@
   var sourceInput = document.getElementById("q-source");
   var goalInput = document.getElementById("q-goal");
   var hiddenSource = document.getElementById("origin-source");
+  // Loops list IDs (comma-separated) the signup joins; the list must be Public in Loops.
+  var mailingLists = document.getElementById("mailing-lists");
   var errorEl = document.getElementById("form-error");
   var retryBtn = document.getElementById("retry-btn");
   var card = document.getElementById("signup");
@@ -99,7 +101,8 @@
       "email=" + encodeURIComponent(email),
       "signupSource=" + encodeURIComponent(optional(sourceInput)),
       "desiredUse=" + encodeURIComponent(optional(goalInput)),
-      "source=" + encodeURIComponent(hiddenSource.value)
+      "source=" + encodeURIComponent(hiddenSource.value),
+      "mailingLists=" + encodeURIComponent(mailingLists.value)
     ].join("&");
 
     button.disabled = true;
