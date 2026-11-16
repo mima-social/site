@@ -46,6 +46,42 @@
         ],
         "createdAt": "2026-10-15T05:44:04.129Z",
         "reason": "Agent: same evidence as the launch.html exception (page renamed to index.html at launch): crossfade frames at opacity 0 by design / padding and type sizes come from clamp() and padding-block the detector does not resolve; rendered captures show 18-48px insets and a 72/48/17px type ramp"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "mimaui fallback",
+        "files": [
+          "learn/learn.css"
+        ],
+        "createdAt": "2026-11-09T18:48:52.279Z",
+        "reason": "Agent: metric-matched local fallbacks for the DESIGN.md faces, copied from launch.css (commit 8a87041, stops FOUT jumps)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "mimadisplay fallback",
+        "files": [
+          "learn/learn.css"
+        ],
+        "createdAt": "2026-11-09T18:48:52.296Z",
+        "reason": "Agent: metric-matched local fallbacks for the DESIGN.md faces, copied from launch.css (commit 8a87041, stops FOUT jumps)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "mimaserif fallback",
+        "files": [
+          "learn/learn.css"
+        ],
+        "createdAt": "2026-11-09T18:48:52.311Z",
+        "reason": "Agent: metric-matched local fallbacks for the DESIGN.md faces, copied from launch.css (commit 8a87041, stops FOUT jumps)"
+      },
+      {
+        "rule": "design-system-font",
+        "value": "sf mono",
+        "files": [
+          "learn/learn.css"
+        ],
+        "createdAt": "2026-11-09T18:51:22.305Z",
+        "reason": "Agent: code samples in Learn articles need a monospace; system mono stack, used only for code and pre"
       }
     ]
   }

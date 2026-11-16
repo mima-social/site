@@ -1,11 +1,13 @@
 ---
 version: 1
-slug: "launch-html"
-primary_target: "launch.html"
-related_targets: ["index.html"]
+slug: "index-html"
+primary_target: "index.html"
+related_targets: []
 ---
 
-# Launch landing page (launch.html, replaces index.html at launch)
+# Home page (index.html)
+
+Was built as launch.html and replaced index.html at launch (2026-10). Learn (/learn/) has its own brief: learn-index-html.
 
 Scope: mima.social home page. Visitor mode: Persuade. Tracking issue mima-social/desktop#1348.
 
@@ -13,11 +15,11 @@ Audience and job: people overwhelmed keeping up across Bluesky, X, LinkedIn and 
 
 Proof and content: user-approved copy (session 2026-10-14). Logo + tagline "All your socials, none of the algorithms." with the last word cycling (algorithms / drama / ads / missed conversations); subhead "The calm, private app for all your social networking, news, and conversations."; CTA "Download for Mac" + "Free · for Apple Silicon Macs"; "Connect your accounts, no new signup required." with Bluesky, X, LinkedIn, Mastodon logos in brand colours, names as captions; features "One feed for your people / Everyone you follow, ordered how you want.", "Compose once, share everywhere / Compose your message once, share across multiple networks.", "Every conversation in one universal inbox / Mentions and DMs from every network, with pins and reminders so nobody gets left on read."; outcomes list (stop app-switching, never miss a friend, never leave a conversation hanging, compose once, consolidate your screentime); demo video in its own large block lower on the page; "Private by design" section with six earnest points; keep-up block (Get updates email form + Join the Discord).
 
-Constraints: app views are raster screenshots rendered from dummy pages (app-shots/) that recreate the real Mima UI (founder screenshots of News Wall timeline/board, Conversations, cross-post) with synthetic people and posts; no real names, faces or posts. Never show features Mima lacks (no Drafts, Scheduled, Favorites folders). Download URL and demo video are placeholders. Brand guide binding; animated M wordmark draw-on (350ms) then "ima" fade (150ms).
+Constraints: app views are raster screenshots rendered from dummy pages (app-shots/) that recreate the real Mima UI (founder screenshots of News Wall timeline/board, Conversations, cross-post) with synthetic people and posts; no real names, faces or posts. Never show features Mima lacks (no Drafts, Scheduled, Favorites folders). The demo video is a placeholder (section hidden in index.html until it exists). Brand guide binding; animated M wordmark draw-on (350ms) then "ima" fade (150ms).
 
 Build path: code-led for this build (user, 2026-10-14, answering "How should I get past the mockup's invented app window?": "Switch to code-first (Recommended)"). The comp-led run in .impeccable/build/state.json was abandoned at the plates phase by that choice. Critique reference (not an approved comp): .impeccable/mocks/decision/dealt-tabs.png. Its app window is superseded by the user ("the mockup's app window no longer applies, build it from my screenshots"); app views are rasters rendered from app-shots/. Project default buildPath stays "comp" (the switch binds this build only).
 
-Unresolved: public download URL; demo video. Resolved 2026-10-14: privacy copy uses "We never store your passwords" (verified against next) and "No Mima servers"; X/LinkedIn shown without Beta caveats by user decision.
+Unresolved: demo video. Resolved 2026-11-16: /download redirects to the latest .dmg (live). Since launch the footer links Learn and Mima's Bluesky, X and LinkedIn accounts, and the newsletter success state shows them. Resolved 2026-10-14: privacy copy uses "We never store your passwords" (verified against next) and "No Mima servers"; X/LinkedIn shown without Beta caveats by user decision.
 
 ## Direction contract
 

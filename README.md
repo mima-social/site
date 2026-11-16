@@ -35,8 +35,17 @@ Guides live at `/learn/`. Each is written in Markdown in `learn-src/articles/`
 and built into static pages you commit, so Netlify still has no build step:
 
 ```sh
-python3 learn-src/build.py
+python3 learn-src/build.py   # pages, Markdown copies, sitemap, llms.txt
+python3 learn-src/og.py      # a share image per page (needs Google Chrome)
+python3 learn-src/build.py   # again, so new pages point at their new images
 ```
+
+**Share images:** `learn-src/og.py` renders `app-shots/og-learn.html` for every
+Learn page to `site-assets/og/<page>.jpg` (2400 × 1260): the title in the
+display face, a "Learn · Topic" tag, and the guide's first app picture. Topic
+pages show their description too. It skips pages whose title, picture and
+template haven't changed, and deletes images for pages that are gone. Until a
+page has one, it falls back to the site's `og-image.jpg`.
 
 It writes `learn/index.html`, a page per topic (`learn/topics/<topic>/`), a page
 per guide (`learn/<slug>/`) and a Markdown copy of each guide for AI agents
