@@ -1,0 +1,43 @@
+name: Submit new pages
+
+# When a push to main changes sitemap.xml: wait for Netlify to deploy it,
+# notify IndexNow about new and updated pages, and open an issue listing the
+# new pages to submit to Brave Search by hand. See tools/submit_pages.py.
+
+on:
+  push:
+    branches: [main]
+    paths: [sitemap.xml]
+  workflow_dispatch:
+    inputs:
+      base:
+        description: "Commit to compare sitemap.xml with"
+        required: false
+        default: "HEAD~1"
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: submit-new-pages
+  cancel-in-progress: false
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Notify IndexNow and list new pages
+        id: pages
+        run: python3 tools/submit_pages.py --base "${{ inputs.base || 'HEAD~1' }}" --issue-body brave.md >> "$GITHUB_OUTPUT"
+
+      - name: Open the Brave Search checklist
+        if: steps.pages.outputs.new != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue create --title "Submit ${{ steps.pages.outputs.new }} new page(s) to Brave Search" --body-file brave.md
