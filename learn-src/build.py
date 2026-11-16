@@ -136,8 +136,25 @@ def icon(name):
     return f'<svg class="i" aria-hidden="true" focusable="false"><use href="#{name}"></use></svg>'
 
 
+def og_key(path):
+    """The share-image name for a Learn page (see learn-src/og.py)."""
+    parts = path.strip("/").split("/")
+    if parts == ["learn"]:
+        return "learn"
+    if len(parts) == 3 and parts[1] == "topics":
+        return f"topic-{parts[2]}"
+    return parts[-1]
+
+
+def og_image(path):
+    """This page's own share image, or the site's default until og.py has made one."""
+    key = og_key(path)
+    return f"/site-assets/og/{key}.jpg" if (ROOT / "site-assets" / "og" / f"{key}.jpg").exists() else "/site-assets/og-image.jpg"
+
+
 def head(title, description, path, jsonld, extra=""):
     url = SITE + path
+    og = og_image(path)
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -152,8 +169,12 @@ def head(title, description, path, jsonld, extra=""):
     <meta property="og:url" content="{url}" />
     <meta property="og:title" content="{esc(title)}" />
     <meta property="og:description" content="{esc(description)}" />
-    <meta property="og:image" content="{SITE}/site-assets/og-image.jpg" />
+    <meta property="og:image" content="{SITE}{og}" />
+    <meta property="og:image:width" content="2400" />
+    <meta property="og:image:height" content="1260" />
+    <meta property="og:image:alt" content="{esc(title)}" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="{SITE}{og}" />
     <script type="application/ld+json">
 {json.dumps(jsonld, indent=2, ensure_ascii=False)}
     </script>
