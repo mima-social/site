@@ -90,6 +90,25 @@ Before publishing a guide, check every claim about Mima against the app's code
 (`mima-social/desktop`, `next` branch), and say in a caption that the people in
 app pictures are made up.
 
+## Telling search engines about new pages
+
+When a merge to `main` changes `sitemap.xml`, the **Submit new pages** GitHub
+Action (`.github/workflows/submit-new-pages.yml`, running
+`tools/submit_pages.py`) compares the sitemap with the previous commit, then:
+
+1. waits until Netlify has deployed it (the live sitemap matches the commit);
+2. sends every new or updated URL to [IndexNow](https://www.indexnow.org),
+   which Bing, Yandex, Seznam and Naver share. The key file is
+   `2cc6a4774d121117fdfe713396e952cb.txt` at the site root; keep it there;
+3. opens an issue, "Submit N new page(s) to Brave Search", with a checkbox per
+   new URL. Brave has no submission API, so submit each one at
+   https://search.brave.com/submit-url, tick it, and close the issue.
+
+Google reads the sitemap from Search Console on its own. To submit pages from
+an older range again, run the workflow by hand (Actions → Submit new pages →
+Run workflow) with an older commit as `base`. Preview what would be sent with
+`python3 tools/submit_pages.py --base <commit> --dry-run`.
+
 ## App screenshots
 
 Every picture of the Mima app on the page is an image rendered from **dummy
