@@ -113,7 +113,7 @@ def nice_date(d):
 def sprite():
     """Pull the icons Learn uses out of the landing page, so they stay in step."""
     page = (ROOT / "index.html").read_text()
-    want = ["i-download", "s-bluesky", "s-x", "s-linkedin", "arrow-right", "arrow-left", "heart-filled", "sparkle", "i-email"]
+    want = ["i-download", "s-bluesky", "s-x", "s-linkedin", "s-mastodon", "arrow-right", "arrow-left", "heart-filled", "sparkle", "i-email"]
     out = []
     for name in want:
         m = re.search(rf'<symbol id="{name}".*?</symbol>', page, re.S)
@@ -240,7 +240,8 @@ def foot():
 # Mima's own accounts, for the footer and the Organization's sameAs.
 SOCIALS = [("bluesky", "Bluesky", "https://bsky.app/profile/mima.social"),
            ("x", "X", "https://x.com/mimalabs"),
-           ("linkedin", "LinkedIn", "https://www.linkedin.com/company/mima-labs/")]
+           ("linkedin", "LinkedIn", "https://www.linkedin.com/company/mima-labs/"),
+           ("mastodon", "Mastodon", "https://mastodon.social/@mimalabs")]
 
 ORG = {"@type": "Organization", "@id": f"{SITE}/#organization", "name": "Mima",
        "url": f"{SITE}/", "logo": f"{SITE}/site-assets/Logo.png", "sameAs": [u for _, _, u in SOCIALS]}
