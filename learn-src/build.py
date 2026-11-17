@@ -164,6 +164,7 @@ def head(title, description, path, jsonld, extra=""):
     <title>{esc(title)}</title>
     <meta name="description" content="{esc(description)}" />
     <link rel="canonical" href="{url}" />
+    <link rel="me" href="https://mastodon.social/@mimalabs" />
     {extra}
     <meta property="og:type" content="{'article' if path.count('/') == 3 and '/topics/' not in path else 'website'}" />
     <meta property="og:url" content="{url}" />
