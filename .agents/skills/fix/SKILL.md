@@ -1,0 +1,159 @@
+---
+name: fix
+description: Drive a fix for a mima.social (site repo) issue end-to-end — reproduce it against the real page first, make the minimal root-cause fix, run the site's checks, keep the mapped docs in step, and open a draft PR against main that links the issue. Use when the user says "fix #NN", hands you a site issue, or asks to sweep open issues that have no draft PR yet. Adapted from mima-social/desktop's /fix for a static site with no build step and no test suite.
+---
+
+# /fix — issue-to-draft-PR driver (site)
+
+Turns a site issue into a **draft** PR whose fix is *shown* to work on the real
+page, not merely written. The site is static HTML/CSS/JS on Netlify with no
+npm, no test runner, no milestones and one release line (`main` is production;
+every merge deploys). So the desktop skill's npm gates, release-line routing and
+milestone stamping don't apply, and "red-green" means a reproducible check
+against the page, not a unit test.
+
+Repo facts to read first: `README.md` (file map, Learn build, app-shots,
+search-engine submission), `PRODUCT.md` (copy and claim rules), `DESIGN.md`
+(design system and tokens).
+
+## 0. Is it a code fix at all? (triage)
+Many site issues aren't. Stop and report — don't open a PR — when the issue is:
+- **A manual task** outside the repo (e.g. "Submit N new page(s) to Brave
+  Search": a person ticks boxes on search.brave.com).
+- **Waiting on content** that doesn't exist yet (e.g. testimonials "once we have
+  enough"; quotes are collected in the issue's comments).
+- **Copy that must be the owner's own voice or a policy commitment** (e.g. an AI
+  ethics statement). You may offer a draft, but say it needs the owner's rewrite,
+  and use `Refs #<n>`, not `Closes`.
+- **Cross-repo or large-design work** (e.g. syncing network lists with the app).
+  Propose a plan in the issue or to the user instead of guessing.
+Also check whether the issue is **already partly done** on `main` (grep for it,
+read recent merged PRs): fix only what's left, and say what was already there.
+
+## 1. Scope & understand
+- `gh issue view <n> --comments`. Restate the exact wrong behaviour in one line.
+- Claim it: `gh issue edit <n> --add-assignee @me`.
+- Get the *why* before changing anything (desktop's `/why`, done by hand):
+  `git log -S'<string>' --oneline`, `git blame` on the lines, and the merged PR
+  that added them (`gh pr list --state merged --search <term>`). Don't undo a
+  deliberate choice; `.impeccable/config.json` `ignoreValues[].reason` and commit
+  bodies record several.
+- Fallout (desktop's `/blast-radius`, by hand): the same thing usually appears in
+  several places. Grep across `index.html`, `launch.css`, `launch.js`, `app.js`,
+  `learn-src/build.py` (the Learn page template — Learn pages are generated, so
+  a header/footer/meta change on the landing page almost always needs the same
+  change there), `llms.txt`, `PRODUCT.md`, `app-shots/`, `netlify/`, `_headers`,
+  `_redirects`.
+
+## 2. Red — reproduce it on the real page
+Serve the repo root: `python3 -m http.server 8765` (run in the background), then
+show the bug **before** fixing it, in the cheapest way that observes the actual
+wrong behaviour:
+- **Visual / interaction** (focus rings, layout, motion): the Claude-in-Chrome
+  tools (load the `claude-in-chrome` skill) on `http://localhost:8765/` — press
+  Tab, read computed styles with the JS tool, screenshot. For a static render,
+  `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new
+  --window-size=1280,800 --screenshot=<scratchpad>/before.png <url>`. Check the
+  phone width (390px) too when layout is involved.
+- **Markup / metadata** (meta tags, `rel="me"`, structured data, links): a
+  `grep`/`python3 -I` check over the served HTML (`curl -s localhost:8765/...`),
+  including the generated Learn pages. Parse JSON-LD with `json.loads`.
+- **Generated files** (`learn/`, `sitemap.xml`, `robots.txt`, `llms.txt`'s
+  `## Learn` section): reproduce from the source in `learn-src/`; never hand-edit
+  generated output.
+- **Netlify function**: `node --check` plus a direct call of the handler with a
+  stubbed `fetch` if behaviour is at stake.
+The check must fail **for the right reason** — it observes the reported defect,
+not an incidental error. Save the exact command/script and its output for the PR
+body. If you can't reproduce it, say so and stop; don't fix blind.
+
+There's no test suite to add the check to. Don't invent test infrastructure in
+the PR; put the repro in the PR body so a reviewer can rerun it.
+
+## 3. Green — minimal root-cause fix
+- Fix the root cause (e.g. a selector or specificity rule that suppresses the
+  ring), not a one-off override on the symptom.
+- **Design-system rule:** use `DESIGN.md` tokens and existing CSS variables
+  (`--ring`, `--a-*`, …) and the patterns already in `launch.css`; no new one-off
+  colours, fonts or sizes. Read `.impeccable/design.json` if unsure.
+- **Copy rule:** any new text follows `PRODUCT.md` (shipped features only,
+  nothing about unshipped networks or platforms). Keep `llms.txt` in step with
+  page copy.
+- **Sibling sites:** before calling it fixed, grep for every other place doing
+  the same thing (other buttons with the same class, the Learn template's copy of
+  the header/footer, the JSON-LD `sameAs` list next to the visible links, phone
+  breakpoints). Fix them in this PR or list them as out of scope.
+- If you changed `learn-src/`, rebuild: `python3 learn-src/build.py` (and
+  `learn-src/og.py` then `build.py` again if titles/pictures changed), and commit
+  the generated output.
+- Re-run the step-2 check: it now passes. Re-check the sibling sites the same way.
+
+### 3b. Prove the check guards the fix
+Revert just the fix lines (`git stash` the fix, or edit them back), rerun the
+check, confirm it goes red again, then restore. Note the result for the PR body
+(`M1 reverted <rule> → check red`).
+
+## 4. Checks (all must pass)
+There's no npm. Run whichever apply to what you touched:
+```bash
+node --check launch.js app.js netlify/functions/*.mjs   # JS parses
+python3 -m py_compile learn-src/*.py tools/*.py app-shots/*.py
+python3 learn-src/build.py && git status --short   # generated files in step: no unexpected diff
+python3 -c "import json,re,sys; [json.loads(m) for m in re.findall(r'<script type=\"application/ld\+json\">(.*?)</script>', open('index.html').read(), re.S)]"
+```
+- The **Impeccable detector hook** runs on edits and reports design findings;
+  address them, or record a narrow `ignoreValues` entry with a reason only when
+  the finding is a false positive (as PR #21 did).
+- **Look at it**: before/after screenshots at 1280×800 and 390px wide, light and
+  dark (`prefers-color-scheme`) if colour is involved. Confirm nothing else on
+  the page moved.
+
+## 5. Docs
+Update what the change makes untrue, in the same PR: `README.md` (file map,
+how-tos), `DESIGN.md` (tokens, components, focus/interaction rules),
+`PRODUCT.md` (claims, links, accounts), `llms.txt`, `app-shots/README.md`.
+Skip only if nothing they describe changed.
+
+## 6. Review before it's a PR
+Run the **`/code-review`** skill on the branch against `main` (it replaces
+desktop's `/interrogate`): Standards (this skill, `DESIGN.md`, `PRODUCT.md`) and
+Spec (the issue). Fix real findings and rerun the step-2 check. There's no
+CodeRabbit on this repo; the Netlify bot posts a deploy preview — open it and
+rerun the check against the preview URL before asking for QA.
+
+## 7. Branch & draft PR
+- One issue per branch, named for the change (e.g. `pause-button-focus`), from
+  latest `origin/main`: `git fetch origin main && git switch -c <branch> origin/main`.
+- Stage explicit files only. Follow the commit-trailer instructions in effect
+  for the session.
+- `gh pr create --draft --base main`. Body:
+  - what/why in plain words, and `Closes #<n>` (`Refs #<n>` if partial, or the
+    root cause isn't proven);
+  - **Root cause:** the evidence;
+  - **Repro:** the step-2 command/script, its before and after output;
+  - **Mutation check:** the step-3b line;
+  - **Checks run:** the step-4 commands;
+  - **Not verified:** what you couldn't check (e.g. real screen readers, Safari);
+  - **QA:** left empty for the human.
+- It **stays draft until a human has QA'd the deploy preview**. Never
+  `gh pr ready` or merge without explicit confirmation — merging deploys to
+  production.
+
+## Sweep mode ("fix every issue with no draft")
+1. `gh issue list --state open --json number,title,assignees,labels`.
+2. An issue already has a draft if any open PR references it:
+   `gh pr list --state open --search "<n> in:body" --json number,isDraft,body`,
+   checking for `#<n>` (Closes/Fixes/Refs). Skip those, and skip issues
+   assigned to someone else.
+3. Triage the rest with step 0. Report skipped ones with the reason.
+4. For the fixable ones, spawn **one worktree-isolated agent per issue**
+   (`isolation: "worktree"`), each running this playbook for its own issue and
+   returning its draft-PR link and anything it could not verify. Tell each agent
+   to use its own server port (8765, 8766, …) so parallel servers don't collide.
+
+## Guardrails
+- **No fix without a reproduction first**, failing for the right reason.
+- **Proven on the real page** — serve it and look; "the CSS looks right" isn't proof.
+- **Generated files come from their sources**: edit `learn-src/`, rebuild, commit both.
+- **Draft until human QA**; merging to `main` is a production deploy.
+- **Scope discipline** — one issue per PR; file a new issue for anything else you find.
