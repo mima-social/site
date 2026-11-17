@@ -378,7 +378,7 @@ Depth is ambient and tinted, never structural. Surfaces are flat colour fields. 
 - **Sheet lift** (`box-shadow: 0 24px 60px rgba(61,41,82,.12)`): Learn's white reading cards (Latest, fact sheet, topic entry list).
 - **Shelf lift** (`box-shadow: 0 1px 0 rgba(17,17,17,.03), 0 18px 44px rgba(61,41,82,.08)`): topic shelves, quieter because they repeat in a grid. The table card uses the same pair at 0 12px 32px.
 - **Small CTA glow** (`box-shadow: 0 8px 20px rgba(224,0,74,.22)`): the bar's small Download pill. The Ube Night band pill carries the same glow shape tinted with Ube Night (rgba 34,24,46,.22). On the Ube Night Try card the pink pill drops its glow, and the product raster lifts on `0 30px 70px rgba(17,17,17,.35)`.
-- **Focus ring** (`box-shadow: 0 0 0 3px var(--ring)`): every focusable element. The Download pill uses a white 3px gap and then a 3px pink ring (on the Try card the gap is Ube Night; on the Ube Night band pill the ring is Deep Ube).
+- **Focus ring** (`box-shadow: 0 0 0 3px var(--ring)`): every focusable element. The Download pill uses a white 3px gap and then a 3px pink ring (on the Try card the gap is Ube Night; on the Ube Night band pill the ring is Deep Ube). The ring is a box-shadow, so any focusable element that sets its own shadow (the timeline pause control, the social squares) needs a `:focus-visible` rule that lists the ring first and then its own shadow; otherwise the shadow replaces the ring.
 
 ### Named Rules
 **The Soft Lift Rule.** Shadows are blurred at least twice their offset and tinted to the palette. Hard or offset shadows do not exist in this world.
