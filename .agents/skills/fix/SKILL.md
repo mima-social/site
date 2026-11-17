@@ -150,6 +150,13 @@ rerun the check against the preview URL before asking for QA.
    (`isolation: "worktree"`), each running this playbook for its own issue and
    returning its draft-PR link and anything it could not verify. Tell each agent
    to use its own server port (8765, 8766, …) so parallel servers don't collide.
+5. **Finish with a preview-and-approve list** for the human. For each PR, give
+   the PR link, its Netlify deploy preview
+   (`https://deploy-preview-<pr>--mima-site.netlify.app`, plus the exact page
+   path that changed), and one line on what to check there (e.g. "Tab to the
+   timeline pause button: a purple ring should appear"). Wait for the Netlify
+   check (`gh pr checks <pr>`) before listing a preview. Then list the issues
+   that were skipped, with the reason for each.
 
 ## Guardrails
 - **No fix without a reproduction first**, failing for the right reason.
