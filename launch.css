@@ -326,6 +326,7 @@ button.join[disabled] { opacity: 0.5; cursor: not-allowed; }
 .soc.bluesky { background: var(--bluesky); }
 .soc.x { background: var(--x); }
 .soc.linkedin { background: var(--linkedin); }
+.soc.mastodon { background: var(--mastodon); }
 .socials.sm .soc { width: 34px; height: 34px; border-radius: 10px; }
 .success .follow { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin-top: 10px; color: var(--void-600); font-weight: 600; font-size: 0.9375rem; }
 .foot-follow { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 28px; font-weight: 600; }
