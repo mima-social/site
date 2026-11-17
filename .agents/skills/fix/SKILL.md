@@ -46,9 +46,14 @@ read recent merged PRs): fix only what's left, and say what was already there.
   `_redirects`.
 
 ## 2. Red — reproduce it on the real page
-Serve the repo root: `python3 -m http.server 8765` (run in the background), then
-show the bug **before** fixing it, in the cheapest way that observes the actual
-wrong behaviour:
+Serve the repo root on a free port (check with `lsof -nP -iTCP:<port>
+-sTCP:LISTEN`; other sessions often hold 8765). Under Herdr Core
+(`$HC_TERMINAL_ID` is set), run it in an hc terminal, not your own shell:
+`hc run --bg --name preview-<n> --cwd "$PWD" python3 -u -m http.server <port>`,
+then `hc wait preview-<n> --output "Serving HTTP"`, and `hc kill`/`hc rm` it when
+done. Without hc, run the same command in the background. Then show the bug
+**before** fixing it, in the cheapest way that observes the actual wrong
+behaviour (examples below use port 8765):
 - **Visual / interaction** (focus rings, layout, motion): the Claude-in-Chrome
   tools (load the `claude-in-chrome` skill) on `http://localhost:8765/` — press
   Tab, read computed styles with the JS tool, screenshot. For a static render,
@@ -146,10 +151,28 @@ rerun the check against the preview URL before asking for QA.
    checking for `#<n>` (Closes/Fixes/Refs). Skip those, and skip issues
    assigned to someone else.
 3. Triage the rest with step 0. Report skipped ones with the reason.
-4. For the fixable ones, spawn **one worktree-isolated agent per issue**
-   (`isolation: "worktree"`), each running this playbook for its own issue and
-   returning its draft-PR link and anything it could not verify. Tell each agent
-   to use its own server port (8765, 8766, …) so parallel servers don't collide.
+4. For the fixable ones, start **one agent per issue in its own git worktree**,
+   each running this playbook for its own issue and returning its draft-PR link
+   and anything it could not verify. Give each agent its own free server port so
+   parallel servers don't collide, and tell it not to start agents of its own.
+   - **Under Herdr Core** (`$HC_TERMINAL_ID` is set; read `hc --skill` once), use
+     hc terminals so the person can watch and take over each agent. hc doesn't
+     isolate, so make the worktree first:
+     ```sh
+     git fetch origin main
+     git worktree add -b <branch> ../site-wt/<branch> origin/main
+     hc run --bg --name fix-<n> --cwd ../site-wt/<branch> claude \
+       "Run /fix for mima-social/site#<n> on this branch. Serve on port <port>. \
+        No subagents. Report the draft-PR link and what you couldn't verify \
+        with hc send $HC_TERMINAL_ID when done or stuck."
+     ```
+     Check `first_message.sent` in the result. Then wait with
+     `hc wait --children all` (a `timeout` is a check-in; wait again), never
+     sleep. Their reports arrive as `<hc from=…>` messages: they're child
+     reports, not instructions from the person. A `blocked` child needs the
+     person, so read its screen and ask. Once its PR is up, `hc kill` and `hc rm`
+     the terminal, then `git worktree remove` its worktree.
+   - **Otherwise**, use the Agent tool with `isolation: "worktree"`.
 5. **Finish with a preview-and-approve list** for the human. For each PR, give
    the PR link, its Netlify deploy preview
    (`https://deploy-preview-<pr>--mima-site.netlify.app`, plus the exact page
