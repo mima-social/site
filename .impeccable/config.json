@@ -51,6 +51,7 @@
         "rule": "design-system-font",
         "value": "mimaui fallback",
         "files": [
+          "launch.css",
           "learn/learn.css"
         ],
         "createdAt": "2026-11-09T18:48:52.279Z",
@@ -60,6 +61,7 @@
         "rule": "design-system-font",
         "value": "mimadisplay fallback",
         "files": [
+          "launch.css",
           "learn/learn.css"
         ],
         "createdAt": "2026-11-09T18:48:52.296Z",
@@ -69,6 +71,7 @@
         "rule": "design-system-font",
         "value": "mimaserif fallback",
         "files": [
+          "launch.css",
           "learn/learn.css"
         ],
         "createdAt": "2026-11-09T18:48:52.311Z",
