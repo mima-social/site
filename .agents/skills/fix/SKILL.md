@@ -7,10 +7,10 @@ description: Drive a fix for a mima.social (site repo) issue end-to-end — repr
 
 Turns a site issue into a **draft** PR whose fix is *shown* to work on the real
 page, not merely written. The site is static HTML/CSS/JS on Netlify with no
-npm, no test runner, no milestones and one release line (`main` is production;
-every merge deploys). So the desktop skill's npm gates, release-line routing and
-milestone stamping don't apply, and "red-green" means a reproducible check
-against the page, not a unit test.
+npm, no milestones and one release line (`main` is production; every merge
+deploys). So the desktop skill's npm gates, release-line routing and milestone
+stamping don't apply, and "red-green" means a failing unit test in `tests/` for
+testable code, or a reproducible check against the page for DOM and visual bugs.
 
 Repo facts to read first: `README.md` (file map, Learn build, app-shots,
 search-engine submission), `PRODUCT.md` (copy and claim rules), `DESIGN.md`
