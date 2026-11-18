@@ -1,0 +1,60 @@
+name: Checks
+
+# Unit tests (tests/) and the site checks from /fix step 4, on every PR and
+# every push to main. Standard library only: no npm, no pip.
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Python unit tests
+        run: python3 -m unittest discover -s tests -v
+
+      - name: Node unit tests
+        run: node --test "tests/**/*.test.mjs"
+
+      - name: JavaScript parses
+        run: |
+          for f in launch.js app.js learn/learn.js netlify/functions/*.mjs; do
+            node --check "$f"
+          done
+
+      - name: Python compiles
+        run: python3 -m py_compile learn-src/*.py tools/*.py app-shots/*.py tests/*.py
+
+      - name: JSON-LD in index.html parses
+        run: |
+          python3 -c "import json,re; [json.loads(m) for m in re.findall(r'<script type=\"application/ld\+json\">(.*?)</script>', open('index.html').read(), re.S)]"
+
+      - name: Generated Learn files match their sources
+        run: |
+          python3 learn-src/build.py
+          if [ -n "$(git status --porcelain)" ]; then
+            git status --porcelain
+            git --no-pager diff --stat
+            echo "::error::Generated files are out of date. Run python3 learn-src/build.py and commit the result."
+            exit 1
+          fi

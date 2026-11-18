@@ -1,6 +1,6 @@
 ---
 name: fix
-description: Drive a fix for a mima.social (site repo) issue end-to-end — reproduce it against the real page first, make the minimal root-cause fix, run the site's checks, keep the mapped docs in step, and open a draft PR against main that links the issue. Use when the user says "fix #NN", hands you a site issue, or asks to sweep open issues that have no draft PR yet. Adapted from mima-social/desktop's /fix for a static site with no build step and no test suite.
+description: Drive a fix for a mima.social (site repo) issue end-to-end — reproduce it against the real page first, make the minimal root-cause fix, run the site's checks, keep the mapped docs in step, and open a draft PR against main that links the issue. Use when the user says "fix #NN", hands you a site issue, or asks to sweep open issues that have no draft PR yet. Adapted from mima-social/desktop's /fix for a static site with no build step; bugs in the Python build scripts and Netlify functions get a unit test in tests/.
 ---
 
 # /fix — issue-to-draft-PR driver (site)
@@ -72,8 +72,14 @@ The check must fail **for the right reason** — it observes the reported defect
 not an incidental error. Save the exact command/script and its output for the PR
 body. If you can't reproduce it, say so and stop; don't fix blind.
 
-There's no test suite to add the check to. Don't invent test infrastructure in
-the PR; put the repro in the PR body so a reviewer can rerun it.
+**Testable code gets a unit test.** When the bug is in `learn-src/*.py`,
+`tools/*.py` or `netlify/functions/*.mjs`, the red check is a failing test in
+`tests/` (`tests/test_<module>.py` with `unittest`, or `tests/<name>.test.mjs`
+with `node:test`), committed with the fix so CI reruns it on every PR. Watch it
+go red for the right reason (the assertion on the defect, not an import error)
+before fixing. Browser scripts (`app.js`, `launch.js`, `learn/learn.js`) and
+visual, DOM and markup bugs keep the real-page repro above, saved in the PR
+body so a reviewer can rerun it.
 
 ## 3. Green — minimal root-cause fix
 - Fix the root cause (e.g. a selector or specificity rule that suppresses the
@@ -94,15 +100,19 @@ the PR; put the repro in the PR body so a reviewer can rerun it.
 - Re-run the step-2 check: it now passes. Re-check the sibling sites the same way.
 
 ### 3b. Prove the check guards the fix
-Revert just the fix lines (`git stash` the fix, or edit them back), rerun the
-check, confirm it goes red again, then restore. Note the result for the PR body
+Revert just the fix lines (edit them back, or copy the fixed file aside),
+rerun the check (the unit test, when step 2 wrote one), confirm it goes red
+again, then restore. Note the result for the PR body
 (`M1 reverted <rule> → check red`).
 
 ## 4. Checks (all must pass)
-There's no npm. Run whichever apply to what you touched:
+There's no npm. `.github/workflows/checks.yml` runs all of these on every PR;
+run them locally first:
 ```bash
-node --check launch.js app.js netlify/functions/*.mjs   # JS parses
-python3 -m py_compile learn-src/*.py tools/*.py app-shots/*.py
+python3 -m unittest discover -s tests        # Python unit tests
+node --test "tests/**/*.test.mjs"            # Node unit tests (Node 24 needs the glob; `tests/` alone fails)
+for f in launch.js app.js learn/learn.js netlify/functions/*.mjs; do node --check "$f"; done   # JS parses (one file per call)
+python3 -m py_compile learn-src/*.py tools/*.py app-shots/*.py tests/*.py
 python3 learn-src/build.py && git status --short   # generated files in step: no unexpected diff
 python3 -c "import json,re,sys; [json.loads(m) for m in re.findall(r'<script type=\"application/ld\+json\">(.*?)</script>', open('index.html').read(), re.S)]"
 ```
