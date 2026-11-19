@@ -92,15 +92,17 @@ def faq_pairs(body):
     if not m:
         return []
     section = m.group(1)
+    # One pass, in page order. An ### answer ends at the next question of
+    # either form, so a section may mix them (#38).
+    question = re.compile(
+        r"^### (?P<h>.+?)\s*$(?P<ha>.*?)(?=^### |^\*\*|\Z)"
+        r"|^\*\*(?P<b>.+?)\*\*\s*(?P<ba>.+?)(?=\n\s*\n|\Z)", re.M | re.S)
     pairs = []
-    for q in re.finditer(r"^### (.+?)\s*$(.*?)(?=^### |\Z)", section, re.M | re.S):
-        answer = " ".join(q.group(2).split())
+    for q in question.finditer(section):
+        asked, said = (q["h"], q["ha"]) if q["h"] is not None else (q["b"], q["ba"])
+        answer = " ".join(said.split())
         if answer:
-            pairs.append((q.group(1).strip(), re.sub(r"[*`]", "", answer)))
-    for q in re.finditer(r"^\*\*(.+?)\*\*\s*(.+?)(?=\n\s*\n|\Z)", section, re.M | re.S):
-        answer = " ".join(q.group(2).split())
-        if answer:
-            pairs.append((q.group(1).strip(), re.sub(r"[*`]", "", answer)))
+            pairs.append((asked.strip(), re.sub(r"[*`]", "", answer)))
     return pairs
 
 
