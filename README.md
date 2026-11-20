@@ -20,6 +20,7 @@ step.
 | `site-assets/`, `assets/` | Fonts, logo, hero art, app screenshots, fake avatars and photos |
 | `app-shots/` | Dummy app pages and the script that renders the app screenshots |
 | `PRODUCT.md`, `DESIGN.md` | Product facts and copy rules; the page's design system |
+| `tests/`, `.github/workflows/checks.yml` | Unit tests for the build scripts and Netlify function, and the PR check workflow that runs them (see Tests) |
 
 Preview locally from the repo root:
 
@@ -90,6 +91,21 @@ mima: Optional one-line pitch for the "Try it in Mima" box
 Before publishing a guide, check every claim about Mima against the app's code
 (`mima-social/desktop`, `next` branch), and say in a caption that the people in
 app pictures are made up.
+
+## Tests
+
+Unit tests live in `tests/` and use the built-in runners, so there is nothing
+to install: `tests/test_*.py` for Python, `tests/*.test.mjs` for Node.
+
+```sh
+python3 -m unittest discover -s tests
+node --test "tests/**/*.test.mjs"   # Node 24 needs the glob; `tests/` alone fails
+```
+
+The **Checks** GitHub Action (`.github/workflows/checks.yml`) runs both on every
+pull request and push to `main`, along with the JS syntax check, Python compile,
+the `index.html` JSON-LD parse, and a Learn rebuild that fails if the generated
+files differ from what's committed.
 
 ## Telling search engines about new pages
 
