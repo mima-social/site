@@ -21,6 +21,14 @@ class FaqPairs(unittest.TestCase):
         body = "## Common questions\n\n### Is it free?\nYes.\n\n### Mac only?\nFor now.\n"
         self.assertEqual(build.faq_pairs(body), [("Is it free?", "Yes."), ("Mac only?", "For now.")])
 
+    def test_mixed_forms_stay_separate_and_in_order(self):
+        # #38: an ### answer used to swallow the **bold** question after it,
+        # and the two forms were listed in separate passes, out of page order.
+        body = ("## FAQ\n\n**First?** One.\n\n### Is it free?\nYes.\n\n"
+                "**Mac only?** For now.\n\n### Last?\nEnd.\n")
+        self.assertEqual(build.faq_pairs(body), [
+            ("First?", "One."), ("Is it free?", "Yes."), ("Mac only?", "For now."), ("Last?", "End.")])
+
     def test_no_faq_section(self):
         self.assertEqual(build.faq_pairs("## Intro\n\n**Bold?** Not a FAQ.\n"), [])
 
