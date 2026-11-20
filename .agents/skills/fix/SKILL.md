@@ -136,7 +136,23 @@ Spec (the issue). Fix real findings and rerun the step-2 check. There's no
 CodeRabbit on this repo; the Netlify bot posts a deploy preview — open it and
 rerun the check against the preview URL before asking for QA.
 
-## 7. Branch & draft PR
+## 7. Confidence and blast radius
+Write both down before opening the PR:
+- **Blast radius:** every file, page and surface the diff touches, and what
+  else reads or depends on them: generated Learn pages (`learn-src/build.py`),
+  `llms.txt`, the JSON-LD on `index.html`, `sitemap.xml`, the Netlify function
+  and its env vars, `_headers`/`_redirects`. A merge deploys all of it to
+  production at once. Rate it **small / medium / wide**.
+- **Confidence:** **high / medium / low** that the fix is right and breaks
+  nothing. Name the evidence: which checks ran against what (local server,
+  deploy preview, 390px, dark mode), and what wasn't verified.
+- **Gate:** open the PR only at *small* blast radius **and** *high*
+  confidence. Otherwise stop and report both ratings to the person (in sweep
+  mode, the parent agent) with what would raise confidence or shrink the
+  change (e.g. split the PR, add a check). Open it only when the person says go
+  ahead, and say so in the PR body.
+
+## 8. Branch & draft PR
 - One issue per branch, named for the change (e.g. `pause-button-focus`), from
   latest `origin/main`: `git fetch origin main && git switch -c <branch> origin/main`.
 - Stage explicit files only. Follow the commit-trailer instructions in effect
@@ -148,6 +164,8 @@ rerun the check against the preview URL before asking for QA.
   - **Repro:** the step-2 command/script, its before and after output;
   - **Mutation check:** the step-3b line;
   - **Checks run:** the step-4 commands;
+  - **Confidence / blast radius:** `<high|medium|low> / <small|medium|wide> —
+    <one line of evidence>` from step 7;
   - **Not verified:** what you couldn't check (e.g. real screen readers, Safari);
   - **QA:** left empty for the human.
 - It **stays draft until a human has QA'd the deploy preview**. Never
@@ -162,8 +180,9 @@ rerun the check against the preview URL before asking for QA.
    assigned to someone else.
 3. Triage the rest with step 0. Report skipped ones with the reason.
 4. For the fixable ones, start **one agent per issue in its own git worktree**,
-   each running this playbook for its own issue and returning its draft-PR link
-   and anything it could not verify. Give each agent its own free server port so
+   each running this playbook for its own issue and returning its draft-PR link,
+   its step-7 confidence / blast-radius ratings, and anything it could not
+   verify. Give each agent its own free server port so
    parallel servers don't collide, and tell it not to start agents of its own.
    - **Under Herdr Core** (`$HC_TERMINAL_ID` is set; read `hc --skill` once), use
      hc terminals so the person can watch and take over each agent. hc doesn't
@@ -173,8 +192,9 @@ rerun the check against the preview URL before asking for QA.
      git worktree add -b <branch> ../site-wt/<branch> origin/main
      hc run --bg --name fix-<n> --cwd ../site-wt/<branch> claude \
        "Run /fix for mima-social/site#<n> on this branch. Serve on port <port>. \
-        No subagents. Report the draft-PR link and what you couldn't verify \
-        with hc send $HC_TERMINAL_ID when done or stuck."
+        No subagents. Report the draft-PR link, your confidence / blast-radius \
+        ratings and what you couldn't verify with hc send $HC_TERMINAL_ID \
+        when done or stuck."
      ```
      Check `first_message.sent` in the result. Then wait with
      `hc wait --children all` (a `timeout` is a check-in; wait again), never
@@ -184,16 +204,19 @@ rerun the check against the preview URL before asking for QA.
      the terminal, then `git worktree remove` its worktree.
    - **Otherwise**, use the Agent tool with `isolation: "worktree"`.
 5. **Finish with a preview-and-approve list** for the human. For each PR, give
-   the PR link, its Netlify deploy preview
+   the PR link, its confidence / blast-radius ratings, its Netlify deploy
+   preview
    (`https://deploy-preview-<pr>--mima-site.netlify.app`, plus the exact page
    path that changed), and one line on what to check there (e.g. "Tab to the
    timeline pause button: a purple ring should appear"). Wait for the Netlify
-   check (`gh pr checks <pr>`) before listing a preview. Then list the issues
-   that were skipped, with the reason for each.
+   check (`gh pr checks <pr>`) before listing a preview. List anything below
+   high / small first, including children stopped at the step-7 gate. Then
+   list the issues that were skipped, with the reason for each.
 
 ## Guardrails
 - **No fix without a reproduction first**, failing for the right reason.
 - **Proven on the real page** — serve it and look; "the CSS looks right" isn't proof.
 - **Generated files come from their sources**: edit `learn-src/`, rebuild, commit both.
+- **Low blast radius, high confidence — or stop and ask.**
 - **Draft until human QA**; merging to `main` is a production deploy.
 - **Scope discipline** — one issue per PR; file a new issue for anything else you find.
