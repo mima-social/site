@@ -33,6 +33,7 @@ ROOT = HERE.parent
 OUT = ROOT / "labs"
 SITE = build.SITE
 FEED = "/labs/feed.xml"
+CSS = ("/labs/labs.css",)  # loaded after learn.css
 TAGLINE = "How Mima gets built, by the people building it."
 # The feed's own date while nothing is published (Atom needs one, and the
 # build must give the same output every run).
@@ -88,7 +89,7 @@ def parse_refs(text):
 
 
 def ref_html(repo, number):
-    label = f"<code>{esc(repo)}#{number}</code>"
+    label = f"{esc(repo)}#{number}"
     base = REPOS.get(repo)
     return f'<a href="{base}/issues/{number}">{label}</a>' if base else label
 
@@ -319,8 +320,7 @@ def published(posts):
 # ---------------------------------------------------------------- parts
 
 def head_extra(md_path=None, md_title="", noindex=False):
-    out = ['<link rel="stylesheet" href="/labs/labs.css" />',
-           f'<link rel="alternate" type="application/atom+xml" href="{SITE}{FEED}" title="Mima Labs" />']
+    out = [f'<link rel="alternate" type="application/atom+xml" href="{SITE}{FEED}" title="Mima Labs" />']
     if md_path:
         out.append(build.md_link(md_path, md_title))
     if noindex:
@@ -429,7 +429,8 @@ def post_page(p, others):
                "description": p["deck"], "url": SITE + p["url"], "mainEntityOfPage": SITE + p["url"],
                "datePublished": str(p["date_d"]), "dateModified": str(p["updated_d"]),
                "articleSection": p["category"], "inLanguage": "en", "timeRequired": f"PT{p['minutes']}M",
-               "author": person_ld(a), "publisher": {"@id": build.ORG["@id"]}, "isPartOf": {"@id": BLOG_ID},
+               # A draft's words are stand-ins, so its data does not credit them to the named author.
+               "author": {"@id": build.ORG["@id"]} if p["draft"] else person_ld(a), "publisher": {"@id": build.ORG["@id"]}, "isPartOf": {"@id": BLOG_ID},
                "encoding": {"@type": "MediaObject", "encodingFormat": "text/markdown", "contentUrl": SITE + p["md_url"]}}
     if p.get("figure"):
         posting["image"] = SITE + p["figure"]
@@ -443,7 +444,7 @@ def post_page(p, others):
     index = "/labs/drafts/" if p["draft"] else "/labs/"
     return build.head(f"{p['title']} · Labs · Mima", p["deck"], p["url"], ld,
                       head_extra(p["md_url"], "This post as Markdown", noindex=p["draft"]),
-                      og_type="article", body_class="labs") + f"""
+                      og_type="article", body_class="labs", css=CSS) + f"""
 <main id="content">
   <article class="post{' compact' if p['compact'] else ''}">
     <header class="sleeve">
@@ -500,7 +501,7 @@ def index_page(posts, drafts=False):
             f'The real index is at <a href="/labs/">/labs/</a>. This page is not published.</p>' if drafts else "")
     # Nothing to index while Labs is empty.
     return build.head("Labs: how Mima gets built · Mima", TAGLINE, path, ld,
-                      head_extra(noindex=drafts or not posts), body_class="labs") + f"""
+                      head_extra(noindex=drafts or not posts), body_class="labs", css=CSS) + f"""
 <main id="content">
   <div class="post index{'' if posts else ' is-empty'}">
     <header class="sleeve">
@@ -527,7 +528,8 @@ def post_md(p):
     lines = [f"# {p['title']}", "", f"> {p['deck']}", ""]
     if p["draft"]:
         lines += [f"Draft. {DRAFT_NOTE}", ""]
-    meta = [f"By {by}, {a['role']}", f"Category: {p['category']}", f"Published: {p['date_d']}",
+    credit = f"Credits name {a['name']} (stand-in text, not their words)" if p["draft"] else f"By {by}, {a['role']}"
+    meta = [credit, f"Category: {p['category']}", f"Published: {p['date_d']}",
             f"Source: {SITE}{p['url']}"]
     if p.get("shipped"):
         meta.insert(1, f"What shipped: {p['shipped']}")

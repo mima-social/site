@@ -19,17 +19,18 @@
 .labs .bar .pill:focus-visible { box-shadow: 0 0 0 3px var(--a-950), 0 0 0 6px #fff; }
 
 /* ---- sleeve ---- */
-.sleeve { position: relative; background: var(--a-950); color: #fff; padding-top: clamp(12px, 2vw, 24px); overflow-x: clip; }
+.sleeve { position: relative; display: flow-root; background: var(--a-950); color: #fff; padding-top: clamp(12px, 2vw, 24px); overflow-x: clip; }
 .sleeve ::selection { background: var(--lime); color: var(--ink); }
-.sleeve > .wrap { position: relative; }
+.sleeve > .wrap { position: relative; display: flow-root; } /* flow-root: the band's negative margin shortens the sleeve */
 .sleeve-art { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
-.sleeve-art svg { position: absolute; right: clamp(-210px, -12vw, -130px); bottom: -150px; width: clamp(300px, 34vw, 460px); height: auto; transform: rotate(12deg); color: var(--lime); opacity: 0.32; }
-.sleeve-art path { stroke: currentColor; stroke-width: 2.5; stroke-linecap: round; vector-effect: non-scaling-stroke; }
+/* The looping M, painted in lime across the sleeve's left edge, as on the landing page. */
+.sleeve-art svg { position: absolute; left: clamp(-112px, -7vw, -70px); bottom: clamp(96px, 13vw, 168px); width: clamp(120px, 13.5vw, 196px); height: auto; transform: rotate(-14deg); color: var(--lime); }
+.sleeve-art path { stroke: currentColor; stroke-width: 3; stroke-linecap: round; vector-effect: non-scaling-stroke; }
 .sleeve-head { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.92fr); gap: clamp(32px, 4.5vw, 60px); align-items: center; }
 .cat { margin: 0; font: 600 0.9375rem/1.3 var(--font-ui); color: var(--lime); }
 .sleeve h1, .sleeve h2 { font: 800 clamp(2.5rem, 5.9vw, 4.75rem)/1 var(--font-display); letter-spacing: -0.025em; color: #fff; margin: 14px 0 18px; }
 .sleeve h1.long, .sleeve h2.long { font-size: clamp(2.125rem, 4.5vw, 3.5rem); line-height: 1.04; }
-.sleeve h2 a { color: inherit; text-decoration: none; }
+.sleeve h2 a { display: inline-block; color: inherit; text-decoration: none; text-wrap: balance; }
 .sleeve h2 a:hover { color: var(--a-100); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
 .deck { margin: 0; max-width: 34rem; font-size: clamp(1.0625rem, 1.5vw, 1.3125rem); line-height: 1.45; color: var(--a-200); text-wrap: pretty; }
 
@@ -69,7 +70,7 @@
 .credits dt { font-size: 0.875rem; line-height: 1.3; color: var(--on-lime); }
 .credits dd { margin: 2px 0 0; font-weight: 600; font-size: 0.9375rem; line-height: 1.35; font-variant-numeric: tabular-nums; text-wrap: balance; }
 .credits dd a { color: var(--ink); }
-.credits code { font: 0.875rem/1.35 var(--font-code); }
+.credits time { white-space: nowrap; }
 
 /* compact sleeve, for a short show-and-tell post */
 .compact .sleeve-head { grid-template-columns: minmax(0, 1fr); gap: clamp(22px, 3vw, 32px); }
@@ -90,10 +91,10 @@
 .prose.notes > .margin-notes.first { margin-top: 0; }
 .prose.notes > .margin-notes.tight { margin-top: 0.6em; }
 .sidenote { display: grid; grid-template-columns: 24px minmax(0, 1fr); gap: 10px; margin: 0; font-size: 0.9375rem; line-height: 1.45; color: var(--void-600); text-wrap: pretty; }
-.sidenote .num, .snr a { display: inline-block; min-width: 24px; height: 24px; border-radius: 999px; background: var(--a-100); color: var(--a-700); font: 600 0.8125rem/24px var(--font-ui); font-variant-numeric: tabular-nums; text-align: center; text-decoration: none; }
+.sidenote .num, .snr a { display: inline-grid; place-items: center; width: 24px; height: 24px; padding: 0; border-radius: 999px; background: var(--a-100); color: var(--a-700); font: 600 0.8125rem/24px var(--font-ui); font-variant-numeric: tabular-nums; text-align: center; text-decoration: none; }
 .sidenote .num:hover, .snr a:hover { background: var(--a-200); color: var(--a-900); }
 .snr { font-size: inherit; line-height: 0; vertical-align: 0.3em; margin-left: 3px; }
-.snr a { min-width: 20px; height: 20px; line-height: 20px; }
+.snr a { width: 20px; height: 20px; line-height: 20px; }
 .sidenote:target .num { background: var(--a-700); color: #fff; }
 .bignum { margin: 0; padding: 20px 22px; border-radius: 24px; background: var(--card); box-shadow: var(--lift); }
 .bignum b { display: block; font: 800 clamp(3rem, 4.6vw, 4rem)/1 var(--font-display); letter-spacing: -0.03em; }
@@ -137,7 +138,7 @@
 /* ---- responsive ---- */
 @media (max-width: 960px) {
     .sleeve-head { grid-template-columns: minmax(0, 1fr); gap: 28px; }
-    .sleeve-art { display: none; }
+    .sleeve-art svg { left: -82px; bottom: auto; top: 40%; width: 104px; }
     .credits { grid-template-columns: minmax(0, 1fr); }
     .credits dl { grid-auto-flow: row; grid-template-columns: repeat(2, minmax(0, 1fr)); padding-top: 14px; border-top: 1px solid color-mix(in srgb, var(--ink) 16%, var(--lime)); }
     .prose.notes { display: block; }

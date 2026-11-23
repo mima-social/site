@@ -29,8 +29,6 @@ The figure can carry three to five numbered callouts, and the text refers to the
 
 A post is one Markdown file in `labs-src/posts/`. Its front matter fills the sleeve and the credits band. This is the front matter of the page you are reading, shortened:
 
-::: number 68ch | the width of the reading column, the same measure Learn uses
-
 ```
 ---
 title: How a Labs post is put together
@@ -44,6 +42,8 @@ figure: /site-assets/app/board.webp
 callout-1: 46 10 from 54 0 | Network filters
 ---
 ```
+
+::: number 68ch | the width of the reading column, the same measure Learn uses
 
 An author is defined once in `labs-src/authors.json` and reused by every post they write.[^authors] The build is the same script that builds Learn, and it uses only the Python standard library.
 

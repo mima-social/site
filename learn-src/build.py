@@ -169,9 +169,11 @@ def nav_link(href, label, path):
     return f'<a href="{href}"{current}>{label}</a>'
 
 
-def head(title, description, path, jsonld, extra="", og_type=None, body_class=""):
+def head(title, description, path, jsonld, extra="", og_type=None, body_class="", css=()):
     """The top of every Learn and Labs page: <head>, sprite, skip link and bar.
-    `extra` is more <head> markup (alternate links, a stylesheet, robots)."""
+    `extra` is more <head> markup (alternate links, robots). `css` lists
+    stylesheets to load after learn.css, so they can override it."""
+    more_css = "".join(f'\n    <link rel="stylesheet" href="{href}" />' for href in css)
     url = SITE + path
     og = og_image(path)
     og_type = og_type or ('article' if path.count('/') == 3 and '/topics/' not in path else 'website')
@@ -215,7 +217,7 @@ def head(title, description, path, jsonld, extra="", og_type=None, body_class=""
     </script>
     <link rel="preload" href="/site-assets/MimaDisplay-ExtraBold.subset.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/site-assets/MimaUI-Regular.subset.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/learn/learn.css" />
+    <link rel="stylesheet" href="/learn/learn.css" />{more_css}
 </head>
 {body}
 {SPRITE}

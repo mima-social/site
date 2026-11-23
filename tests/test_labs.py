@@ -50,8 +50,8 @@ class Refs(unittest.TestCase):
 
     def test_only_known_public_repos_are_linked(self):
         self.assertEqual(labs.ref_html("site", 44),
-                         '<a href="https://github.com/mima-social/site/issues/44"><code>site#44</code></a>')
-        self.assertEqual(labs.ref_html("desktop", 7), "<code>desktop#7</code>")
+                         '<a href="https://github.com/mima-social/site/issues/44">site#44</a>')
+        self.assertEqual(labs.ref_html("desktop", 7), "desktop#7")
 
 
 class Callouts(unittest.TestCase):
@@ -254,6 +254,7 @@ class Outputs(unittest.TestCase):
         self.assertIn("By [Ada Example](https://ada.example/), Engineer", text)
         self.assertNotIn("Draft.", text)
         self.assertIn("Draft. ", labs.post_md(self.draft))
+        self.assertNotIn("By [Ada", labs.post_md(self.draft))
 
 
 class Pages(unittest.TestCase):
@@ -284,6 +285,12 @@ class Pages(unittest.TestCase):
         page = labs.post_page(post(extra="draft: true\n"), [])
         self.assertIn('<meta name="robots" content="noindex" />', page)
         self.assertIn('<p class="draft-note"><strong>Draft.</strong>', page)
+        posting = next(x for x in self.ld(page) if x["@type"] == "BlogPosting")
+        self.assertEqual(posting["author"], {"@id": "https://www.mima.social/#organization"})  # stand-in words
+
+    def test_labs_css_loads_after_learn_css(self):
+        page = labs.post_page(post(), [])
+        self.assertLess(page.index("/learn/learn.css"), page.index("/labs/labs.css"))
 
     def test_index_lists_published_posts_only_in_its_data(self):
         a, b = post("a"), post("b", extra="draft: true\n")

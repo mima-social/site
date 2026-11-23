@@ -4,7 +4,7 @@
 
 Draft. Stand-in words and pictures that show the layout. Not published, and not in the feed, the sitemap or llms.txt.
 
-By [Mima Labs](https://www.mima.social/), The team behind Mima · What shipped: Stand-in: the compact sleeve · Refs: site#44 · Category: Engineering · Published: 2026-11-22 · Source: https://www.mima.social/labs/drafts/compact-sleeve-test/
+Credits name Mima Labs (stand-in text, not their words) · What shipped: Stand-in: the compact sleeve · Refs: site#44 · Category: Engineering · Published: 2026-11-22 · Source: https://www.mima.social/labs/drafts/compact-sleeve-test/
 
 ![The Mima composer with a short post typed in and the Bluesky, X, Mastodon and LinkedIn toggles switched on](https://www.mima.social/site-assets/app/compose-typed-desk.webp)
 

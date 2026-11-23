@@ -4,7 +4,7 @@
 
 Draft. Stand-in words and pictures that show the layout. Not published, and not in the feed, the sitemap or llms.txt.
 
-By Dave Monk, QA consultant · What shipped: Stand-in: the Labs post layout · Refs: site#44 · Category: Engineering · Published: 2026-11-23 · Source: https://www.mima.social/labs/drafts/how-a-labs-post-is-built/
+Credits name Dave Monk (stand-in text, not their words) · What shipped: Stand-in: the Labs post layout · Refs: site#44 · Category: Engineering · Published: 2026-11-23 · Source: https://www.mima.social/labs/drafts/how-a-labs-post-is-built/
 
 ![The Mima News Wall in Board view, with posts from four networks in columns above the composer](https://www.mima.social/site-assets/app/board.webp)
 
@@ -24,8 +24,6 @@ The figure can carry three to five numbered callouts, and the text refers to the
 
 A post is one Markdown file in `labs-src/posts/`. Its front matter fills the sleeve and the credits band. This is the front matter of the page you are reading, shortened:
 
-> **68ch**: the width of the reading column, the same measure Learn uses
-
 ```
 ---
 title: How a Labs post is put together
@@ -39,6 +37,8 @@ figure: /site-assets/app/board.webp
 callout-1: 46 10 from 54 0 | Network filters
 ---
 ```
+
+> **68ch**: the width of the reading column, the same measure Learn uses
 
 An author is defined once in `labs-src/authors.json` and reused by every post they write.[^authors] The build is the same script that builds Learn, and it uses only the Python standard library.
 
