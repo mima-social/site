@@ -1,9 +1,9 @@
 ---
-name: learn
+name: learn-content
 description: Write and update the /learn guides when Mima ships. Use on a release message from the desktop Release Manager, on a `documentation` issue titled "Document <feature> (Mima vX.Y.Z)", or when asked for a Learn page; ends in a draft PR with app pictures.
 ---
 
-# /learn: release-to-guides writer
+# /learn-content: release-to-guides writer
 
 You write the guides at `/learn/`. People read them, and AI agents crawl the
 Markdown copies and `llms.txt`, so every guide is the **answer** to a question
