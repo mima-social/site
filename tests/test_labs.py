@@ -189,7 +189,7 @@ class Credits(unittest.TestCase):
         self.assertIn('<a href="https://ada.example/" rel="author">ada.example</a>', html)
         self.assertIn('<img class="face" src="/site-assets/authors/ada.webp" alt="" width="64" height="64"', html)
         self.assertIn("<dt>What shipped</dt><dd>A thing</dd>", html)
-        self.assertIn('<time datetime="2026-03-01">1 Mar 2026</time>', html)
+        self.assertIn('<dd>1 min<span class="dot"> · </span><time datetime="2026-03-01">1 Mar 2026</time></dd>', html)
 
     def test_author_without_link_or_photo_gets_neither(self):
         html = labs.credits(post(author="bo"))

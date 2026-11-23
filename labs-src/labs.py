@@ -344,7 +344,7 @@ def credits(p):
         cells.append(("What shipped", md.inline(p["shipped"])))
     if p["refs"]:
         cells.append(("On GitHub", " · ".join(ref_html(r, n) for r, n in p["refs"])))
-    cells.append(("Read", f'{p["minutes"]} min · <time datetime="{p["date_d"]}">{build.nice_date(p["date_d"])}</time>'))
+    cells.append(("Read", f'{p["minutes"]} min<span class="dot"> · </span><time datetime="{p["date_d"]}">{build.nice_date(p["date_d"])}</time>'))
     return (f'<div class="credits"><div class="who">{face(a)}<p><b>{esc(a["name"])}</b>{link}</p></div>'
             f'<dl>{"".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in cells)}</dl></div>')
 

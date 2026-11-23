@@ -27,7 +27,7 @@ Unresolved: Dave's post (title, deck, body), his site URL and an approved photo;
 
 THESIS: Every post ships like a release: the work on the sleeve, the people in the credits. Refuses the category default of a white column with a thumbnail and a grey byline.
 
-OWN-WORLD: The Mima Ube world. An Ube Night (a-950) sleeve owns the top of each post. Lime is the credits band, with ink type. Below the sleeve: lilac ground, a 68ch reading column, Ube Night code blocks and Ube Mist callouts as on Learn. A brand squiggle arc sits on the sleeve edge. Hot pink appears only on the bar's Download pill (One Pink Rule).
+OWN-WORLD: The Mima Ube world. An Ube Night (a-950) sleeve owns the top of each post. Lime is the credits band, with ink type. Below the sleeve: lilac ground, a 68ch reading column, Ube Night code blocks and Ube Mist callouts as on Learn. A brand squiggle (the looping M, painted in lime) crosses the sleeve's left edge; it is dropped at 760px and below, where the gutter cannot show it whole. Hot pink appears only on the bar's Download pill (One Pink Rule).
 
 STORY: An engineer lands on a post, sees what was built and who built it at a glance, reads how it was done with the numbers and code beside the text, and wants to follow the team (feed, other posts) or try Mima.
 
