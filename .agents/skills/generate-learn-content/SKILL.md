@@ -40,7 +40,9 @@ that proves it, and every claim the tag contradicts or leaves unproven is on a
 Each change gets exactly one outcome:
 
 - **New guide** when it answers a question no guide answers yet.
-- **Update** to the guide whose question it changes; bump `updated`.
+- **Update** to the guide whose question it changes; bump `updated`, and set
+  `published` to the guide's earlier date so it keeps its place in Latest
+  below the new guides.
 - **Skip**, with the reason (a fix nobody would search for; a feature still
   hidden behind a flag, which gets its guide in the release that shows it).
 
@@ -78,7 +80,8 @@ tag, with the fictional cast.
 
 - **Stills:** add a view per feature state to `app-shots/build.py`, render it,
   and look at the result before using it. The first figure's caption says the
-  people are made up.
+  people are made up. Write captions with no double quotes inside them; the
+  caption is itself a quoted Markdown title.
 - **Animations:** there is no pipeline yet. When motion explains the feature
   better than stills, ask the person for a recording and give them the shot
   list: the starting screen, each click, the end state, and the length. Put a
