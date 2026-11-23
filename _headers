@@ -6,3 +6,15 @@
 /learn/topics/*.md
   Content-Type: text/markdown; charset=utf-8
   X-Robots-Tag: noindex
+# Labs: Markdown versions of the posts, like Learn's.
+/labs/*.md
+  Content-Type: text/markdown; charset=utf-8
+  X-Robots-Tag: noindex
+/labs/feed.xml
+  Content-Type: application/atom+xml; charset=utf-8
+# Labs drafts are for deploy previews only: never index them.
+/labs/drafts/*
+  X-Robots-Tag: noindex
+/labs/drafts/*.md
+  Content-Type: text/markdown; charset=utf-8
+  X-Robots-Tag: noindex

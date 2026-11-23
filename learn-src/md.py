@@ -105,6 +105,13 @@ def _list(lines):
 def to_html(body):
     """Convert Markdown to HTML. Returns (html, headings) where headings is
     a list of (level, id, text) for h2 and h3, for a table of contents."""
+    blocks, headings = to_blocks(body)
+    return "\n".join(blocks), headings
+
+
+def to_blocks(body):
+    """Like to_html, but returns the top-level blocks as a list, one HTML
+    string per block, so a caller (Labs) can hang margin notes on a block."""
     lines = body.splitlines()
     out, headings, used = [], [], set()
     i = 0
@@ -183,4 +190,4 @@ def to_html(body):
             para.append(lines[i].strip())
             i += 1
         out.append(f"<p>{inline(' '.join(para))}</p>")
-    return "\n".join(out), headings
+    return out, headings
