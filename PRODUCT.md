@@ -33,7 +33,7 @@ Privacy and local-first architecture are true and supporting, explained earnestl
 
 ## Capabilities and Constraints
 
-Shipped (code on `next`, latest release v0.7.0, 2026-11-22):
+Shipped (latest release v0.7.0, 2026-11-22; only the entries marked 0.7.0 were re-checked at that tag):
 
 - **Networks:** Bluesky, Mastodon (full read, post, reply, like, repost, DMs); X and LinkedIn (Beta: read timeline, mentions and DMs; posting and replying are *assisted*: Mima opens the platform's composer pre-filled and the user clicks Post there; LinkedIn assisted posts are text and links only).
 - **News Wall:** unified Timeline and Board views; duplicate cross-posts collapse into one card.

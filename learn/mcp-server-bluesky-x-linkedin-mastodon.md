@@ -59,7 +59,7 @@ The server runs inside Mima on your Mac. It accepts connections only from that M
 
 Your agent is a separate matter. When you ask it about your DMs, the messages it reads become part of that chat. If the agent uses a cloud model, as Claude Desktop and Codex do, that text goes to the company that runs the model. Connect only an agent you would trust with those messages.
 
-The **Local MCP server** switch at the top of Settings > Connectors turns every connection off at once. Each card also has its own **Disconnect** button.
+The **Local MCP server** switch at the top of Settings > Connectors turns every connection off at once. The Claude Desktop and ChatGPT cards each have a **Disconnect** button too.
 
 ## When another kind of MCP server fits better
 
