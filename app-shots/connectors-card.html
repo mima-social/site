@@ -1,0 +1,50 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="app.css"></head>
+<body class="card-only"><div class="settings">
+  <div class="sh"><span class="ttl">Settings</span><svg class="x" aria-hidden="true"><use href="icons.svg#close"/></svg></div>
+  <div class="tabs"><span class="">General</span><span class="">Accounts</span><span class="">AI</span><span class="">Your Data</span><span class="">Filters</span><span class="on">Connectors</span><span class="">Advanced</span></div>
+  <div class="sbody mcp">
+    <section>
+      <h3 class="type-title">Connect AI apps</h3>
+      <p class="lead">Let your AI apps search and read your messages, conversations and posts in Mima. They can only read: they can never post, send or change anything.</p>
+      <div class="srv"><div class="tx"><div class="lb">Local MCP server</div><div class="st">Running on port 47821</div></div>
+        <span class="switch"><i></i></span></div>
+      <div class="apps">
+        <div class="app-card">
+  <div class="ah"><span class="logo"><svg class="i" aria-hidden="true"><use href="icons.svg#claude"/></svg><span class="ok"><svg class="i" aria-hidden="true"><use href="icons.svg#check"/></svg></span></span>
+    <div><h4>Claude Desktop</h4><p>Use Mima in the Claude desktop app.</p></div></div>
+  <div class="ab"></div>
+  <div class="af"><span class="btn-lg b-destr">Disconnect</span></div>
+</div>
+        <div class="app-card">
+  <div class="ah"><span class="logo"><svg class="i" aria-hidden="true"><use href="icons.svg#openai"/></svg></span>
+    <div><h4>ChatGPT (Codex)</h4><p>Use Mima in Codex in the ChatGPT app.</p></div></div>
+  <div class="ab"></div>
+  <div class="af"><span class="btn-lg b-acc">Connect to ChatGPT</span></div>
+</div>
+        <div class="app-card">
+  <div class="ah"><span class="logo"><svg class="i" aria-hidden="true"><use href="icons.svg#claude"/></svg></span>
+    <div><h4>Claude Code</h4><p>Paste this prompt into Claude Code.</p></div></div>
+  <div class="ab"><div class="well"><pre>Add Mima as an MCP server for all my projects by running this command:
+
+claude mcp add --scope user mima -- '/Applications/Mima.app/Contents/MacOS/Mima' '--mcp-stdio'
+
+Mima is a read-only server for my social media posts and messages.</pre></div></div>
+  <div class="af"><span class="btn-lg b-sec">Copy prompt</span></div>
+</div>
+        <div class="app-card">
+  <div class="ah"><span class="logo"><svg class="i" aria-hidden="true"><use href="icons.svg#link"/></svg></span>
+    <div><h4>Other AI apps</h4><p>Paste this into any app that supports MCP, or into its chat.</p></div></div>
+  <div class="ab"><div class="well"><pre>Add this local MCP server (stdio transport) to your settings:
+
+Name: mima
+Command: /Applications/Mima.app/Contents/MacOS/Mima
+Arguments: ["--mcp-stdio"]
+
+Mima is a read-only server for my social media posts and messages.</pre></div></div>
+  <div class="af"><span class="btn-lg b-sec">Copy prompt</span></div>
+</div>
+      </div>
+    </section>
+    <section><span class="btn-lg b-ghost">Advanced setup<svg class="i" aria-hidden="true"><use href="icons.svg#chevron-down"/></svg></span></section>
+  </div>
+</div></body></html>

@@ -2,7 +2,7 @@
 
 > On an Apple Silicon Mac, Mima lets you sign in to Bluesky, X, LinkedIn, and Mastodon with each network’s own login, then compose once and publish across all four accounts.
 
-Topic: Posting · Updated: 2026-11-09 · Source: https://www.mima.social/learn/cross-post-bluesky-x-linkedin-mastodon-mac/
+Topic: Posting · Updated: 2026-11-23 · Source: https://www.mima.social/learn/cross-post-bluesky-x-linkedin-mastodon-mac/
 
 ## TL;DR
 
@@ -12,7 +12,7 @@ Topic: Posting · Updated: 2026-11-09 · Source: https://www.mima.social/learn/c
 
 ## Cross-platform posting across four separate accounts on one Mac, from one app
 
-If you use Bluesky, X, LinkedIn, and Mastodon, posting the same update separately means switching between accounts and posting your draft four times. Mima's cross-platform posting lets you write an update once and share it across those networks.
+If you use Bluesky, X, LinkedIn, and Mastodon, posting the same update separately means switching between accounts and posting your draft four times. Mima's cross-platform posting lets you write an update once and share it across those networks. The composer has a searchable emoji picker.
 
 ![The Mima composer with a short message typed in and the Bluesky, X, Mastodon and LinkedIn toggles all switched on](https://www.mima.social/site-assets/app/compose-typed-desk.webp "Write once, with all four networks switched on. People and posts in these pictures are made up.")
 
@@ -40,7 +40,7 @@ Your new post shows up in Mima's News Wall as one card, with a badge for each ne
 
 ![The News Wall showing three of your posts: one greyed out and marked Posting…, one marked Not sent with Retry, Edit and Discard buttons, and one sent to all four networks with replies and likes](https://www.mima.social/site-assets/app/post-status.webp "Sending, not sent, and sent to all four networks.")
 
-The News Wall shows the people you follow in time order, and you can sort it by newest, most active or least active. As replies come in, the unified inbox brings mentions and direct messages from your connected networks into one place, with pins and reminders for follow-up. To answer replies to a cross-post, reply once and choose which networks' copies to reply to.
+The News Wall shows the people you follow in time order, and you can sort it by newest, most active or least active. While you are scrolled down reading, new posts wait behind a small "new posts" button until you ask for them, so your place never moves. You can also narrow the Timeline to one of your [Bluesky or Mastodon lists](https://www.mima.social/learn/bluesky-mastodon-lists-one-app/). As replies come in, the unified inbox brings mentions and direct messages from your connected networks into one place, with pins and reminders for follow-up. To answer replies to a cross-post, reply once and choose which networks' copies to reply to.
 
 ![The News Wall sort menu open, with Newest, Most active and Least active](https://www.mima.social/site-assets/app/sort-menu.webp "The sort menu on the News Wall.")
 

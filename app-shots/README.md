@@ -32,11 +32,19 @@ To look at a dummy page in a browser, serve the repo root
      (`ConversationSummaryOverlay.tsx`, `SummaryWithReferences.tsx`,
      `ui/AiSparkle.tsx`) components, matched value by value.
 
+   The three Mima 0.7.0 views (`connectors-card`, `agent-button`,
+   `lists-rail`) follow the `v0.7.0` tag instead: `Settings/McpPanel.tsx`,
+   `common/ConnectAgentButton.tsx`, `NewsWall/ListsSidebar.tsx`, and that
+   version's title bar and page header (no version label or Settings link,
+   All / Saved after the sort). The older views keep the earlier chrome.
+
    Copied as-is from the app repo:
    - `fonts/`: Gen Interface JP (UI), Source Sans 3 (what people wrote) and
      Source Serif 4 italic (AI text).
    - `icons.svg`: the app's icon set (`src/assets/icons/*.svg`) plus the solid
-     platform marks from `src/components/common/PlatformIcon.tsx`.
+     platform marks from `src/components/common/PlatformIcon.tsx`. It includes the
+     app's own Claude and OpenAI marks (`Claude.svg`, `OpenAI.svg`), which
+     the Connectors cards show.
 
 2. **Fake content in one place.** `build.py` holds every person, post and
    conversation, and writes the pages:
@@ -59,6 +67,9 @@ To look at a dummy page in a browser, serve the repo root
    | `omni-reply.html` | The composer replying to your own cross-post, all four networks selected | Learn: cross-posting guide |
    | `accounts.html` | The same Settings dialog over the board | Spare view |
    | `inbox-summary.html` | Conversations list with an AI summary row for a busy conversation | Learn: inbox guide |
+| `connectors-card.html` | Settings, Connectors tab: Local MCP server on, Claude Desktop connected, the other three app cards not yet connected (dialog alone) | Learn: Mima 0.7.0, AI agents guide |
+| `agent-button.html` | The top of the News Wall with the header's "Connect Mima to your agent" button | Learn: Mima 0.7.0, AI agents guide |
+| `lists-rail.html` | News Wall Timeline at 1280px with the Lists rail: a Bluesky list selected, a Mastodon list with the new-posts dot | Learn: Mima 0.7.0, lists guide |
 
    People and media are fictional:
    - handles use reserved `.example` domains or `_demo` suffixes so none can
@@ -83,6 +94,9 @@ To look at a dummy page in a browser, serve the repo root
    | `sort-menu` | 960 × 420 | Learn |
    | `omni-reply` | 960 × 648 | Learn |
    | `compose-typed-desk` | 960 × 648, cropped to the bottom 288 px | Learn: just the composer |
+| `connectors-card` | 720 × 928 | Learn. The height fits the dialog's content: change it if the cards change |
+| `agent-button` | 960 × 360 | Learn. Short, so the header button reads |
+| `lists-rail` | 1280 × 800 | Learn. The rail only shows at 1280px and wider |
    | `<view>-m` (phones) | 390 × 520, via `phone.html` | The narrow layout in `app.css` (`max-width: 520px`) reflows the UI, then the result is cropped to 780 × 1040 |
 
    Headless Chrome won't make a window narrower than ~500px, which is why the

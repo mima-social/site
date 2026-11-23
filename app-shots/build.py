@@ -27,7 +27,12 @@ def glyph(net):
     return icon(net, "g")
 
 
-def page(title, body, composer=None):
+def page(title, body, composer=None, v07=False):
+    # v07: the v0.7.0 title bar (App.tsx). No version label, no "Settings" on
+    # macOS; the right side is ConnectAgentButton (state none), then the theme toggle.
+    version = "" if v07 else '<span class="version">v0.2.0</span>'
+    right = (f'<span class="agent-btn">{icon("sparkling")}Connect Mima to your agent</span>{icon("moon")}'
+             if v07 else f'{icon("moon")}<span>Settings</span>')
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -39,12 +44,12 @@ def page(title, body, composer=None):
 <header class="titlebar">
   <div class="lights"><span></span><span></span><span></span></div>
   <svg class="wordmark" viewBox="0 0 108 52" fill="currentColor" aria-label="Mima"><path d="{WORDMARK}"/></svg>
-  <span class="version">v0.2.0</span>
+  {version}
   <nav class="nav">
     <a class="{'on' if title.startswith('News') else ''}">{icon('megaphone')}News</a>
     <a class="{'on' if title.startswith('Conv') else ''}">{icon('messages')}Conversations<span class="badge">4</span></a>
   </nav>
-  <div class="right">{icon('moon')}<span>Settings</span></div>
+  <div class="right">{right}</div>
 </header>
 <main>
 {body}
@@ -350,6 +355,111 @@ omni_reply = page("News Wall", news_head("Timeline") + '\n<div class="feed">' + 
 # (ConversationListItem.tsx: shown when a conversation has >1 unread).
 inbox_summary = page("Conversations", conv_head + '\n<div class="rows">' + "".join(SUM_ROWS) + "</div>")
 
-for name, html in {"inbox-summary": inbox_summary, "accounts": accounts, "accounts-card": accounts_card, "post-status": post_status, "sort-menu": sort_menu, "omni-reply": omni_reply, "summary-card": summary_card, "summary": summary, "timeline-strip": timeline_strip, "feed": feed, "board": board, "compose": compose, "compose-typed": compose_typed, "conversations": conversations, "thread": thread}.items():
+# ---------------------------------------------------------------- Mima 0.7.0 views
+# Matched to the v0.7.0 tag of mima-social/desktop.
+
+def news_head_07(view="Timeline"):
+    # PageHeader.tsx at v0.7.0: full width, title left, controls right; no
+    # reload button, and All / Saved (SavedFilterToggle.tsx) after the sort.
+    pills = '<span class="pill on">All</span>' + "".join(
+        f'<span class="pill"><span class="{n}">{icon("s-" + n)}</span></span>'
+        for n in ("bluesky", "x", "linkedin", "mastodon")
+    )
+    seg = "".join(f'<span class="{"on" if v == view else ""}">{v}</span>' for v in ("Timeline", "Board"))
+    return f"""<div class="head v07">
+  <div class="ttl"><h1 class="type-h2">News Wall</h1></div>
+  <div class="ctrls">
+    <div class="pills">{pills}</div>
+    <div class="seg">{seg}</div>
+    <span class="select">Newest{icon('chevron-down')}</span>
+    <div class="savedtg"><span class="on">All</span><span>{icon('bookmark')}Saved</span></div>
+  </div>
+</div>"""
+
+
+# The header's way into Settings > Connectors (common/ConnectAgentButton.tsx, state none).
+agent_button = page("News Wall", news_head_07("Timeline") + '\n<div class="feed">' + post(**P_INES) + "</div>", v07=True)
+
+
+# Settings > Connectors (Settings/McpPanel.tsx; prompts from mcp-snippets.ts
+# with the stories' stdio command).
+STDIO = "/Applications/Mima.app/Contents/MacOS/Mima"
+CLAUDE_CODE_PROMPT = f"""Add Mima as an MCP server for all my projects by running this command:
+
+claude mcp add --scope user mima -- '{STDIO}' '--mcp-stdio'
+
+Mima is a read-only server for my social media posts and messages."""
+GENERIC_PROMPT = f"""Add this local MCP server (stdio transport) to your settings:
+
+Name: mima
+Command: {STDIO}
+Arguments: ["--mcp-stdio"]
+
+Mima is a read-only server for my social media posts and messages."""
+
+
+def app_card(logo, title, desc, footer, prompt=None, connected=False):
+    ok = f'<span class="ok">{icon("check")}</span>' if connected else ""
+    body = f'<div class="well"><pre>{prompt}</pre></div>' if prompt else ""
+    return f"""<div class="app-card">
+  <div class="ah"><span class="logo">{icon(logo)}{ok}</span>
+    <div><h4>{title}</h4><p>{desc}</p></div></div>
+  <div class="ab">{body}</div>
+  <div class="af">{footer}</div>
+</div>"""
+
+
+SETTINGS_TABS_07 = ("General", "Accounts", "AI", "Your Data", "Filters", "Connectors", "Advanced")
+connectors_card = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="app.css"></head>
+<body class="card-only"><div class="settings">
+  <div class="sh"><span class="ttl">Settings</span>{icon('close', 'x')}</div>
+  <div class="tabs">{''.join(f'<span class="{"on" if t == "Connectors" else ""}">{t}</span>' for t in SETTINGS_TABS_07)}</div>
+  <div class="sbody mcp">
+    <section>
+      <h3 class="type-title">Connect AI apps</h3>
+      <p class="lead">Let your AI apps search and read your messages, conversations and posts in Mima. They can only read: they can never post, send or change anything.</p>
+      <div class="srv"><div class="tx"><div class="lb">Local MCP server</div><div class="st">Running on port 47821</div></div>
+        <span class="switch"><i></i></span></div>
+      <div class="apps">
+        {app_card("claude", "Claude Desktop", "Use Mima in the Claude desktop app.",
+                  '<span class="btn-lg b-destr">Disconnect</span>', connected=True)}
+        {app_card("openai", "ChatGPT (Codex)", "Use Mima in Codex in the ChatGPT app.",
+                  '<span class="btn-lg b-acc">Connect to ChatGPT</span>')}
+        {app_card("claude", "Claude Code", "Paste this prompt into Claude Code.",
+                  '<span class="btn-lg b-sec">Copy prompt</span>', prompt=CLAUDE_CODE_PROMPT)}
+        {app_card("link", "Other AI apps", "Paste this into any app that supports MCP, or into its chat.",
+                  '<span class="btn-lg b-sec">Copy prompt</span>', prompt=GENERIC_PROMPT)}
+      </div>
+    </section>
+    <section><span class="btn-lg b-ghost">Advanced setup{icon('chevron-down')}</span></section>
+  </div>
+</div></body></html>"""
+
+
+# The Timeline's Lists rail (NewsWall/ListsSidebar.tsx, lists-display.ts): shown
+# at 1280px and wider. Lists are single-platform, so the selected Bluesky list
+# shows only Bluesky posts.
+def list_row(name, people=None, on=False, new=False):
+    count = f'<span class="ct">{people} people</span>' if people else ""
+    dot = '<span class="dot"></span>' if new and not on else ""
+    return f'<li class="{"on" if on else ""}"><span class="nm">{name}</span>{count}{dot}</li>'
+
+
+def list_group(net, label, rows):
+    return f"""<section><h4><span class="{net}-c">{icon("s-" + net, "g")}</span><span>{label}</span></h4>
+    <ul>{''.join(rows)}</ul></section>"""
+
+
+LISTS_RAIL = f"""<nav class="lists">
+  <h3>Lists</h3>
+  <ul>{list_row("All posts")}</ul>
+  {list_group("bluesky", "Bluesky", [list_row("Zine makers", 12, on=True), list_row("Local friends", 8), list_row("Design folks", 23)])}
+  {list_group("mastodon", "Mastodon", [list_row("Photographers", 9, new=True), list_row("Plant people", 15)])}
+</nav>"""
+LIST_POSTS = (dict(P_TOMAS, time="8m ago"), dict(P_INES, photo=None), P_BEA)
+lists_rail = page("News Wall", news_head_07("Timeline") + '\n<div class="tl-grid"><div></div><div class="feed">' +
+                  "".join(post(**p) for p in LIST_POSTS) + "</div>" + LISTS_RAIL + "</div>", v07=True)
+
+for name, html in {"connectors-card": connectors_card, "agent-button": agent_button, "lists-rail": lists_rail, "inbox-summary": inbox_summary, "accounts": accounts, "accounts-card": accounts_card, "post-status": post_status, "sort-menu": sort_menu, "omni-reply": omni_reply, "summary-card": summary_card, "summary": summary, "timeline-strip": timeline_strip, "feed": feed, "board": board, "compose": compose, "compose-typed": compose_typed, "conversations": conversations, "thread": thread}.items():
     (HERE / f"{name}.html").write_text(html)
     print("wrote", f"app-shots/{name}.html")

@@ -301,3 +301,63 @@ body.card-only .dialog { width: 100%; height: auto; border: 0; border-radius: 0;
 .p-mastodon { background: var(--mastodon); color: #000; }
 .btn-destr { display: inline-flex; align-items: center; height: 38px; padding: 0 16px; border-radius: 999px; background: #dc2626; color: #fff; font-weight: 500; }
 body.card-only .settings { width: 100%; height: auto; border: 0; border-radius: 0; }
+
+/* ---- Mima 0.7.0 views (values from the v0.7.0 tag) ---- */
+/* Header button into Settings > Connectors (common/ConnectAgentButton.tsx:
+   Button outline + sm, on --surface-tint, sparkling icon in --primary) */
+.agent-btn { display: inline-flex; align-items: center; gap: 8px; height: 38px; padding: 0 16px; border: 1px solid transparent; border-radius: 999px; background: var(--surface-tint); color: var(--foreground); font-weight: 500; white-space: nowrap; }
+.agent-btn svg { color: var(--primary); }
+/* Page header (common/PageHeader.tsx) with All / Saved (NewsWall/SavedFilterToggle.tsx) */
+.head.v07 { max-width: none; margin: -16px -16px 0; padding: 16px; flex-wrap: wrap; align-items: flex-start; gap: 12px 16px; }
+.head.v07 .ttl { display: flex; align-items: center; height: 36px; }
+.head.v07 .type-h2 { white-space: nowrap; }
+.head.v07 .ctrls { flex-wrap: wrap; min-height: 36px; min-width: 0; }
+.savedtg { display: inline-flex; align-items: center; gap: 4px; }
+.savedtg span { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 999px; font-weight: 500; color: var(--muted-fg); }
+.savedtg span.on { background: var(--card); color: var(--foreground); box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08); }
+.savedtg svg { width: 16px; height: 16px; }
+/* Lists rail (NewsWall.tsx timeline grid, NewsWall/ListsSidebar.tsx) */
+.tl-grid { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 768px) minmax(0, 1fr); gap: 24px; }
+.tl-grid .feed { width: 100%; min-width: 0; align-content: start; }
+.lists { width: 224px; justify-self: start; }
+.lists h3 { font: 600 18px/1.35 var(--font-ui); margin: 0; padding: 0 12px 8px; }
+.lists ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+.lists li { display: flex; align-items: center; gap: 8px; padding: 8px 12px; border-radius: 16px; }
+.lists li.on { background: var(--surface-tint); }
+.lists li .nm { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.lists li .ct { flex: 0 0 auto; font-size: 12px; line-height: 1.33; color: var(--muted-fg); }
+.lists li .dot { flex: 0 0 auto; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.lists section { margin-top: 16px; }
+.lists h4 { display: flex; align-items: center; gap: 8px; margin: 0; padding: 0 12px 4px; font: 400 12px/1.33 var(--font-ui); color: var(--muted-fg); }
+.lists h4 > span:first-child { display: inline-flex; }
+.lists h4 svg { vertical-align: 0; }
+/* Settings, Connectors (Settings/McpPanel.tsx, ui/Card.tsx, ui/Toggle.tsx, ui/Button.tsx) */
+.mcp section + section { margin-top: 32px; }
+.mcp .type-title { margin: 0; }
+.mcp .lead { margin: 12px 0 0; color: var(--muted-fg); }
+.srv { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+.srv .tx { flex: 1 1 auto; }
+.srv .lb { font-weight: 500; }
+.srv .st { margin-top: 4px; font-size: 12px; line-height: 1.33; color: var(--muted-fg); }
+.switch { flex: 0 0 auto; display: flex; align-items: center; width: 50px; height: 32px; padding: 3px; border-radius: 48px; background: var(--a-400); }
+.switch i { width: 34px; height: 26px; border-radius: 16px; transform: translateX(10px); background: linear-gradient(to bottom, var(--a-50), #ffffffcc); box-shadow: inset 0 0.5px 1px 0 #f8f8f8, 0 1px 3px 0 #00000066; }
+.apps { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 16px; }
+.app-card { display: flex; flex-direction: column; min-width: 0; padding: 4px; overflow: hidden; border: 1px solid var(--border); border-radius: 24px; background: var(--card); }
+.app-card .ah { display: flex; align-items: flex-start; gap: 12px; padding: 20px 20px 0; }
+.app-card .ah > div { min-width: 0; }
+.app-card h4 { margin: 0; font: 600 18px/1.35 var(--font-ui); }
+.app-card .ah p { margin: 6px 0 0; color: var(--muted-fg); }
+.logo { position: relative; flex: 0 0 auto; display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; border-radius: 16px; background: var(--muted); }
+.logo > svg { width: 24px; height: 24px; }
+.logo .ok { position: absolute; right: -4px; bottom: -4px; display: flex; align-items: center; justify-content: center; width: 20px; height: 20px; border: 2px solid var(--card); border-radius: 50%; background: #e7f5ec; color: #166534; }
+.logo .ok svg { width: 16px; height: 16px; }
+.app-card .ab { flex: 1 1 auto; padding: 20px; min-width: 0; }
+.well { max-height: 96px; overflow: hidden; border-radius: 12px; background: var(--muted); }
+.well pre { margin: 0; padding: 12px; font: 400 12px/1.33 ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; white-space: pre; }
+.app-card .af { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; padding: 0 20px 20px; }
+.btn-lg { display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 50px; padding: 0 24px; border-radius: 999px; font-weight: 500; white-space: nowrap; }
+.btn-lg svg { width: 16px; height: 16px; }
+.b-acc { background: var(--accent); color: #fff; }
+.b-sec { background: var(--secondary); color: var(--secondary-fg); }
+.b-destr { background: #dc2626; color: #fff; }
+.b-ghost { background: transparent; color: var(--foreground); }
