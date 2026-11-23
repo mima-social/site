@@ -149,8 +149,8 @@
     .bignum span:not(.tag) { margin: 0; }
     .bignum.lime { padding: 14px 18px; border-radius: 16px; }
 }
-@media (max-width: 760px) {
-    .sleeve-art { display: none; } /* the gutter is too narrow to show the loop whole */
+@media (max-width: 1279px) {
+    .sleeve-art { display: none; } /* below this the loop would run into the title and deck */
 }
 @media (max-width: 560px) {
     .callout-lines path { stroke-width: 7; }
