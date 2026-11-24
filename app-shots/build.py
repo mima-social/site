@@ -27,11 +27,14 @@ def glyph(net):
     return icon(net, "g")
 
 
-def page(title, body, composer=None, v07=False):
+def page(title, body, composer=None, v07=False, agent="none"):
     # v07: the v0.7.0 title bar (App.tsx). No version label, no "Settings" on
     # macOS; the right side is ConnectAgentButton (state none), then the theme toggle.
     version = "" if v07 else '<span class="version">v0.2.0</span>'
-    right = (f'<span class="agent-btn">{icon("sparkling")}Connect Mima to your agent</span>{icon("moon")}'
+    # agent: ConnectAgentButton's state, "none" or "connected" (AGENT_CONNECTION_UI).
+    agent_btn = (f'<span class="agent-btn ok">{icon("check")}Mima is connected to your agent</span>' if agent == "connected"
+                 else f'<span class="agent-btn">{icon("sparkling")}Connect Mima to your agent</span>')
+    right = (f'{agent_btn}{icon("moon")}'
              if v07 else f'{icon("moon")}<span>Settings</span>')
     return f"""<!doctype html>
 <html lang="en">
@@ -398,9 +401,11 @@ Arguments: ["--mcp-stdio"]
 Mima is a read-only server for my social media posts and messages."""
 
 
-def app_card(logo, title, desc, footer, prompt=None, connected=False):
+def app_card(logo, title, desc, footer, prompt=None, connected=False, feedback=None):
     ok = f'<span class="ok">{icon("check")}</span>' if connected else ""
     body = f'<div class="well"><pre>{prompt}</pre></div>' if prompt else ""
+    if feedback:
+        body = f'<p class="fb">{feedback}</p>'  # OneClickCard's feedback line (type-ui, success text)
     return f"""<div class="app-card">
   <div class="ah"><span class="logo">{icon(logo)}{ok}</span>
     <div><h4>{title}</h4><p>{desc}</p></div></div>
@@ -410,30 +415,49 @@ def app_card(logo, title, desc, footer, prompt=None, connected=False):
 
 
 SETTINGS_TABS_07 = ("General", "Accounts", "AI", "Your Data", "Filters", "Connectors", "Advanced")
-connectors_card = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="app.css"></head>
-<body class="card-only"><div class="settings">
-  <div class="sh"><span class="ttl">Settings</span>{icon('close', 'x')}</div>
+
+
+def connectors_dialog(claude="connected"):
+    """Settings > Connectors. claude is the Claude Desktop card's state:
+    "off" (server off, not set up), "connecting", "done" (just connected, with
+    the panel's feedback line) or "connected"."""
+    on = claude in ("done", "connected")
+    status = "Running on port 47821" if on else "Off"
+    if claude == "off":
+        footer, feedback = '<span class="btn-lg b-acc" data-anim="connect-claude">Connect to Claude Desktop</span>', None
+    elif claude == "connecting":
+        footer, feedback = '<span class="btn-lg b-acc disabled">Connecting...</span>', None
+    else:
+        footer = '<span class="btn-lg b-destr">Disconnect</span>'
+        feedback = "Done. Quit and reopen Claude Desktop to finish." if claude == "done" else None
+    # A prompt only works while the server is on (McpPanel promptLabel).
+    copy = "Copy prompt" if on else "Turn on and copy prompt"
+    return f"""<div class="settings">
+  <div class="sh"><span class="ttl">Settings</span><span data-anim="close-settings">{icon('close', 'x')}</span></div>
   <div class="tabs">{''.join(f'<span class="{"on" if t == "Connectors" else ""}">{t}</span>' for t in SETTINGS_TABS_07)}</div>
   <div class="sbody mcp">
     <section>
       <h3 class="type-title">Connect AI apps</h3>
       <p class="lead">Let your AI apps search and read your messages, conversations and posts in Mima. They can only read: they can never post, send or change anything.</p>
-      <div class="srv"><div class="tx"><div class="lb">Local MCP server</div><div class="st">Running on port 47821</div></div>
-        <span class="switch"><i></i></span></div>
+      <div class="srv"><div class="tx"><div class="lb">Local MCP server</div><div class="st">{status}</div></div>
+        <span class="switch{'' if on else ' off'}"><i></i></span></div>
       <div class="apps">
-        {app_card("claude", "Claude Desktop", "Use Mima in the Claude desktop app.",
-                  '<span class="btn-lg b-destr">Disconnect</span>', connected=True)}
+        {app_card("claude", "Claude Desktop", "Use Mima in the Claude desktop app.", footer, connected=on, feedback=feedback)}
         {app_card("openai", "ChatGPT (Codex)", "Use Mima in Codex in the ChatGPT app.",
                   '<span class="btn-lg b-acc">Connect to ChatGPT</span>')}
         {app_card("claude", "Claude Code", "Paste this prompt into Claude Code.",
-                  '<span class="btn-lg b-sec">Copy prompt</span>', prompt=CLAUDE_CODE_PROMPT)}
+                  f'<span class="btn-lg b-sec">{copy}</span>', prompt=CLAUDE_CODE_PROMPT)}
         {app_card("link", "Other AI apps", "Paste this into any app that supports MCP, or into its chat.",
-                  '<span class="btn-lg b-sec">Copy prompt</span>', prompt=GENERIC_PROMPT)}
+                  f'<span class="btn-lg b-sec">{copy}</span>', prompt=GENERIC_PROMPT)}
       </div>
     </section>
     <section><span class="btn-lg b-ghost">Advanced setup{icon('chevron-down')}</span></section>
   </div>
-</div></body></html>"""
+</div>"""
+
+
+connectors_card = f"""<!doctype html><html lang="en"><head><meta charset="utf-8"><link rel="stylesheet" href="app.css"></head>
+<body class="card-only">{connectors_dialog()}</body></html>"""
 
 
 # The Timeline's Lists rail (NewsWall/ListsSidebar.tsx, lists-display.ts): shown
@@ -460,6 +484,18 @@ LIST_POSTS = (dict(P_TOMAS, time="8m ago"), dict(P_INES, photo=None), P_BEA)
 lists_rail = page("News Wall", news_head_07("Timeline") + '\n<div class="tl-grid"><div></div><div class="feed">' +
                   "".join(post(**p) for p in LIST_POSTS) + "</div>" + LISTS_RAIL + "</div>", v07=True)
 
-for name, html in {"connectors-card": connectors_card, "agent-button": agent_button, "lists-rail": lists_rail, "inbox-summary": inbox_summary, "accounts": accounts, "accounts-card": accounts_card, "post-status": post_status, "sort-menu": sort_menu, "omni-reply": omni_reply, "summary-card": summary_card, "summary": summary, "timeline-strip": timeline_strip, "feed": feed, "board": board, "compose": compose, "compose-typed": compose_typed, "conversations": conversations, "thread": thread}.items():
+
+# Views for app-shots/animate.py scenes (see scenes.py): the News Wall at
+# v0.7.0 with the header button in each state, and Settings > Connectors over it.
+NEWS_07_BODY = news_head_07("Timeline") + '\n<div class="feed">' + "".join(post(**p) for p in LIST_POSTS) + "</div>"
+ANIM_VIEWS = {
+    "anim-news": page("News Wall", NEWS_07_BODY, v07=True),
+    "anim-news-connected": page("News Wall", NEWS_07_BODY, v07=True, agent="connected"),
+    **{f"anim-connectors-{s}": page("News Wall", NEWS_07_BODY + f'<div class="scrim">{connectors_dialog(s)}</div>',
+                                    v07=True, agent="connected" if s == "done" else "none")
+       for s in ("off", "connecting", "done")},
+}
+
+for name, html in {**ANIM_VIEWS, "connectors-card": connectors_card, "agent-button": agent_button, "lists-rail": lists_rail, "inbox-summary": inbox_summary, "accounts": accounts, "accounts-card": accounts_card, "post-status": post_status, "sort-menu": sort_menu, "omni-reply": omni_reply, "summary-card": summary_card, "summary": summary, "timeline-strip": timeline_strip, "feed": feed, "board": board, "compose": compose, "compose-typed": compose_typed, "conversations": conversations, "thread": thread}.items():
     (HERE / f"{name}.html").write_text(html)
     print("wrote", f"app-shots/{name}.html")
