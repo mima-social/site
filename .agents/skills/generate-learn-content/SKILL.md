@@ -82,17 +82,20 @@ tag, with the fictional cast.
   and look at the result before using it. The first figure's caption says the
   people are made up. Write captions with no double quotes inside them; the
   caption is itself a quoted Markdown title.
-- **Animations:** there is no pipeline yet. When motion explains the feature
-  better than stills, ask the person for a recording and give them the shot
-  list: the starting screen, each click, the end state, and the length. Put a
-  still in the guide meanwhile and name the missing recording under
-  "Requested" in the PR body.
+- **Animations:** when motion explains the feature better than stills (a
+  flow of clicks, a state that changes), script a scene and render it with
+  `app-shots/animate.py`; "Animations" in `app-shots/README.md` has the
+  steps. Its alt text tells the whole sequence in order, because that is all
+  a screen reader or an agent gets. Ask the person for a real recording only
+  for what the dummy pages cannot show, with a shot list: the starting
+  screen, each click, the end state, and the length.
 - Under Herdr Core, a helper agent in an hc terminal can build the views while
   you write, as `/fix` sweep mode does; give it the views, the source paths at
   the tag, and this section.
 
 **Done when** each figure in a guide resolves to a rendered file you have
-looked at, and every recording you want is requested with its shot list.
+looked at (for an animation, frames pulled from the video), and every
+recording you want is requested with its shot list.
 
 ## 5. Build, check, draft PR
 
