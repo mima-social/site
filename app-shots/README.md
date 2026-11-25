@@ -102,6 +102,55 @@ To look at a dummy page in a browser, serve the repo root
    Headless Chrome won't make a window narrower than ~500px, which is why the
    phone frames go through `phone.html` (a 390px iframe).
 
+## Animations
+
+A Learn guide can show a feature in motion. An animation is a **scene**: a
+script that plays over the dummy pages, with a pointer that glides and clicks.
+No screen recording is involved, so the people stay fictional and a re-render
+gives the same video.
+
+```sh
+python3 app-shots/build.py            # the dummy pages the scenes play over
+python3 app-shots/animate.py          # every scene (or name one)
+```
+
+`animate.py` needs Google Chrome, `ffmpeg` and `cwebp` (`brew install ffmpeg webp`).
+For each scene it writes `site-assets/app/<scene>.mp4` (H.264, no sound),
+`<scene>-poster.webp` (the still shown before it plays) and `<scene>.mp4.json`
+(origin, size, length and a description in words).
+
+To add one:
+
+1. **Make a view for each state** in `build.py`: one dummy page per moment
+   the app looks different (before the click, while it works, after). Name
+   them `anim-<what>`. Give the thing to be clicked a `data-anim="<name>"`
+   attribute when it has no class of its own.
+2. **Write the scene** in `scenes.py`: its window size, and steps of
+   `view`, `ms`, an optional `to` selector the pointer glides to, and `click`.
+   The file's docstring lists every field.
+3. **Watch it** before rendering: serve the repo root and open
+   `/app-shots/player.html?scene=<scene>`. It loops.
+4. **Render**, then look at frames from the video, not only the player.
+5. **Use it in a guide** like a picture, on its own line:
+   `![What happens, step by step](/site-assets/app/<scene>.mp4 "Caption")`.
+   The alt text is the only version a screen reader or an AI agent gets, so
+   it says what happens in order.
+
+How it works: `player.html` draws the frame for any time `t`
+(`?scene=<scene>&t=<ms>`), as a pure function of `t`. `animate.py` writes
+`scenes.js` from `scenes.py`, screenshots one frame per 1/fps second in
+headless Chrome at 1.5× pixel density, and joins them with `ffmpeg`. The views
+sit in stacked iframes and crossfade.
+
+On the page (`learn-src/md.py`, `learn/learn.js`), an animation is a muted,
+looping `<video>` with controls. It plays while it is on screen and pauses
+when it leaves. Readers who ask for reduced motion see the poster and start
+it themselves.
+
+| Scene | Window (CSS px) | Length | Used for |
+|---|---|---|---|
+| `connect-claude-desktop` | 960 × 800 | 12 s | Learn: MCP server guide |
+
 ## How the site uses the images
 
 - **Hero tour** (`index.html` `#shot`, `launch.js`): the three tabs crossfade

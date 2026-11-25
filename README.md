@@ -78,7 +78,9 @@ mima: Optional one-line pitch for the "Try it in Mima" box
   start a paragraph with the question in bold: `**Can I schedule posts?** No.`
 - **Markdown supported:** headings, lists, links, bold/italic, inline code, code
   blocks, tables, `>` callouts and images. An image alone on its line becomes
-  a captioned figure: `![alt text](/site-assets/app/board.webp "Caption")`. A
+  a captioned figure: `![alt text](/site-assets/app/board.webp "Caption")`. An
+  `.mp4` written the same way becomes an animation (see "Animations" in
+  `app-shots/README.md`). A
   table with more than four columns scrolls sideways with its first column
   pinned. Use raw HTML for anything else.
 - **Pictures of the app** come from `app-shots/` (fictional people and posts);

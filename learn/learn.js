@@ -1,4 +1,5 @@
-// Learn pages: "On this page" follows the section you're reading, and
+// Learn pages: "On this page" follows the section you're reading, animations
+// play while in view, and
 // Download goes to the home page on phones and tablets, where the
 // email-me-the-link sheet lives (a .dmg is no use there).
 (function () {
@@ -32,6 +33,21 @@
     heads.forEach(function (h) { io.observe(h); });
     addEventListener("scroll", function () { requestAnimationFrame(update); }, { passive: true });
     update();
+  }
+
+  // Animations play while they are on screen and stop when they leave. Readers
+  // who asked for reduced motion get the poster and the controls instead.
+  var calm = window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var videos = document.querySelectorAll(".prose figure.motion video");
+  if (videos.length && !calm && "IntersectionObserver" in window) {
+    var watch = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        var v = e.target;
+        if (e.isIntersecting) { var p = v.play(); if (p && p.catch) p.catch(function () {}); }
+        else v.pause();
+      });
+    }, { threshold: 0.6 });
+    videos.forEach(function (v) { watch.observe(v); });
   }
 
   var touch = window.matchMedia && matchMedia("(hover: none) and (pointer: coarse)").matches;

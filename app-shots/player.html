@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Mima animation player</title>
+<!-- Plays one scene from scenes.js (written by animate.py from scenes.py).
+     player.html?scene=<name>          plays it in a loop, to preview
+     player.html?scene=<name>&t=<ms>   draws the frame at that time, for animate.py
+     Every frame is a pure function of t, so renders repeat exactly. -->
+<style>
+  html, body { margin: 0; background: #fff; overflow: hidden; }
+  #stage { position: relative; overflow: hidden; }
+  #stage iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; opacity: 0; }
+  #pointer { position: absolute; left: 0; top: 0; width: 22px; height: 30px; z-index: 3; filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35)); will-change: transform; }
+  #ring { position: absolute; left: 0; top: 0; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; background: rgba(123, 72, 176, 0.28); z-index: 2; opacity: 0; }
+</style>
+</head>
+<body>
+<div id="stage">
+  <div id="ring"></div>
+  <svg id="pointer" viewBox="0 0 22 30" aria-hidden="true"><path d="M2 2v21l5.5-5 3.6 8.6 3.4-1.4-3.6-8.5H18z" fill="#111" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/></svg>
+</div>
+<script src="scenes.js"></script>
+<script>
+(function () {
+  var q = new URLSearchParams(location.search);
+  var scene = (window.SCENES || {})[q.get("scene")];
+  if (!scene) { document.title = "error: no such scene"; return; }
+  var stage = document.getElementById("stage"), pointer = document.getElementById("pointer"), ring = document.getElementById("ring");
+  var W = scene.size[0], H = scene.size[1];
+  stage.style.width = W + "px"; stage.style.height = H + "px";
+
+  var CLICK = 260;   // ms of press at the end of a clicking step
+  var TRAVEL = 0.62; // share of a step the pointer spends gliding to its target
+  var frames = {}, pending = 0;
+  scene.steps.forEach(function (s) {
+    if (frames[s.view]) return;
+    var f = document.createElement("iframe");
+    f.src = s.view + ".html"; f.setAttribute("tabindex", "-1");
+    pending++; f.addEventListener("load", function () { if (--pending === 0) ready(); });
+    frames[s.view] = f; stage.insertBefore(f, ring);
+  });
+
+  var total = 0, starts = scene.steps.map(function (s) { var at = total; total += s.ms; return at; });
+
+  function ease(x) { return x < 0 ? 0 : x > 1 ? 1 : x * x * (3 - 2 * x); }
+
+  // Where each step's pointer ends: its target's centre, or where it already was.
+  var points = [];
+  function measure() {
+    var at = [scene.start[0] * W, scene.start[1] * H];
+    scene.steps.forEach(function (s, i) {
+      if (s.to) {
+        var el = frames[s.view].contentDocument.querySelector(s.to);
+        if (!el) { document.title = "error: step " + i + " found no " + s.to; throw new Error(document.title); }
+        var r = el.getBoundingClientRect();
+        at = [r.left + r.width / 2, r.top + r.height / 2];
+      }
+      points.push(at);
+    });
+  }
+
+  function draw(t) {
+    t = Math.max(0, Math.min(total - 1, t));
+    var i = 0;
+    while (i < scene.steps.length - 1 && t >= starts[i + 1]) i++;
+    var s = scene.steps[i], local = t - starts[i];
+    var fade = i === 0 ? 0 : (s.fade === undefined ? 200 : s.fade);
+    var prev = i > 0 ? scene.steps[i - 1].view : null;
+    var mix = fade && prev !== s.view ? ease(local / fade) : 1;
+    Object.keys(frames).forEach(function (v) {
+      frames[v].style.opacity = v === s.view ? 1 : (v === prev && mix < 1 ? 1 : 0);
+      frames[v].style.zIndex = v === s.view ? 1 : 0;
+    });
+    frames[s.view].style.opacity = mix;
+    if (prev && prev !== s.view && mix < 1) frames[prev].style.opacity = 1;
+
+    var from = i > 0 ? points[i - 1] : [scene.start[0] * W, scene.start[1] * H], to = points[i];
+    var travel = s.click ? Math.max(1, s.ms - CLICK - 120) * 1 : s.ms * TRAVEL;
+    var k = s.to ? ease(local / travel) : 1;
+    var x = from[0] + (to[0] - from[0]) * k, y = from[1] + (to[1] - from[1]) * k;
+    var press = s.click ? (local - (s.ms - CLICK)) / CLICK : -1; // 0..1 during the click
+    var down = press >= 0 && press <= 1;
+    pointer.style.transform = "translate(" + (x - 2) + "px," + (y - 2) + "px) scale(" + (down ? 1 - 0.12 * Math.sin(press * Math.PI) : 1) + ")";
+    ring.style.transform = "translate(" + x + "px," + y + "px) scale(" + (down ? 0.3 + 0.9 * press : 0.3) + ")";
+    ring.style.opacity = down ? 1 - press : 0;
+  }
+
+  function ready() {
+    measure();
+    if (q.has("t")) { draw(Number(q.get("t"))); document.title = "ready"; return; }
+    var t0 = performance.now();
+    (function tick(now) { draw((now - t0) % (total + 900)); requestAnimationFrame(tick); })(t0);
+  }
+})();
+</script>
+</body>
+</html>

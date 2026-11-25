@@ -361,3 +361,12 @@ body.card-only .settings { width: 100%; height: auto; border: 0; border-radius: 
 .b-sec { background: var(--secondary); color: var(--secondary-fg); }
 .b-destr { background: #dc2626; color: #fff; }
 .b-ghost { background: transparent; color: var(--foreground); }
+
+/* States the animation scenes need (animate.py). Toggle.tsx off: --switch-track, thumb at 0. */
+.switch.off { background: #b4bcb7; }
+.switch.off i { transform: none; box-shadow: none; }
+.btn-lg.disabled { opacity: 0.5; }
+.app-card .fb { margin: 0; color: #166534; }
+.agent-btn.ok svg { color: #16a34a; }
+.settings .tabs span { white-space: nowrap; }
+.scrim .settings .tabs span { padding-inline: 13px; }

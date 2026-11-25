@@ -46,6 +46,8 @@ def aspect(path):
 def first_shot(body_md):
     """The guide's first app picture that fills the card's window (not a thin strip)."""
     for src in FIGURE.findall(body_md):
+        if src.endswith(".mp4"):  # an animation: its poster is the picture
+            src = src[:-4] + "-poster.webp"
         if aspect(src) <= 1.8:
             return src
     return DEFAULT_SHOT
