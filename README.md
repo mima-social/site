@@ -90,6 +90,9 @@ mima: Optional one-line pitch for the "Try it in Mima" box
 - **On phones**, Download on a Learn page goes to `/#get-mima`, which opens the
   home page's email-the-link sheet.
 
+When Mima releases, the `/generate-learn-content` skill (`.agents/skills/generate-learn-content/`) turns the
+release into new and updated guides and a draft PR.
+
 Before publishing a guide, check every claim about Mima against the app's code
 (`mima-social/desktop`, `next` branch), and say in a caption that the people in
 app pictures are made up.
