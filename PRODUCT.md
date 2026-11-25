@@ -33,13 +33,16 @@ Privacy and local-first architecture are true and supporting, explained earnestl
 
 ## Capabilities and Constraints
 
-Shipped (code on `next`, latest release v0.1.3):
+Shipped (latest release v0.7.0, 2026-11-22; only the entries marked 0.7.0 were re-checked at that tag):
 
 - **Networks:** Bluesky, Mastodon (full read, post, reply, like, repost, DMs); X and LinkedIn (Beta: read timeline, mentions and DMs; posting and replying are *assisted*: Mima opens the platform's composer pre-filled and the user clicks Post there; LinkedIn assisted posts are text and links only).
 - **News Wall:** unified Timeline and Board views; duplicate cross-posts collapse into one card.
 - **Omnibox:** one composer posting to several networks at once (direct to Bluesky/Mastodon; assisted to X/LinkedIn).
 - **Conversations:** messages, mentions and DMs from all connected networks, unread badge, pin, reminders to resurface, optional AI thread summaries.
 - **Filters:** hide reposts, mute accounts (local-only unless synced to platforms); respects Bluesky/Mastodon mute and block lists.
+- **Lists (0.7.0):** lists from Bluesky and Mastodon, imported read-only, filter the Timeline (not the Board). No editing in Mima, no X lists yet.
+- **Composer polish (0.7.0):** searchable emoji picker. The Timeline holds new posts behind an "N new posts" button while the reader is scrolled down.
+- **Agent connection (0.7.0):** a local, read-only MCP server, off by default, for Claude Desktop, Codex (ChatGPT app), Claude Code, Goose and other local-MCP apps; set up from "Connect Mima to your agent" in the header or Settings > Connectors. Loopback only, token-protected. Do not claim "nothing leaves your Mac": text the agent reads goes to the agent and the company running its model. Cloud chats (claude.ai, ordinary ChatGPT) cannot reach it.
 - **AI (optional):** Thread Summaries via a local model (Llama 3.2 3B, ~2GB, offline) or the user's own OpenAI/Anthropic/Google key, or off.
 
 Copy decisions (user, 2026-10-14): X and LinkedIn may be presented alongside Bluesky and Mastodon without Beta labels or assisted-posting caveats on the website ("People care about capability, not minutiae"); "Compose once … post it to every network" stays.

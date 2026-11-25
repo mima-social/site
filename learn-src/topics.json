@@ -1,5 +1,10 @@
 [
   {
+    "name": "Reading",
+    "slug": "reading",
+    "blurb": "Read everyone you follow in one calm feed, and narrow it to the lists you already keep on Bluesky and Mastodon."
+  },
+  {
     "name": "Posting",
     "slug": "posting",
     "blurb": "Write once and share to Bluesky, X, LinkedIn and Mastodon, then keep up with the replies in one place."
@@ -8,6 +13,11 @@
     "name": "Conversations",
     "slug": "conversations",
     "blurb": "Keep up with mentions and DMs from every network in one inbox, and follow up without losing track."
+  },
+  {
+    "name": "AI agents",
+    "slug": "ai-agents",
+    "blurb": "Connect Claude, Codex and other AI agents to your posts and conversations through Mima's local MCP server."
   },
   {
     "name": "Comparisons",
