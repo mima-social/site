@@ -248,6 +248,50 @@ components:
     textColor: "{colors.a-900}"
     rounded: "{rounded.lg}"
     padding: "22px"
+  nav-pill-night:
+    textColor: "{colors.a-200}"
+    rounded: "{rounded.pill}"
+    padding: "8px 14px"
+  nav-pill-night-current:
+    textColor: "{colors.card}"
+  sleeve:
+    backgroundColor: "{colors.a-950}"
+    textColor: "{colors.card}"
+  credits-band:
+    backgroundColor: "{colors.lime}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.lg}"
+    padding: "18px clamp(20px, 2.6vw, 28px)"
+  author-face:
+    backgroundColor: "{colors.a-900}"
+    textColor: "{colors.card}"
+    rounded: "{rounded.pill}"
+    size: "64px"
+  callout-disc:
+    backgroundColor: "{colors.lime}"
+    textColor: "{colors.a-950}"
+    rounded: "{rounded.pill}"
+    size: "28px"
+  sidenote-number:
+    backgroundColor: "{colors.a-100}"
+    textColor: "{colors.a-700}"
+    rounded: "{rounded.pill}"
+    size: "24px"
+  big-number-card:
+    backgroundColor: "{colors.card}"
+    textColor: "{colors.ink}"
+    rounded: "{rounded.lg}"
+    padding: "20px 22px"
+  draft-note:
+    backgroundColor: "{colors.a-100}"
+    textColor: "{colors.a-900}"
+    rounded: "{rounded.md}"
+    padding: "11px 18px"
+  draft-tag:
+    backgroundColor: "{colors.a-100}"
+    textColor: "{colors.a-900}"
+    rounded: "{rounded.pill}"
+    padding: "3px 10px"
 ---
 
 # Design System: Mima
@@ -263,6 +307,8 @@ Density is generous. Sections breathe on a 64–120px rhythm, copy sits in measu
 Motion is calm and finite. The wordmark draws on once, the headline's last word cycles once and settles, and the product window cross-fades between views, zooming into the composer to type a post. The only looping motion lives inside the product window and depicts the app: a slowly scrolling timeline and a typing caret, both pausable. All of it collapses under reduced motion, and the page reads fully without it.
 
 Learn (/learn/), the knowledge base, carries the same room into reading. It is a field guide rather than a blog river: topics stand side by side as white 24px shelves, articles read in a 68ch column with a sticky margin holding a fact sheet and an "On this page" list that follows the reader, and every article closes on a "Try it in Mima" card that shows the product. It reuses the lime closing band and onyx footer from the landing page, and adds a compact top bar, Ube Night code blocks and Ube Mist callouts.
+
+Labs (/labs/), the blog, is the same room with more swagger. Every post opens on an Ube Night sleeve that carries the bar, the title and a hero figure, with a lime credits band across the sleeve's foot naming who made the work. Below the sleeve it reads like Learn: lilac ground, the 68ch column, Ube Night code blocks and Ube Mist callouts, with numbered notes in the margin where Learn keeps its fact sheet. The index is a discography: the newest post as a full sleeve, earlier posts as hairline rows.
 
 **Key Characteristics:**
 - Lilac-white ground (Ube 50 family) with grainy lime and hot-pink marketing fields at the hero edges only
@@ -282,7 +328,7 @@ The palette is a single purple accent scale on lilac neutrals, with hot pink and
 - **Ube Purple** (a-600): icon strokes, the headline spark, the active progress dot, feature icons. This is the brand accent at full strength.
 - **Deep Ube** (a-700): link text, the focus ring colour, pause/retry text, the success check. It is the accessible text-weight purple. Links darken to **Ube Dusk** (a-800) on hover.
 - **Ube Plum** (a-900): body copy on the Ube Lavender AI section, and the tint of every product shadow.
-- **Ube Night** (a-950): the privacy band and the demo video ground. This is the only full-bleed dark purple surface. It is also the text colour of AI-written summaries. On Learn it also fills contained surfaces: the "Try it in Mima" card, prose code blocks, and the closing band's Download pill (darkening to Ube Plum on hover).
+- **Ube Night** (a-950): the privacy band and the demo video ground. On the landing page this is the only full-bleed dark purple surface. It is also the text colour of AI-written summaries. On Learn it also fills contained surfaces: the "Try it in Mima" card, prose code blocks, and the closing band's Download pill (darkening to Ube Plum on hover). On Labs it is the sleeve: a full-bleed Ube Night header on every post and on the index, with the bar on the same ground.
 - **Ube Mist / Lavender / Wisteria** (a-50, a-100, a-200): hero fallback ground, AI summary panel (a-50), the AI section ground and outcome hairlines (a-100), selected feature tab (a-100 at 85%), success check fill, inactive dots, text selection (a-200), body text on the dark band (a-100/a-200). On Learn: callouts and inline code (a-50), entry and fact-sheet hairlines, the current nav pill and current "On this page" item, the shelf icon tile and the topic-page Mima note (a-100).
 - **Ube Haze / Orchid** (a-300, a-400): scrollbar thumb, and the input hover/focus border.
 
@@ -290,7 +336,7 @@ The palette is a single purple accent scale on lilac neutrals, with hot pink and
 - **Hot Pink CTA** (pink-cta): the Download pill (including the small Download pill in the Learn bar) and the video play disc only. It darkens to **Deep Pink** (pink-deep) on hover. The brand's display pink (#ff0054) appears only inside CTA hover glow and the painted background plate. It is never used as a text or surface colour.
 
 ### Tertiary
-- **Ube Lime** (lime): spark strokes flanking the hero CTA, privacy icons on Ube Night (with a 12% lime tile), and the closing CTA band, which takes the colour full-bleed with ink type (the band itself is the softer lime-band value). Learn reuses the same band.
+- **Ube Lime** (lime): spark strokes flanking the hero CTA, privacy icons on Ube Night (with a 12% lime tile), and the closing CTA band, which takes the colour full-bleed with ink type (the band itself is the softer lime-band value). Learn reuses the same band. On Labs, full-strength lime fills the credits band (a contained 24px card with ink type), the callout discs and strokes on the hero figure, and the squiggle on the sleeve. The category line and the index's feed link are lime text on Ube Night.
 
 ### Neutral
 - **Lilac Ground** (bg): default page and product-window ground. **Lilac Soft** (bg-soft) separates the "how it helps" section.
@@ -302,7 +348,7 @@ The palette is a single purple accent scale on lilac neutrals, with hot pink and
 - **Destructive** (destructive): form error text only.
 
 ### Named Rules
-**The One Pink Rule.** Hot pink marks the download action, plus the play disc that stands in for the demo. No other element may be pink. If two pink things share a viewport, one is wrong. On Learn the bar's small Download pill is the page's pink, so further Download actions step down: the closing band's Download pill is Ube Night and the topic page's margin uses an ink pill. The one exception is the article's "Try it in Mima" card, whose full Download pill is pink because it sits at the end of the article, a scroll away from the bar.
+**The One Pink Rule.** Hot pink marks the download action, plus the play disc that stands in for the demo. No other element may be pink. If two pink things share a viewport, one is wrong. On Learn the bar's small Download pill is the page's pink, so further Download actions step down: the closing band's Download pill is Ube Night and the topic page's margin uses an ink pill. The one exception is the article's "Try it in Mima" card, whose full Download pill is pink because it sits at the end of the article, a scroll away from the bar. Labs keeps the rule without an exception: the bar's small pill is the only pink on a post or on the index, and the closing band uses the Ube Night pill.
 
 **The Ube Scale Rule.** Every tint, ring, link and dark surface comes from the Ube a-50..a-950 scale in the Mima style guide. New purples are not invented. A theme swap redefines the scale, not the components.
 
@@ -334,6 +380,7 @@ The palette is a single purple accent scale on lilac neutrals, with hot pink and
 - **Label** (600, 0.875rem): network captions under tiles.
 - **Button** (600, 1rem, 1): ink pills. The Download pill sets its title at 600 clamp(1.25rem, 1.8vw, 1.5rem) over a 0.9375rem sub-line.
 - **Code** (system mono, 0.9375rem/1.6 in blocks; 0.875em inline): code only.
+- **Labs sizes** (display face, 800; off the ramp and used on Labs only): the sleeve title at clamp(2.5rem, 5.9vw, 4.75rem)/1 with -0.025em tracking; the long-title step at clamp(2.125rem, 4.5vw, 3.5rem)/1.04, taken by titles over 40 characters and by the index's lead title; the compact sleeve title at clamp(2rem, 3.8vw, 3rem)/1.06 with -0.02em; the index masthead at 1.75rem/1.1; the empty-state title at clamp(3rem, 8vw, 6rem)/1 with -0.03em; and the big-number figure at clamp(3rem, 4.6vw, 4rem)/1 with -0.03em. Post-row titles reuse the topic-page entry size (1.375rem/1.15). The deck is UI 400 at clamp(1.0625rem, 1.5vw, 1.3125rem)/1.45. Note numbers and the Draft tag are 600 at 0.8125rem.
 
 ### Named Rules
 **The Two Weights Rule.** UI text uses only 400 and 600, and display uses only 800. No light, medium or bold-700 in between.
@@ -342,7 +389,7 @@ The palette is a single purple accent scale on lilac neutrals, with hot pink and
 
 **The AI Voice Rule.** Text written by a model is set in MimaSerif italic and labelled as AI ("AI summary"). Nothing a person wrote uses the serif, and AI text never appears in the UI sans.
 
-**The Sentence Case Rule.** Every heading, button and label is sentence case. No uppercase tracking labels, no eyebrows above headings.
+**The Sentence Case Rule.** Every heading, button and label is sentence case. No uppercase tracking labels, no eyebrows above headings. Labs carries one owner-pinned exception: a lime category line above the post title. It is sentence case, untracked, 600 at 0.9375rem, and it names the post's category. It is an exception for Labs sleeves, not a pattern for other surfaces.
 
 ## Layout
 
@@ -363,7 +410,19 @@ Learn pages share the 1180px wrap and gutters, under a compact bar (20px block p
 - **Article:** a two-column grid, with the reading column at the 68ch measure and a margin of at least 220px, 40–96px apart. The title block spans both (max 52rem). The margin is sticky at 24px from the top and holds the fact sheet and "On this page". The Try card and the related lists follow the prose in the reading column.
 - **Topic:** the same two-column grid, with the entry list (max 52rem) left and a margin holding the topic pills and the Mima note.
 - Pages open at clamp(24px, 4vw, 48px) and close at clamp(64px, 9vw, 112px). Prose flows at 1.1em between blocks, 2.2em above h2 and 1.8em above h3.
-- At ≤960px Learn grids collapse to one column, the article margin moves above the prose and stops being sticky, and "On this page" is hidden. At ≤560px the bar drops its Home link and the "for Mac" words, and full Download pills go full width.
+- At ≤960px Learn grids collapse to one column, the article margin moves above the prose and stops being sticky, and "On this page" is hidden. At ≤560px the bar drops its Home link and the "for Mac" words, sets the wordmark at 80px and tightens the nav and pill padding, and full Download pills go full width. At ≤380px the bar's small Download pill drops its icon.
+
+### Labs
+Labs pages share the 1180px wrap, the gutters and the bar, and close on the lime band and onyx footer. The bar sits on the sleeve's Ube Night ground.
+- **Sleeve:** a full-bleed Ube Night header that opens clamp(12px, 2vw, 24px) under the bar. Its head is a two-column grid, with the text (category line, title, deck) at 1fr and the hero figure at 0.92fr, 32–60px apart and centred on each other. The deck is max 34rem.
+- **Credits band:** sits clamp(26px, 3.4vw, 42px) under the head and hangs 52px past the sleeve's bottom edge onto the lilac ground. The author sits left at natural width, and the cells share the rest in equal columns.
+- **Compact sleeve:** for a short post. The head is one column: a smaller title (max 24ch), a deck up to 44rem, then the figure at the full wrap width. The credits band is unchanged.
+- **Post body:** opens 52px plus clamp(36px, 5vw, 60px) below the sleeve, to clear the overhang, and closes at clamp(64px, 9vw, 112px). It uses the Learn article grid: the reading column at the 68ch measure and a margin of at least 220px, 40–96px apart. The margin is not sticky. Each group of notes (max 21rem, 16px between notes) starts level with the paragraph that cites it. The post ends with "More from Labs" at the measure, under a hairline, clamp(48px, 6vw, 72px) below the prose.
+- **Index:** a discography. A masthead row sits at the top of the sleeve (name, tagline, feed link pushed right, a hairline below), then the newest post as a full sleeve with its credits band. Earlier posts follow on the lilac ground as hairline rows, max 52rem.
+- **Empty index:** no lead post. The masthead becomes the sleeve's whole content, stacked left, and the sleeve closes at clamp(56px, 9vw, 120px) straight onto the lime band.
+- The sleeve squiggle shows from 1280px wide only. Below that it would run into the title and deck, so it is removed.
+- At ≤960px the sleeve head becomes one column with the figure under the deck. The credits band stacks: the author on top, then the cells in two columns under a hairline, with the date on its own line. Notes leave the margin and follow the paragraph that cites them, between two Ube Lavender hairlines, and the big-number card loses its card and sits inline as a 2.5rem figure beside its caption.
+- At ≤560px post rows stack as title, author, meta; the masthead's feed link moves left; and the callout strokes and end dots thicken (7 and 10 units, from 4.5 and 7) so they hold up on the smaller figure.
 
 ## Elevation & Depth
 
@@ -372,13 +431,13 @@ Depth is ambient and tinted, never structural. Surfaces are flat colour fields. 
 ### Shadow Vocabulary
 - **Window lift** (`box-shadow: 0 1px 0 rgba(17,17,17,.04), 0 30px 70px rgba(61,41,82,.22)`): product window, paired with a 1px rgba(17,17,17,.08) hairline. The demo frame uses the same blur at .25 without the hairline.
 - **CTA glow** (`box-shadow: 0 10px 28px rgba(224,0,74,.28)`): Download pill. On hover it becomes `0 14px 32px rgba(255,0,84,.34)` with a 1px rise.
-- **Card lift** (`box-shadow: 0 24px 60px rgba(61,41,82,.16)`): the white AI example card on Ube Lavender.
+- **Card lift** (`box-shadow: 0 24px 60px rgba(61,41,82,.16)`): the white AI example card on Ube Lavender. The Labs credits band uses it too.
 - **Control lift** (`box-shadow: 0 2px 10px rgba(61,41,82,.18)`): a round pause control floating over a product raster.
-- **Tile lift** (`box-shadow: 0 6px 16px rgba(17,17,17,.12)`): network tiles.
-- **Sheet lift** (`box-shadow: 0 24px 60px rgba(61,41,82,.12)`): Learn's white reading cards (Latest, fact sheet, topic entry list).
+- **Tile lift** (`box-shadow: 0 6px 16px rgba(17,17,17,.12)`): network tiles. The Labs callout discs use the same shape at .3, on Ube Night.
+- **Sheet lift** (`box-shadow: 0 24px 60px rgba(61,41,82,.12)`): Learn's white reading cards (Latest, fact sheet, topic entry list). The Labs big-number card uses it too.
 - **Shelf lift** (`box-shadow: 0 1px 0 rgba(17,17,17,.03), 0 18px 44px rgba(61,41,82,.08)`): topic shelves, quieter because they repeat in a grid. The table card uses the same pair at 0 12px 32px.
-- **Small CTA glow** (`box-shadow: 0 8px 20px rgba(224,0,74,.22)`): the bar's small Download pill. The Ube Night band pill carries the same glow shape tinted with Ube Night (rgba 34,24,46,.22). On the Ube Night Try card the pink pill drops its glow, and the product raster lifts on `0 30px 70px rgba(17,17,17,.35)`.
-- **Focus ring** (`box-shadow: 0 0 0 3px var(--ring)`): every focusable element. The Download pill uses a white 3px gap and then a 3px pink ring (on the Try card the gap is Ube Night; on the Ube Night band pill the ring is Deep Ube). The footer social squares use an Onyx 3px gap and then a 3px Ube Haze ring. The ring is a box-shadow, so any focusable element that sets its own shadow (the timeline pause control, the social squares) needs a `:focus-visible` rule that lists the ring first and then its own shadow; otherwise the shadow replaces the ring.
+- **Small CTA glow** (`box-shadow: 0 8px 20px rgba(224,0,74,.22)`): the bar's small Download pill. The Ube Night band pill carries the same glow shape tinted with Ube Night (rgba 34,24,46,.22). On the Ube Night Try card the pink pill drops its glow, and the product raster lifts on `0 30px 70px rgba(17,17,17,.35)`. On Labs the bar sits on Ube Night, so its small pill drops its glow as well (at rest and on hover), and the hero figure window lifts on the same `0 30px 70px rgba(17,17,17,.35)`.
+- **Focus ring** (`box-shadow: 0 0 0 3px var(--ring)`): every focusable element. The Download pill uses a white 3px gap and then a 3px pink ring (on the Try card the gap is Ube Night; on the Ube Night band pill the ring is Deep Ube). The footer social squares use an Onyx 3px gap and then a 3px Ube Haze ring. On the Labs sleeve and its bar, links use an Ube Night 3px gap and then a 3px Ube Haze ring, and the bar's Download pill uses an Ube Night gap and then a white ring. Links on the lime credits band use a single 3px Ube Night ring. A link inside the draft note keeps the default Deep Ube ring, because the note is a light surface. The ring is a box-shadow, so any focusable element that sets its own shadow (the timeline pause control, the social squares) needs a `:focus-visible` rule that lists the ring first and then its own shadow; otherwise the shadow replaces the ring.
 
 ### Named Rules
 **The Soft Lift Rule.** Shadows are blurred at least twice their offset and tinted to the palette. Hard or offset shadows do not exist in this world.
@@ -388,12 +447,12 @@ Depth is ambient and tinted, never structural. Surfaces are flat colour fields. 
 Everything is rounded, and the radius scales with size:
 - 4px on link focus and inline code
 - 14px on small icon tiles (privacy)
-- 16px on product windows, network tiles, the email input, the AI summary panel, and on Learn the code blocks, callouts, table card, prose images and the current "On this page" highlight
-- 24px on feature tabs, the video frame, the AI example card, and Learn's shelves, Latest card, fact sheet, entry list, Try card and Mima note
+- 16px on product windows, network tiles, the email input, the AI summary panel, and on Learn the code blocks, callouts, table card, prose images and the current "On this page" highlight, and on Labs the hero figure window and the draft note
+- 24px on feature tabs, the video frame, the AI example card, and Learn's shelves, Latest card, fact sheet, entry list, Try card and Mima note, and on Labs the credits band and the big-number card
 - The Try card's product raster is rounded 16px on its top corners only and is cropped by the card's bottom edge
-- Full pills on all buttons and the active progress-dot capsule, and circles on icon discs, avatars, the pause controls and the play disc
+- Full pills on all buttons and the active progress-dot capsule, and circles on icon discs, avatars, the pause controls and the play disc, and on Labs the author faces, callout discs and note numbers
 
-There are no square corners and no visible borders, except the window's hairline, the input's field stroke, the retry pill's Wisteria ring and the list hairlines (including Learn's entry, table and fact-sheet rows). Brand squiggles (the looping M) are the only free-form shapes. They come from the style guide's squiggle set and are used as painted strokes crossing the hero edges.
+There are no square corners and no visible borders, except the window's hairline, the input's field stroke, the retry pill's Wisteria ring and the list hairlines (including Learn's entry, table and fact-sheet rows, and on Labs the post rows, the masthead rule, the post-end rule and the inline-note rules). Brand squiggles (the looping M) are the only free-form shapes. They come from the style guide's squiggle set and are used as painted strokes crossing the hero edges. On Labs one loop crosses the sleeve's left edge as a lime stroke.
 
 ## Components
 
@@ -402,7 +461,7 @@ There are no square corners and no visible borders, except the window's hairline
 - **Download (primary):** hot-pink pill with a two-row grid: download icon, a 600 title, and a smaller "Free · for Apple Silicon Macs" line. It carries the CTA glow. On hover it turns deep pink, lifts 1px and the glow grows. On press it scales to 0.99. It is the only primary button, repeated once in the lime closing band.
 - **Ink (secondary):** ink pill, 3.375rem tall, 600 1rem white label with an optional 20px trailing or leading icon. On hover it drops to 88% opacity, and it scales to 0.98 on press. Used for "Get updates" and "Join the Discord".
 - **Retry (tertiary):** Ube Mist pill with a 1.5px Wisteria border and Deep Ube text.
-- **Small Download (Learn bar):** a hot-pink pill at 600 0.9375rem with an 18px download icon and the small CTA glow; it rises 1px and deepens on hover. Below 560px it reads "Download".
+- **Small Download (Learn bar):** a hot-pink pill at 600 0.9375rem with an 18px download icon and the small CTA glow; it rises 1px and deepens on hover. Below 560px it reads "Download". At ≤380px it drops its icon. On the Labs bar it carries no glow.
 - **Calm Download (Learn band):** the full two-row Download pill in Ube Night with a Ube Night glow, darkening to Ube Plum. It is used where the bar's pink pill already holds the page's pink.
 - **Compact ink:** the ink pill at 3rem tall with an 18px icon, 600 0.9375rem. It is the Download in the topic page margin.
 
@@ -434,7 +493,9 @@ A white 24px-radius card with the card-lift shadow, set on the Ube Lavender AI s
 ### Navigation
 The landing page has no nav bar. The animated Mima wordmark sits top-left as the home link: the M strokes on over 350ms (cubic-bezier(0.45, 0, 0.55, 1)), then "ima" fades in over 150ms.
 
-Learn has a compact bar: the wordmark (96–124px) left, then Home and Learn as nav pills (600 0.9375rem in Void Slate; hover is a 70% white wash, the current section is Deep Ube on Ube Lavender), and the small pink Download pill pushed right. Article and topic pages put a breadcrumb under the bar: 600 0.9375rem Deep Ube links separated by Ube Haze slashes.
+Learn and Labs share a compact bar: the wordmark (96–124px, 80px at ≤560px) left, then Home, Learn and Labs as nav pills (600 0.9375rem in Void Slate; hover is a 70% white wash, the current section is Deep Ube on Ube Lavender), and the small pink Download pill pushed right. Article and topic pages put a breadcrumb under the bar: 600 0.9375rem Deep Ube links separated by Ube Haze slashes. At ≤560px the Home link is dropped and the padding tightens, and at ≤380px the Download pill drops its icon.
+
+On Labs the bar takes its dark variant, on the sleeve's Ube Night ground: a white wordmark, nav pills in a-200 (hover is white text on a 10% Ube Lavender wash, the current section is white on a 16% Ube Lavender wash), and the pink Download pill without its glow. Labs is the current section on the index and on every post. Posts have no breadcrumb.
 
 ### Learn Entries and Lists
 An entry row is a title (600 1.0625rem, Ink, Deep Ube and underlined on hover), an optional one-line summary in Void Slate at 0.9375rem, and a meta line (date · topic) in Void Muted at 0.875rem with tabular numerals. Rows are separated by Ube Lavender hairlines, with no border above the first. The **Latest** list sets five such rows (no summaries) in a white 24px card with the sheet lift. On a topic page the full list sits in one white card, with titles in the display face. A "more" link (600 0.9375rem, Deep Ube, trailing arrow that slides 3px on hover) closes lists.
@@ -462,13 +523,30 @@ The topic page's margin holds "All topics" as wrapping pills (white with Deep Ub
 ### Closing Band and Footer
 Learn reuses the landing page's lime band (headline left, Download right, wrapping) and onyx footer unchanged. The band's Download is the Calm (Ube Night) variant on Learn.
 
+### Blog (Labs)
+Labs posts are liner notes: the work on the sleeve, the people in the credits. Layout facts are under Layout, and the Labs type sizes are in the Typography hierarchy.
+
+- **Sleeve:** a full-bleed Ube Night header with the dark bar on the same ground. It holds a lime category line, the title in white display type, a deck in a-200 (UI 400, clamp(1.0625rem, 1.5vw, 1.3125rem)/1.45, max 34rem), and the hero figure. Titles over 40 characters take the long-title step, and a short show-and-tell post takes the compact sleeve, with a smaller title and the figure at full width. Text selection on the sleeve is lime with ink text.
+- **Category line (owner-pinned exception):** one line above the title, 600 at 0.9375rem in lime, sentence case, no tracking. It names the post's category ("Engineering"). It is the single exception to the no-eyebrow rule and belongs to Labs sleeves only.
+- **Credits band (signature):** a full-strength lime 24px card with ink type and the card lift, hanging 52px across the sleeve's bottom edge. Left: the author's face, their name (600, 1.1875rem) and, when they have one, a link to their site (600 0.9375rem, Ube Plum, ink on hover). Right: label over value cells for Role, What shipped, and Read (reading time and date). Labels are 0.875rem in a softened ink (ink mixed 74% into lime); values are 600 0.9375rem ink with tabular numerals, and value links are ink. Focused links take a 3px Ube Night ring. Text selection on the band is Ube Night with white text.
+- **Author face:** a circle, 64px in the credits band and 32px in post rows. It shows the author's photo, cropped to fill. An author with no photo gets an Ube Plum disc with their initials in white display type at 36% of the disc's size.
+- **Annotated hero figure:** a product raster in a 16px window, lifted on the same dark-ground shadow as the Try card's raster. A post can pin numbered callouts on it (three in the built post): 28px lime discs with Ube Night 600 numerals sit on the window's edge, and a lime stroke with round caps (the squiggle's line, 4.5 units wide) curves from each disc to its target and ends in a lime dot. The strokes draw on once, 0.7s each on the standard ease, starting 0.35s after load and 0.18s apart; each dot fades in over 0.3s as its stroke arrives. Under reduced motion they are already drawn. The key sits under the figure: the same numbers as 20px lime discs beside 600 0.875rem white labels, wrapping in a row, then a caption in a-300 that says what the figure is. On the index the lead figure carries no callouts.
+- **Margin sidenotes:** numbered notes in the margin beside the reading column. A note is 0.9375rem/1.45 in Void Slate with a 24px numbered disc (Deep Ube on Ube Lavender, 600 0.8125rem). The text cites it with a 20px disc of the same kind, raised after the sentence. The two link to each other; hover turns the disc Wisteria with Ube Plum text, and the note that was jumped to shows its number in white on Deep Ube. At ≤960px a note follows its paragraph between hairlines.
+- **Big-number card (owner-pinned exception):** one figure in the margin: a white 24px card with the sheet lift, the number in the display face at clamp(3rem, 4.6vw, 4rem) over a 0.9375rem Void Slate caption. A figure that is not a real measurement carries an "Illustrative" tag (the Draft tag's pill) under the caption. The card is an exception pinned for the Labs margin, one figure beside the text that explains it. It is not a metric row and not a pattern for other surfaces. At ≤960px it drops the card and sits inline.
+- **Post rows (the discography):** each row is a title in the display face (1.375rem/1.15, Ink, Deep Ube and underlined on hover), a meta line (category · date · reading time) in Void Muted at 0.875rem with tabular numerals, and the author at the right as a 32px face and a 600 0.9375rem name. Rows are separated by Ube Lavender hairlines, with none above the first. They are used for "Earlier posts" on the index and "More from Labs" at the end of a post, both under a Title-style heading. The post end closes with "more" links (All posts, Follow the feed, Read as Markdown).
+- **Index masthead:** "Labs" in white display type at 1.75rem, the tagline in a-200, and a lime "Follow the feed" link (600 0.9375rem, trailing arrow that slides 3px, white on hover) pushed right, over a hairline of Ube Lavender at 18%. The lead post's title is a link at the long-title step; on hover it turns Ube Lavender with a 3px underline.
+- **Empty state:** with nothing published the masthead is the page. "Labs" is set at clamp(3rem, 8vw, 6rem), the tagline at the deck size, the feed link sits below, and one a-200 line says nothing is published yet. There is no placeholder post.
+- **Draft mark:** a draft says so in two places. At the top of its sleeve is a note: an Ube Lavender 16px block with Ube Plum text at 0.9375rem and an ink 600 run-in ("Draft."). In post rows a "Draft" tag follows the title: an Ube Lavender pill with Ube Plum text, 600 at 0.8125rem.
+- **Sleeve squiggle:** the looping M as a lime 3px stroke with round caps, 140–224px wide, turned 14 degrees and crossing the sleeve's left edge. It shows from 1280px wide only.
+- **Reading column:** the Learn reading column unchanged: prose, callouts, code blocks, inline code and table cards. The closing band and footer are Learn's, with the Calm Download pill.
+
 ## Do's and Don'ts
 
 ### Do:
 - **Do** take every purple from the Ube a-50..a-950 scale, and use a-700 for any purple text or ring.
 - **Do** keep hot pink to the single download action (and the demo play disc).
 - **Do** show the product as real-UI rasters in the rounded, soft-shadowed app window, regenerated through `app-shots/` with fictional content.
-- **Do** use lime as strokes, icon colour on Ube Night, or a full-bleed band with ink type, and never as text on light grounds.
+- **Do** use lime as strokes, icon colour or short text on Ube Night, or a full-bleed band or contained card (the Labs credits band) with ink type, and never as text on light grounds.
 - **Do** use Mima icon-set line icons (2px stroke, round caps) inline as SVG.
 - **Do** set AI-generated text in MimaSerif italic (the AI voice) and label it "AI summary".
 - **Do** separate stacked list items with 1px Ube hairlines.

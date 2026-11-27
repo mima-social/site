@@ -1,0 +1,13 @@
+{
+  "dave-monk": {
+    "name": "David Monk",
+    "role": "[NEEDED: role wording]",
+    "url": ""
+  },
+  "mima-labs": {
+    "name": "Mima Labs",
+    "role": "The team behind Mima",
+    "url": "https://www.mima.social/",
+    "type": "Organization"
+  }
+}

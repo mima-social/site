@@ -11,6 +11,9 @@ learn-src/articles/*.md and the topics in learn-src/topics.json, then writes:
 - sitemap.xml, robots.txt           for crawlers
 - llms.txt                          its "## Learn" section is regenerated
 
+It also builds Labs, the blog (labs-src/labs.py): labs/, its feed, and the
+Labs entries in sitemap.xml and llms.txt.
+
 Output is committed, so Netlify serves it with no build step. Standard
 library only, like app-shots/build.py.
 """
@@ -139,8 +142,10 @@ def icon(name):
 
 
 def og_key(path):
-    """The share-image name for a Learn page (see learn-src/og.py)."""
+    """The share-image name for a Learn or Labs page (see learn-src/og.py)."""
     parts = path.strip("/").split("/")
+    if parts[0] == "labs":
+        return "-".join(parts)
     if parts == ["learn"]:
         return "learn"
     if len(parts) == 3 and parts[1] == "topics":
@@ -154,9 +159,27 @@ def og_image(path):
     return f"/site-assets/og/{key}.jpg" if (ROOT / "site-assets" / "og" / f"{key}.jpg").exists() else "/site-assets/og-image.jpg"
 
 
-def head(title, description, path, jsonld, extra=""):
+
+
+
+def nav_link(href, label, path):
+    """A bar link. The section you are in is marked current; its index is the page."""
+    current = ""
+    if path.startswith(href):
+        state = "page" if path == href else "true"
+        current = f' aria-current="{state}"'
+    return f'<a href="{href}"{current}>{label}</a>'
+
+
+def head(title, description, path, jsonld, extra="", og_type=None, body_class="", css=()):
+    """The top of every Learn and Labs page: <head>, sprite, skip link and bar.
+    `extra` is more <head> markup (alternate links, robots). `css` lists
+    stylesheets to load after learn.css, so they can override it."""
+    more_css = "".join(f'\n    <link rel="stylesheet" href="{href}" />' for href in css)
     url = SITE + path
     og = og_image(path)
+    og_type = og_type or ('article' if path.count('/') == 3 and '/topics/' not in path else 'website')
+    body = f'<body class="{body_class}">' if body_class else "<body>"
     return f"""<!doctype html>
 <html lang="en">
 <head>
@@ -168,7 +191,7 @@ def head(title, description, path, jsonld, extra=""):
     <link rel="canonical" href="{url}" />
     <link rel="me" href="https://mastodon.social/@mimalabs" />
     {extra}
-    <meta property="og:type" content="{'article' if path.count('/') == 3 and '/topics/' not in path else 'website'}" />
+    <meta property="og:type" content="{og_type}" />
     <meta property="og:url" content="{url}" />
     <meta property="og:title" content="{esc(title)}" />
     <meta property="og:description" content="{esc(description)}" />
@@ -196,9 +219,9 @@ def head(title, description, path, jsonld, extra=""):
     </script>
     <link rel="preload" href="/site-assets/MimaDisplay-ExtraBold.subset.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/site-assets/MimaUI-Regular.subset.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="/learn/learn.css" />
+    <link rel="stylesheet" href="/learn/learn.css" />{more_css}
 </head>
-<body>
+{body}
 {SPRITE}
 <a class="skip" href="#content">Skip to content</a>
 <header class="bar">
@@ -206,7 +229,8 @@ def head(title, description, path, jsonld, extra=""):
     <a class="logo" href="/" aria-label="Mima home">{WORDMARK}</a>
     <nav class="bar-nav" aria-label="Site">
       <a href="/">Home</a>
-      <a href="/learn/" aria-current="{'page' if path == '/learn/' else 'true'}">Learn</a>
+      {nav_link("/learn/", "Learn", path)}
+      {nav_link("/labs/", "Labs", path)}
     </nav>
     <a class="pill" href="{DOWNLOAD}" data-download>{icon('i-download')}<span>Download<span class="wide"> for Mac</span></span></a>
   </div>
@@ -229,7 +253,7 @@ def foot():
   <div class="wrap">
     <p class="legal"><strong>Mima Labs LTD</strong>&nbsp;is registered in England and Wales, company number 17376227<br />
       <i>36 East Stockwell Street, Colchester, Essex, CO1 1ST, England, United Kingdom</i><br />
-      <a href="mailto:aloha@mima.social">aloha@mima.social</a> · <a href="/learn/">Learn</a></p>
+      <a href="mailto:aloha@mima.social">aloha@mima.social</a> · <a href="/learn/">Learn</a> · <a href="/labs/">Labs</a></p>
     <div class="foot-follow"><span>Follow Mima</span><ul class="socials" aria-label="Mima on social media">{"".join(f'<li><a class="soc {n}" href="{u}" rel="me noopener" aria-label="Mima on {name}" title="Mima on {name}">{icon("s-" + n)}</a></li>' for n, name, u in SOCIALS)}</ul></div>
     <p class="byline"><span>Made with</span>{icon('heart-filled')}<span>and</span>{icon('sparkle')}<span>by <a href="https://dressedforspace.com">Dressed for Space</a></span></p>
   </div>
@@ -485,11 +509,13 @@ def article_md(a, by_slug):
 
 # ---------------------------------------------------------------- crawler files
 
-def sitemap(topics, articles):
+def sitemap(topics, articles, more=()):
+    """`more` is extra (path, date) rows: the published Labs pages."""
     today = max(a["updated_d"] for a in articles)
     urls = [("/", None), ("/learn/", today)]
     urls += [(t["url"], max(a["updated_d"] for a in t["articles"])) for t in topics if t["articles"]]
     urls += [(a["url"], a["updated_d"]) for a in articles]
+    urls += list(more)
     rows = []
     for path, d in urls:
         lastmod = f"<lastmod>{d}</lastmod>" if d else ""
@@ -522,19 +548,25 @@ def llms_section(topics):
     return "\n".join(out)
 
 
-def update_llms(topics):
+def replace_section(text, name, section):
+    """Put `section` (starting "## name") into an llms.txt text: replace the
+    existing "## name" section (up to the next "## " heading), otherwise insert
+    it before "## Optional", which llmstxt.org keeps last. An empty `section`
+    removes the existing one."""
+    block = section + "\n" if section else ""
+    if re.search(rf"^## {name}\s*$", text, re.M):
+        return re.sub(rf"^## {name}\s*$.*?(?=^## (?!#)|\Z)", lambda m: block, text, flags=re.M | re.S)
+    if not section:
+        return text
+    if "\n## Optional" in text:
+        return text.replace("\n## Optional", "\n" + section + "\n## Optional", 1)
+    return text.rstrip() + "\n\n" + section
+
+
+def update_llms(topics, labs_section=""):
     path = ROOT / "llms.txt"
-    text = path.read_text()
-    section = llms_section(topics)
-    # Replace an existing "## Learn" section (up to the next "## " heading),
-    # otherwise insert it before "## Optional", which llmstxt.org keeps last.
-    if re.search(r"^## Learn\s*$", text, re.M):
-        text = re.sub(r"^## Learn\s*$.*?(?=^## (?!#)|\Z)", section + "\n", text, flags=re.M | re.S)
-    elif "\n## Optional" in text:
-        text = text.replace("\n## Optional", "\n" + section + "\n## Optional", 1)
-    else:
-        text = text.rstrip() + "\n\n" + section
-    path.write_text(text)
+    text = replace_section(path.read_text(), "Learn", llms_section(topics))
+    path.write_text(replace_section(text, "Labs", labs_section))
 
 
 # ---------------------------------------------------------------- main
@@ -569,11 +601,18 @@ def main():
     for a in articles:
         write(OUT / a["slug"] / "index.html", article_page(a, by_slug))
         write(OUT / f"{a['slug']}.md", article_md(a, by_slug))
-    write(ROOT / "sitemap.xml", sitemap(topics, articles))
+    sys.path.insert(0, str(ROOT / "labs-src"))
+    import labs  # noqa: E402  (imports this module, so it loads after it)
+    posts = labs.build_all()
+    write(ROOT / "sitemap.xml", sitemap(topics, articles, labs.sitemap_rows(posts)))
     write(ROOT / "robots.txt", ROBOTS)
-    update_llms(topics)
+    update_llms(topics, labs.llms_section(posts))
     print(f"Built {len(articles)} guides in {sum(1 for t in topics if t['articles'])} topics.")
+    print(f"Built {sum(1 for p in posts if not p['draft'])} Labs posts and {sum(1 for p in posts if p['draft'])} drafts.")
 
 
 if __name__ == "__main__":
-    main()
+    # Run as the module `build`, not `__main__`, so labs.py and og.py share
+    # one copy of SPRITE, WORDMARK and the helpers.
+    import build
+    build.main()

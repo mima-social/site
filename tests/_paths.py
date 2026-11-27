@@ -4,7 +4,7 @@ import pathlib
 import sys
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-for folder in ("learn-src", "tools"):
+for folder in ("learn-src", "labs-src", "tools"):
     path = str(ROOT / folder)
     if path not in sys.path:
         sys.path.insert(0, path)

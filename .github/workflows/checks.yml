@@ -43,13 +43,16 @@ jobs:
           done
 
       - name: Python compiles
-        run: python3 -m py_compile learn-src/*.py tools/*.py app-shots/*.py tests/*.py
+        run: python3 -m py_compile learn-src/*.py labs-src/*.py tools/*.py app-shots/*.py tests/*.py
 
       - name: JSON-LD in index.html parses
         run: |
           python3 -c "import json,re; [json.loads(m) for m in re.findall(r'<script type=\"application/ld\+json\">(.*?)</script>', open('index.html').read(), re.S)]"
 
-      - name: Generated Learn files match their sources
+      - name: Labs feed is well-formed XML
+        run: python3 -c "import xml.dom.minidom as m; m.parse('labs/feed.xml')"
+
+      - name: Generated Learn and Labs files match their sources
         run: |
           python3 learn-src/build.py
           if [ -n "$(git status --porcelain)" ]; then
