@@ -1,70 +1,26 @@
-# How a Labs post is put together
+# Making Mima: The QA Story
 
-> A stand-in post that shows every part of the layout: the sleeve, the credits band, an annotated figure, margin notes and code.
+> [NEEDED: deck, one sentence under the title]
 
-Draft. Stand-in words and pictures that show the layout. Not published, and not in the feed, the sitemap or llms.txt.
+Draft. Not published, and not in the feed, the sitemap or llms.txt.
 
-Credits name Dave Monk (stand-in text, not their words) · What shipped: Stand-in: the Labs post layout · Category: Engineering · Published: 2026-11-23 · Source: https://www.mima.social/labs/drafts/how-a-labs-post-is-built/
+By David Monk, [NEEDED: role wording] · What shipped: [NEEDED: what shipped] · Category: [NEEDED: category] · Published: 2026-11-23 · Source: https://www.mima.social/labs/drafts/how-a-labs-post-is-built/
 
-![The Mima News Wall in Board view, with posts from four networks in columns above the composer](https://www.mima.social/site-assets/app/board.webp)
+![Placeholder picture: the Mima News Wall in Board view](https://www.mima.social/site-assets/app/board.webp)
 
-1. Network filters
-2. Timeline and Board views
-3. One composer for every network
+Stay with me, this story takes weird turns. When I was a kid, I was really into Teenage Mutant Ninja Turtles. Really, really into them. I tore through everything I could find related to them and found some of the more obscure graphic novels that came out way before the turtles reached mainstream awareness. These stories were gritty, hard, and dark. One had a dying ninja master use psychic power to guide them to assault an urban skyscraper that resembled a medieval Japanese Castle (I told you this takes weird turns). The turtles show up, look up at this towering defensive monstrosity, and just shrug, put on their gear, and began climbing. It was springtime of 2026, and I had just started using agentic technologies to enhance the techniques I knew for testing software. I called this Agentic Testing. I did not view AI/LLMs as problems, but rather new tools to use in my toolkit. As luck would have it, I crossed paths with RL Nabors, whom I had known since the late 90’s. They had a codebase and a vision, I had tools I wanted to use to test software, we came to an arrangement. I shrugged, put on my gear, and began climbing.
 
-This page is a draft. It stands in for the first Labs post until its author sends the real one, and it uses every part of the layout once so each part can be checked on a deploy preview.[^why]
+Traditionally, my approach to testing involves breaking the approach into categories: Safety/Security, Performance, Usability, Localization/Internationalization, Accessibility, and Functionality. For this code base, my focus was primarily on using AI/LLMs to enhance a static code analysis approach to each of these. Rather than the naïve approach (“Hey AI, test everything”) I kept the scope small to start with, and began with a simple workflow: identify the most serious issues with the greatest end-user impact, and propose solutions that were high confidence, low risk, and had a minimal blast-radius. In terms I used Claude and upgraded to the latest Opus models whenever possible. If a straightforward fix could not be quickly identified, I still directed the LLM to record the issues so that the issue list reflected the current state of code.
 
-## The sleeve
+Next, I stopped to evaluate the automation coverage numbers. At the start the coverage was very low across the board. I directed the LLM to aim for a minimum of 50% block unit test coverage to serve as a backstop to prevent future regressions. As new issues were found and fixed, we developed regression tests that proved that the fixes worked, and that without the fix, the test would fail. The distinction here is critical: we are not just validating correct behavior, we are validating the correction of incorrect behavior, and then additionally preventing backsliding into bad behavior again.
 
-The dark block at the top is the sleeve. It holds the category, the title, a one-sentence deck and the hero figure. The lime card across its foot is the credits band: who wrote the post, their role, what shipped, the reading time and the date.
+No system is perfect, and refinements were necessary. Github runners were slow and expensive; we migrated to local runners to stop the pain. Developing for all platforms was a distraction, so we focused our efforts on one to start with. At a certain point we realized we were running a full CI/CD pass against documentation updates, so we optimized that path to be a bit more reasonable in terms of resources.
 
-The figure can carry three to five numbered callouts, and the text refers to them by number. In the stand-in figure above, callout 1 marks the network filters, callout 2 the switch between Timeline and Board, and callout 3 the composer.[^callouts]
+It is a common adage in QA that if you aren’t from QA, it is hard to see the value in it or to understand it. The approach I have taken is to justify it in terms of money, time, and the end user perception of the product. We ended up with one of the smoothest betas I’ve ever seen. We were able to focus on design feedback instead of annoying bugs. We had documentation, unit tests, and defensive security posture. We were able to provide a patched binary to a dependency CVE in under 6 hours the same day it was announced.
 
-## What a post is made of
+What would I have done differently if I had to do it again? Before agentic technologies my primary focus was on simulating the user experience, developing scenarios, black box testing all the way. I admit I may have over-corrected here. RL, being the creator and the visionary behind the project, was left doing most of the manual QA. I became so entrenched in the static analysis and unit coverage that a lot of times I lost focus on what we wanted the project to be rather than how it ran. Ironically, this is something I have raged against previously in my career.
 
-A post is one Markdown file in `labs-src/posts/`. Its front matter fills the sleeve and the credits band. This is the front matter of the page you are reading, shortened:
-
-```
----
-title: How a Labs post is put together
-slug: how-a-labs-post-is-built
-category: Engineering
-date: 2026-11-23
-author: dave-monk
-draft: true
-figure: /site-assets/app/board.webp
-callout-1: 46 10 from 54 0 | Network filters
----
-```
-
-> **68ch**: the width of the reading column, the same measure Learn uses
-
-An author is defined once in `labs-src/authors.json` and reused by every post they write.[^authors] The build is the same script that builds Learn, and it uses only the Python standard library.
-
-| Field | Needed | What it does |
-|---|---|---|
-| `title`, `deck` | Yes | The sleeve's headline and the sentence under it |
-| `category` | Yes | The lime line above the title |
-| `author` | Yes | A key in `authors.json` |
-| `shipped` | No | The "what shipped" cell of the credits band |
-| `compact` | No | The smaller sleeve for a short post |
-| `draft` | No | Keeps the post out of the index, feed, sitemap and `llms.txt` |
-
-## Notes in the margin
-
-A note is written as a Markdown footnote. On a wide screen it sits in the margin beside the paragraph that cites it. On a narrow screen it follows that paragraph.
-
-> **Note:** a number in a post is either real or labelled as illustrative. The big number in the margin is real: it is the column width set in the stylesheet.
-
-Lists, tables, code and callouts look the way they do on Learn, so a reader who knows one knows the other.
-
-- Code is the only text set in a monospace face.
-- Hot pink stays on the Download button in the bar.
-- A draft is marked at the top of its page and is not published.
-
-[^why]: The real first post, its author's site link and their photo are still to come.
-[^callouts]: Callouts are set in front matter, as a point on the figure, a place for the numbered disc and a short label.
-[^authors]: An author with no photo gets a disc with their initials, and an author with no link gets no link.
+In conclusion, LLM based Agentic Testing has the potential to be a powerful tool, and it is developing rapidly in terms of speed, complexity, and correctness. However, it remains facing a similar challenge that the introduction of Automated Testing did: it cannot tell you what the “feel” of the software it is, and other similar non-quantifiable measurements.
 
 ---
 

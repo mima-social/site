@@ -155,6 +155,23 @@ class LoadPost(unittest.TestCase):
         with self.assertRaises(ValueError):
             post(extra="callout-1: 1 1 from 2 2 | Needs a figure and two more\n")
 
+    def test_needed_markers_are_for_drafts_only(self):
+        fields = "deck: [NEEDED: deck]\n"
+        source = ("---\ntitle: T\nslug: t\n" + fields + "category: [NEEDED: category]\ndate: 2026-03-01\n"
+                  "author: ada\n{}---\n\nBody.\n")
+        draft = labs.load_post(source.format("draft: true\n"), "t.md", AUTHORS, CATEGORIES)
+        self.assertEqual(draft["category"], "[NEEDED: category]")
+        self.assertIn("[NEEDED: deck]", labs.post_page(draft, []))
+        with self.assertRaises(ValueError):
+            labs.load_post(source.format(""), "t.md", AUTHORS, CATEGORIES)
+        with self.assertRaises(ValueError):  # in the body
+            post(body="Text [NEEDED: a number].\n")
+        with self.assertRaises(ValueError):  # on the author
+            labs.load_post("---\ntitle: T\nslug: t\ndeck: D\ncategory: Engineering\ndate: 2026-03-01\nauthor: x\n---\n\nB\n",
+                           "t.md", {"x": {"id": "x", "name": "X", "role": "[NEEDED: role]", "url": "", "photo": ""}}, CATEGORIES)
+        with self.assertRaises(ValueError):  # a draft still needs a real category or a marker
+            labs.load_post(source.format("draft: true\n").replace("[NEEDED: category]", "Nonsense"), "t.md", AUTHORS, CATEGORIES)
+
     def test_figure_and_callouts(self):
         p = post(extra="figure: /site-assets/app/board.webp\nfigure-alt: The \"wall\"\n"
                        + "".join(f"callout-{i}: {i}0 10 from {i}0 0 | Label {i}\n" for i in (1, 2, 3)))
@@ -239,7 +256,6 @@ class Outputs(unittest.TestCase):
         self.assertIn("By [Ada Example](https://ada.example/), Engineer", text)
         self.assertNotIn("Draft.", text)
         self.assertIn("Draft. ", labs.post_md(self.draft))
-        self.assertNotIn("By [Ada", labs.post_md(self.draft))
 
 
 class Pages(unittest.TestCase):
@@ -270,8 +286,6 @@ class Pages(unittest.TestCase):
         page = labs.post_page(post(extra="draft: true\n"), [])
         self.assertIn('<meta name="robots" content="noindex" />', page)
         self.assertIn('<p class="draft-note"><strong>Draft.</strong>', page)
-        posting = next(x for x in self.ld(page) if x["@type"] == "BlogPosting")
-        self.assertEqual(posting["author"], {"@id": "https://www.mima.social/#organization"})  # stand-in words
 
     def test_labs_css_loads_after_learn_css(self):
         page = labs.post_page(post(), [])

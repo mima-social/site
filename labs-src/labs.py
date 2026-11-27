@@ -39,7 +39,8 @@ TAGLINE = "How Mima gets built, by the people building it."
 # build must give the same output every run).
 EPOCH = datetime.date(2026, 11, 23)
 LONG_TITLE = 40  # characters; longer titles step down a size
-DRAFT_NOTE = "Stand-in words and pictures that show the layout. Not published, and not in the feed, the sitemap or llms.txt."
+DRAFT_NOTE = "Not published, and not in the feed, the sitemap or llms.txt."
+NEEDED = "[NEEDED"  # marks a field the author still has to supply; allowed in drafts only
 
 esc = html.escape
 
@@ -243,15 +244,21 @@ def load_post(source, name, authors, categories):
     for key in ("title", "slug", "deck", "category", "date", "author"):
         if not meta.get(key):
             raise ValueError(f"{name}: front matter is missing `{key}`")
-    if meta["category"] not in categories:
+    draft = meta.get("draft", "").lower() == "true"
+    if not draft:
+        missing = [k for k, v in list(meta.items()) + list(authors.get(meta["author"], {}).items())
+                   if isinstance(v, str) and NEEDED in v]
+        if missing or NEEDED in body:
+            raise ValueError(f"{name}: a published post cannot carry [NEEDED: …] markers ({', '.join(missing) or 'body'})")
+    if meta["category"] not in categories and not (draft and meta["category"].startswith(NEEDED)):
         raise ValueError(f"{name}: category `{meta['category']}` is not in categories.json")
     if meta["author"] not in authors:
         raise ValueError(f"{name}: author `{meta['author']}` is not in authors.json")
     p = dict(meta)
-    p["draft"] = meta.get("draft", "").lower() == "true"
+    p["draft"] = draft
     p["compact"] = meta.get("compact", "").lower() == "true"
     p["author_obj"] = authors[meta["author"]]
-    p["category_obj"] = categories[meta["category"]]
+    p["category_obj"] = categories.get(meta["category"])
     p["date_d"] = datetime.date.fromisoformat(meta["date"])
     p["updated_d"] = datetime.date.fromisoformat(meta.get("updated") or meta["date"])
     p["callouts"] = [parse_callout(meta[k]) for k in sorted(k for k in meta if re.fullmatch(r"callout-\d", k))]
@@ -404,8 +411,7 @@ def post_page(p, others):
                "description": p["deck"], "url": SITE + p["url"], "mainEntityOfPage": SITE + p["url"],
                "datePublished": str(p["date_d"]), "dateModified": str(p["updated_d"]),
                "articleSection": p["category"], "inLanguage": "en", "timeRequired": f"PT{p['minutes']}M",
-               # A draft's words are stand-ins, so its data does not credit them to the named author.
-               "author": {"@id": build.ORG["@id"]} if p["draft"] else person_ld(a), "publisher": {"@id": build.ORG["@id"]}, "isPartOf": {"@id": BLOG_ID},
+               "author": person_ld(a), "publisher": {"@id": build.ORG["@id"]}, "isPartOf": {"@id": BLOG_ID},
                "encoding": {"@type": "MediaObject", "encodingFormat": "text/markdown", "contentUrl": SITE + p["md_url"]}}
     if p.get("figure"):
         posting["image"] = SITE + p["figure"]
@@ -503,8 +509,7 @@ def post_md(p):
     lines = [f"# {p['title']}", "", f"> {p['deck']}", ""]
     if p["draft"]:
         lines += [f"Draft. {DRAFT_NOTE}", ""]
-    credit = f"Credits name {a['name']} (stand-in text, not their words)" if p["draft"] else f"By {by}, {a['role']}"
-    meta = [credit, f"Category: {p['category']}", f"Published: {p['date_d']}",
+    meta = [f"By {by}, {a['role']}", f"Category: {p['category']}", f"Published: {p['date_d']}",
             f"Source: {SITE}{p['url']}"]
     if p.get("shipped"):
         meta.insert(1, f"What shipped: {p['shipped']}")

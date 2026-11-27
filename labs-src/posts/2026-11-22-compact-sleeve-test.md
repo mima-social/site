@@ -6,6 +6,7 @@ category: Engineering
 date: 2026-11-22
 author: mima-labs
 draft: true
+draft-note: Stand-in words and pictures that show the layout.
 compact: true
 shipped: Stand-in: the compact sleeve
 figure: /site-assets/app/compose-typed-desk.webp
