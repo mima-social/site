@@ -23,11 +23,13 @@ import re
 import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
+import includes  # noqa: E402
 import md  # noqa: E402
 
 HERE = pathlib.Path(__file__).parent
 ROOT = HERE.parent
 OUT = ROOT / "learn"
+PARTIALS = ROOT / "content" / "partials"  # shared text: `<!-- include: name -->` (see includes.py)
 SITE = "https://www.mima.social"
 SHELF_LIMIT = 5   # entries a topic shelf shows before "All N guides"
 LATEST_COUNT = 5  # entries in the index's Latest list
@@ -52,6 +54,10 @@ def load_articles(topics):
     articles, slugs = [], set()
     for path in sorted((HERE / "articles").glob("*.md")):
         meta, body = md.front_matter(path.read_text())
+        try:
+            body = includes.expand(body, PARTIALS)
+        except includes.IncludeError as e:
+            sys.exit(f"{path.name}: {e}")
         for key in ("title", "slug", "summary", "topic", "updated"):
             if not meta.get(key):
                 sys.exit(f"{path.name}: front matter is missing `{key}`")
