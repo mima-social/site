@@ -18,6 +18,7 @@ step.
 | `_redirects` | Netlify redirects: `/download` → the latest .dmg |
 | `oauth/bluesky/client-metadata.json` | Bluesky OAuth client metadata for the desktop app. Must stay at this path on `www.mima.social`. |
 | `site-assets/`, `assets/` | Fonts, logo, hero art, app screenshots, fake avatars and photos |
+| `content/partials/` | Shared text, written once and included in several pages with `<!-- include: name -->` (see "Shared text" below) |
 | `app-shots/` | Dummy app pages and the script that renders the app screenshots |
 | `PRODUCT.md`, `DESIGN.md` | Product facts and copy rules; the page's design system |
 | `tests/`, `.github/workflows/checks.yml` | Unit tests for the build scripts and Netlify function, and the PR check workflow that runs them (see Tests) |
@@ -83,6 +84,16 @@ mima: Optional one-line pitch for the "Try it in Mima" box
   `app-shots/README.md`). A
   table with more than four columns scrolls sideways with its first column
   pinned. Use raw HTML for anything else.
+- **Shared text:** steps that appear on more than one page live once in
+  `content/partials/<name>.md` (plain Markdown, no front matter). Put
+  `<!-- include: name -->` alone on a line where the text goes. The build puts
+  the text into the page and its Markdown copy, so headings in a partial get
+  ids and a FAQ in a partial becomes FAQ data. A partial that doesn't exist
+  stops the build and names the file. A partial can't include another. Names
+  use lowercase letters, digits and hyphens. A directive inside a code block
+  stays as written. The folder is outside `learn-src/` so other sections can
+  read the same files. Example: `connect-agent-howto` holds the agent-setup
+  steps in the MCP guide.
 - **Pictures of the app** come from `app-shots/` (fictional people and posts);
   add a view there rather than using a real screenshot.
 - **Claims:** guides follow the same rules as the landing page (`PRODUCT.md`):
