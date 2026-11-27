@@ -38,9 +38,6 @@ TAGLINE = "How Mima gets built, by the people building it."
 # The feed's own date while nothing is published (Atom needs one, and the
 # build must give the same output every run).
 EPOCH = datetime.date(2026, 11, 23)
-# Repos a ref like `site#44` can link to. Private repos are left out, so
-# their refs print as plain text.
-REPOS = {"site": "https://github.com/mima-social/site"}
 LONG_TITLE = 40  # characters; longer titles step down a size
 DRAFT_NOTE = "Stand-in words and pictures that show the layout. Not published, and not in the feed, the sitemap or llms.txt."
 
@@ -73,25 +70,6 @@ def image_size(path):
                 return (w, h)
             i += 2 + length
     raise ValueError(f"{path}: not a WebP, PNG or JPEG image")
-
-
-def parse_refs(text):
-    """`site#44, desktop#2318` becomes [("site", 44), ("desktop", 2318)]."""
-    refs = []
-    for part in (p.strip() for p in (text or "").split(",")):
-        if not part:
-            continue
-        m = re.fullmatch(r"([\w.-]+)#(\d+)", part)
-        if not m:
-            raise ValueError(f"ref `{part}` should look like `site#44`")
-        refs.append((m.group(1), int(m.group(2))))
-    return refs
-
-
-def ref_html(repo, number):
-    label = f"{esc(repo)}#{number}"
-    base = REPOS.get(repo)
-    return f'<a href="{base}/issues/{number}">{label}</a>' if base else label
 
 
 def parse_callout(text):
@@ -276,7 +254,6 @@ def load_post(source, name, authors, categories):
     p["category_obj"] = categories[meta["category"]]
     p["date_d"] = datetime.date.fromisoformat(meta["date"])
     p["updated_d"] = datetime.date.fromisoformat(meta.get("updated") or meta["date"])
-    p["refs"] = parse_refs(meta.get("refs"))
     p["callouts"] = [parse_callout(meta[k]) for k in sorted(k for k in meta if re.fullmatch(r"callout-\d", k))]
     if p["callouts"] and not 3 <= len(p["callouts"]) <= 5:
         raise ValueError(f"{name}: a figure takes 3 to 5 callouts, or none")
@@ -342,8 +319,6 @@ def credits(p):
     cells = [("Role", esc(a["role"]))]
     if p.get("shipped"):
         cells.append(("What shipped", md.inline(p["shipped"])))
-    if p["refs"]:
-        cells.append(("On GitHub", " · ".join(ref_html(r, n) for r, n in p["refs"])))
     cells.append(("Read", f'{p["minutes"]} min<span class="dot"> · </span><time datetime="{p["date_d"]}">{build.nice_date(p["date_d"])}</time>'))
     return (f'<div class="credits"><div class="who">{face(a)}<p><b>{esc(a["name"])}</b>{link}</p></div>'
             f'<dl>{"".join(f"<div><dt>{k}</dt><dd>{v}</dd></div>" for k, v in cells)}</dl></div>')
@@ -533,8 +508,6 @@ def post_md(p):
             f"Source: {SITE}{p['url']}"]
     if p.get("shipped"):
         meta.insert(1, f"What shipped: {p['shipped']}")
-    if p["refs"]:
-        meta.insert(2, "Refs: " + ", ".join(f"{r}#{n}" for r, n in p["refs"]))
     lines += [" · ".join(meta), ""]
     if p.get("figure"):
         lines += [f"![{p['figure-alt']}]({SITE}{p['figure']})", ""]

@@ -8,7 +8,6 @@ author: mima-labs
 draft: true
 compact: true
 shipped: Stand-in: the compact sleeve
-refs: site#44
 figure: /site-assets/app/compose-typed-desk.webp
 figure-alt: The Mima composer with a short post typed in and the Bluesky, X, Mastodon and LinkedIn toggles switched on
 figure-caption: Stand-in figure: the composer from a Learn guide. The post in it is made up.

@@ -31,7 +31,7 @@ OWN-WORLD: The Mima Ube world. An Ube Night (a-950) sleeve owns the top of each 
 
 STORY: An engineer lands on a post, sees what was built and who built it at a glance, reads how it was done with the numbers and code beside the text, and wants to follow the team (feed, other posts) or try Mima.
 
-FIRST VIEWPORT: Post: the Learn-style bar on the dark sleeve (wordmark, Home, Learn, Labs current, small pink Download pill). Left: category line in lime, then the title in display 800 (about 76px), then a deck in a-200. Right: the hero figure in a 16px window. Across the sleeve's foot: the lime credits band, a 24px card printed dense: author face (64px circle), name, link to their site, role, what shipped, PR or issue numbers, read time and date. Then the reading column, with the margin to its right.
+FIRST VIEWPORT: Post: the Learn-style bar on the dark sleeve (wordmark, Home, Learn, Labs current, small pink Download pill). Left: category line in lime, then the title in display 800 (about 76px), then a deck in a-200. Right: the hero figure in a 16px window. Across the sleeve's foot: the lime credits band, a 24px card printed dense: author face (64px circle), name, link to their site, role, what shipped, read time and date (no PR or issue numbers: the owner removed them on 2026-11-27, because the repos are private). Then the reading column, with the margin to its right.
 
 FORM: Liner notes, from three dealt structures; seed:2a4af215940076c6. Signature: the credits band. Motion grammar: callout strokes draw on once.
 

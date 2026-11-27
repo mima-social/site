@@ -124,7 +124,6 @@ date: 2026-11-23
 updated: 2026-11-30          # optional
 author: dave-monk            # a key in labs-src/authors.json
 shipped: What shipped        # optional, a cell in the credits band
-refs: site#44, desktop#2318  # optional; only public repos (labs.REPOS) are linked
 figure: /site-assets/app/board.webp   # optional hero figure
 figure-alt: What the picture shows    # needed with a figure
 figure-caption: Say here if the figure is illustrative or its people are made up.

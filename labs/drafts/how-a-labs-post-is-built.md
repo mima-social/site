@@ -4,7 +4,7 @@
 
 Draft. Stand-in words and pictures that show the layout. Not published, and not in the feed, the sitemap or llms.txt.
 
-Credits name Dave Monk (stand-in text, not their words) · What shipped: Stand-in: the Labs post layout · Refs: site#44 · Category: Engineering · Published: 2026-11-23 · Source: https://www.mima.social/labs/drafts/how-a-labs-post-is-built/
+Credits name Dave Monk (stand-in text, not their words) · What shipped: Stand-in: the Labs post layout · Category: Engineering · Published: 2026-11-23 · Source: https://www.mima.social/labs/drafts/how-a-labs-post-is-built/
 
 ![The Mima News Wall in Board view, with posts from four networks in columns above the composer](https://www.mima.social/site-assets/app/board.webp)
 
@@ -16,7 +16,7 @@ This page is a draft. It stands in for the first Labs post until its author send
 
 ## The sleeve
 
-The dark block at the top is the sleeve. It holds the category, the title, a one-sentence deck and the hero figure. The lime card across its foot is the credits band: who wrote the post, their role, what shipped, the pull requests or issues behind it, the reading time and the date.
+The dark block at the top is the sleeve. It holds the category, the title, a one-sentence deck and the hero figure. The lime card across its foot is the credits band: who wrote the post, their role, what shipped, the reading time and the date.
 
 The figure can carry three to five numbered callouts, and the text refers to them by number. In the stand-in figure above, callout 1 marks the network filters, callout 2 the switch between Timeline and Board, and callout 3 the composer.[^callouts]
 
@@ -32,7 +32,6 @@ category: Engineering
 date: 2026-11-23
 author: dave-monk
 draft: true
-refs: site#44
 figure: /site-assets/app/board.webp
 callout-1: 46 10 from 54 0 | Network filters
 ---
@@ -47,7 +46,7 @@ An author is defined once in `labs-src/authors.json` and reused by every post th
 | `title`, `deck` | Yes | The sleeve's headline and the sentence under it |
 | `category` | Yes | The lime line above the title |
 | `author` | Yes | A key in `authors.json` |
-| `shipped`, `refs` | No | Two cells of the credits band |
+| `shipped` | No | The "what shipped" cell of the credits band |
 | `compact` | No | The smaller sleeve for a short post |
 | `draft` | No | Keeps the post out of the index, feed, sitemap and `llms.txt` |
 
@@ -63,8 +62,8 @@ Lists, tables, code and callouts look the way they do on Learn, so a reader who 
 - Hot pink stays on the Download button in the bar.
 - A draft is marked at the top of its page and is not published.
 
-[^why]: The real first post, its author's site link and their photo are listed in the pull request as things still to supply.
-[^callouts]: Callouts are set in front matter, as a point on the figure, a place for the numbered disc and a short label. See [the issue](https://github.com/mima-social/site/issues/44) for the design.
+[^why]: The real first post, its author's site link and their photo are still to come.
+[^callouts]: Callouts are set in front matter, as a point on the figure, a place for the numbered disc and a short label.
 [^authors]: An author with no photo gets a disc with their initials, and an author with no link gets no link.
 
 ---

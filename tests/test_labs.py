@@ -38,22 +38,6 @@ class ImageSize(unittest.TestCase):
             labs.image_size(ROOT / "robots.txt")
 
 
-class Refs(unittest.TestCase):
-    def test_parse(self):
-        self.assertEqual(labs.parse_refs("site#44, desktop#2318"), [("site", 44), ("desktop", 2318)])
-        self.assertEqual(labs.parse_refs(""), [])
-        self.assertEqual(labs.parse_refs(None), [])
-
-    def test_bad_ref(self):
-        with self.assertRaises(ValueError):
-            labs.parse_refs("#44")
-
-    def test_only_known_public_repos_are_linked(self):
-        self.assertEqual(labs.ref_html("site", 44),
-                         '<a href="https://github.com/mima-social/site/issues/44">site#44</a>')
-        self.assertEqual(labs.ref_html("desktop", 7), "desktop#7")
-
-
 class Callouts(unittest.TestCase):
     def test_parse(self):
         self.assertEqual(labs.parse_callout("44 13 from 30.5 0 | Network filters"),
@@ -185,10 +169,11 @@ class LoadPost(unittest.TestCase):
 
 class Credits(unittest.TestCase):
     def test_author_with_link_and_photo(self):
-        html = labs.credits(post(extra="shipped: A thing\nrefs: site#1\n"))
+        html = labs.credits(post(extra="shipped: A thing\n"))
         self.assertIn('<a href="https://ada.example/" rel="author">ada.example</a>', html)
         self.assertIn('<img class="face" src="/site-assets/authors/ada.webp" alt="" width="64" height="64"', html)
         self.assertIn("<dt>What shipped</dt><dd>A thing</dd>", html)
+        self.assertEqual(re.findall(r"<dt>(.*?)</dt>", html), ["Role", "What shipped", "Read"])
         self.assertIn('<dd>1 min<span class="dot"> · </span><time datetime="2026-03-01">1 Mar 2026</time></dd>', html)
 
     def test_author_without_link_or_photo_gets_neither(self):
