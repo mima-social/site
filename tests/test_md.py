@@ -67,3 +67,25 @@ class ToHtml(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class VideoFigure(unittest.TestCase):
+    """An .mp4 alone on its line is an animation from app-shots/animate.py."""
+
+    def test_mp4_becomes_a_video_with_its_poster_and_caption(self):
+        html_out, _ = md.to_html('![Clicking Connect](/site-assets/app/connect.mp4 "Connect in one click.")\n')
+        self.assertIn('<figure class="motion"><video src="/site-assets/app/connect.mp4"', html_out)
+        self.assertIn('poster="/site-assets/app/connect-poster.webp"', html_out)
+        self.assertIn('aria-label="Clicking Connect"', html_out)
+        self.assertIn("<figcaption>Connect in one click.</figcaption></figure>", html_out)
+
+    def test_video_has_controls_and_never_autoplays_from_markup(self):
+        html_out, _ = md.to_html("![A](/site-assets/app/a.mp4)\n")
+        video = html_out[html_out.index("<video"):html_out.index(">", html_out.index("<video"))]
+        for attr in ("controls", "muted", "loop", "playsinline", 'preload="none"'):
+            self.assertIn(attr, video)
+        self.assertNotIn("autoplay", video)
+
+    def test_image_figures_are_unchanged(self):
+        html_out, _ = md.to_html('![Alt](/site-assets/app/board.webp "Cap")\n')
+        self.assertEqual(html_out.strip(), '<figure><img src="/site-assets/app/board.webp" alt="Alt" loading="lazy"><figcaption>Cap</figcaption></figure>')

@@ -4,7 +4,7 @@
 
 Source: https://www.mima.social/learn/topics/posting/ · Part of https://www.mima.social/learn/index.md
 
-- [How to Cross-Post to Bluesky, X, LinkedIn, and Mastodon from a Mac](https://www.mima.social/learn/cross-post-bluesky-x-linkedin-mastodon-mac.md): On an Apple Silicon Mac, Mima lets you sign in to Bluesky, X, LinkedIn, and Mastodon with each network’s own login, then compose once and publish across all four accounts. (Updated 2026-11-09.)
+- [How to Cross-Post to Bluesky, X, LinkedIn, and Mastodon from a Mac](https://www.mima.social/learn/cross-post-bluesky-x-linkedin-mastodon-mac.md): On an Apple Silicon Mac, Mima lets you sign in to Bluesky, X, LinkedIn, and Mastodon with each network’s own login, then compose once and publish across all four accounts. (Updated 2026-11-23.)
 
 ---
 

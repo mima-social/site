@@ -2,7 +2,7 @@
 
 > Mima brings mentions and DMs from Bluesky, X, LinkedIn, and Mastodon into one private inbox on your Mac, where you can filter, reply, pin conversations, set reminders, and catch up with optional Thread Summaries.
 
-Topic: Conversations · Updated: 2026-11-11 · Source: https://www.mima.social/learn/private-unified-social-inbox-mac/
+Topic: Conversations · Updated: 2026-11-23 · Source: https://www.mima.social/learn/private-unified-social-inbox-mac/
 
 ## TL;DR
 
@@ -35,6 +35,8 @@ Mima's account content travels directly between your social accounts and the app
 Mima does not store your account passwords. You sign in through each network’s own login, and Mima keeps you signed in on your Mac.
 
 AI features are off by default. If you enable Mima’s downloadable local model, it runs on your Mac, including when you are offline. If you instead add your own OpenAI, Anthropic, or Google API key, content you use with that provider goes to its servers.
+
+You can also let an AI agent you already use, such as Claude Desktop or Codex, read your conversations through Mima's local MCP server. It is off until you turn it on. See [What's an MCP Server for Bluesky, X, LinkedIn and Mastodon?](https://www.mima.social/learn/mcp-server-bluesky-x-linkedin-mastodon/)
 
 Every Mima release is code-signed and checked by Apple before it reaches your Mac. Those checks provide a way to verify the app’s developer and screen the software.
 

@@ -79,7 +79,9 @@ mima: Optional one-line pitch for the "Try it in Mima" box
   start a paragraph with the question in bold: `**Can I schedule posts?** No.`
 - **Markdown supported:** headings, lists, links, bold/italic, inline code, code
   blocks, tables, `>` callouts and images. An image alone on its line becomes
-  a captioned figure: `![alt text](/site-assets/app/board.webp "Caption")`. A
+  a captioned figure: `![alt text](/site-assets/app/board.webp "Caption")`. An
+  `.mp4` written the same way becomes an animation (see "Animations" in
+  `app-shots/README.md`). A
   table with more than four columns scrolls sideways with its first column
   pinned. Use raw HTML for anything else.
 - **Pictures of the app** come from `app-shots/` (fictional people and posts);
@@ -88,6 +90,9 @@ mima: Optional one-line pitch for the "Try it in Mima" box
   only shipped features, nothing about Windows, Linux or unshipped networks.
 - **On phones**, Download on a Learn page goes to `/#get-mima`, which opens the
   home page's email-the-link sheet.
+
+When Mima releases, the `/generate-learn-content` skill (`.agents/skills/generate-learn-content/`) turns the
+release into new and updated guides and a draft PR.
 
 Before publishing a guide, check every claim about Mima against the app's code
 (`mima-social/desktop`, `next` branch), and say in a caption that the people in

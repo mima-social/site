@@ -1,0 +1,8 @@
+{
+  "prompt": "Origin: rendered by app-shots/animate.py from the scene `connect-claude-desktop` in app-shots/scenes.py, played over dummy pages from app-shots/build.py (fictional content; real Mima UI styles from mima-social/desktop).",
+  "alt": "In Mima, the pointer clicks Connect Mima to your agent in the top right. Settings opens on Connectors with the Local MCP server off. A click on Connect to Claude Desktop turns the server on and marks Claude Desktop as connected. Back on the News Wall, the header button reads Mima is connected to your agent.",
+  "width": 1440,
+  "height": 1200,
+  "seconds": 12.0,
+  "createdAt": "2026-11-24T03:10:34.000Z"
+}

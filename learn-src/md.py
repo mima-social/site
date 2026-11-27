@@ -2,7 +2,7 @@
 
 It covers what the Learn articles use: front matter, headings (with ids),
 paragraphs, ordered and unordered lists (one level of nesting), blockquotes,
-fenced code, tables, horizontal rules, figures (an image alone on its line,
+fenced code, tables, horizontal rules, figures (an image or .mp4 alone on its line,
 with an optional "caption" title), and the inline forms **bold**,
 *italic*, `code`, [links](url) and ![images](src). Raw HTML lines pass
 through unchanged. Anything fancier belongs in raw HTML in the article.
@@ -153,6 +153,15 @@ def to_blocks(body):
         if fig:
             alt, src, cap = fig.group(1), fig.group(2), fig.group(3)
             caption = f"<figcaption>{inline(cap)}</figcaption>" if cap else ""
+            if src.endswith(".mp4"):
+                # An animation from app-shots/animate.py, with its poster beside
+                # it. Controls let anyone pause it; learn.js starts it in view
+                # unless the reader asked for reduced motion.
+                poster = src[:-4] + "-poster.webp"
+                out.append(f'<figure class="motion"><video src="{src}" poster="{poster}" aria-label="{html.escape(alt)}" '
+                           f'controls muted loop playsinline preload="none"></video>{caption}</figure>')
+                i += 1
+                continue
             out.append(f'<figure><img src="{src}" alt="{html.escape(alt)}" loading="lazy">{caption}</figure>')
             i += 1
             continue
